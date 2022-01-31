@@ -3,18 +3,18 @@ import TrainerSprite from './TrainerSprite';
 import ActivePokemon from './ActivePokemon';
 import Bench from './Bench'
 
-const TrainerArea = () => {
+const TrainerArea2 = () => {
     return (
-        <div class="trainerArea trainerArea1">
+        <div class="trainerArea trainerArea2">
+            <div class="trainerInner">
+                <ActivePokemon/>
+            </div>
             <div class="trainerOuter">
                 <TrainerSprite/>
                 <Bench/>
-            </div>
-            <div class="trainerInner">
-                <ActivePokemon/>
             </div>
         </div>
     )
 }
 
-export default TrainerArea;
+export default TrainerArea2;

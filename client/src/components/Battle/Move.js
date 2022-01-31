@@ -1,10 +1,12 @@
 import React, {useState, useEffect} from 'react';
 
+const moveName = "Fire Spin"
+
 const Move = () => {
     return (
-        <>
-        "Move"
-        </>
+        <div class="moveName">
+        {moveName}
+        </div>
     )
 }
 
