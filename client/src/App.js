@@ -5,7 +5,7 @@ import BattleContainer from './containers/BattleContainer';
 function App() {
   return (
     <main>
-    <BattleContainer />
+      <BattleContainer />
     </main>
   );
 }

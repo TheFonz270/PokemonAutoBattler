@@ -3,15 +3,35 @@ import TrainerSprite from './TrainerSprite';
 import ActivePokemon from './ActivePokemon';
 import Bench from './Bench'
 
-const TrainerArea = () => {
+const TrainerArea = ({Pokemon1State, handleDamage, handleFaint, handleSummon, Pokemon1HP, handlePokemon1HP, trainer}) => {
+
+    const handle100Click = () => {
+        handlePokemon1HP(100)
+        
+    }
+
+    const handle40Click = () => {
+        handlePokemon1HP(40)
+        
+    }
+
+    const handle10Click = () => {
+        handlePokemon1HP(10)
+        
+    }
+
+   
+
     return (
         <div class="trainerArea trainerArea1">
             <div class="trainerOuter">
-                <TrainerSprite/>
-                <Bench/>
+                <TrainerSprite trainer={trainer}/>
+                <Bench trainer={trainer}/>
             </div>
             <div class="trainerInner">
-                <ActivePokemon/>
+                <ActivePokemon Pokemon1State={Pokemon1State} Pokemon1HP={Pokemon1HP} trainer={trainer}/>
+                <button onClick={handleDamage} >Damage</button>  <button onClick={handleFaint} >Faint</button>  <button onClick={handleSummon} >Summon</button>
+                <button onClick={handle100Click} >100%</button> <button onClick={handle40Click} >40%</button> <button onClick={handle10Click} >10%</button>
             </div>
         </div>
     )

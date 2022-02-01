@@ -3,10 +3,12 @@ import trainerSprite from "../../assets/img/VStrainers/Youngster.png"
 
 
 
-const TrainerSprite = () => {
+const TrainerSprite = ({trainer}) => {
+    console.log(process.env.PUBLIC_URL)
     return (
         <div class="trainerSprite">
-        <img src={trainerSprite}></img>
+        <img src={process.env.PUBLIC_URL + `${trainer.avatar}`}></img>
+    
         </div>
     )
 }

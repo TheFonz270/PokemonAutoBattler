@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import poke from "../../assets/img/quilava.png";
 
-const PokemonSprite = () => {
+const PokemonSprite = ({Pokemon1State}) => {
     return (
-        <div class="pokemonSprite">
-        <img src={poke}></img>
+        <div className="pokemonSprite">
+        <img className={Pokemon1State} src={poke}></img>
         </div>
     )
 }
