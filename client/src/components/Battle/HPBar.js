@@ -5,7 +5,7 @@ const HPBar = () => {
 
     return (
         <div class="HpBar">
-	        <div></div>
+	        <div style={{width: '50%'}}></div>
         </div>
     )
 }
