@@ -48,4 +48,18 @@ public class StatTracker {
     public void setPokemonCaught(int pokemonCaught) {
         this.pokemonCaught = pokemonCaught;
     }
+
+    public int increaseWins() {
+        wins += 1;
+        return wins;
+    }
+
+    public int increaseLosses() {
+        losses += 1;
+        return losses;
+    }
+
+//    public int getPokedexSize() {
+//        return pokedex.size();
+//    }
 }

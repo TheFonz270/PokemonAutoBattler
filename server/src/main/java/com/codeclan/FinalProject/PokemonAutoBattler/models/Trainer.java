@@ -47,4 +47,10 @@ public class Trainer {
     public int getPokemonsSize(){
         return pokemons.size();
     }
+
+    public void winRound(){
+    }
+
+    public void switchPokemon(){
+    }
 }

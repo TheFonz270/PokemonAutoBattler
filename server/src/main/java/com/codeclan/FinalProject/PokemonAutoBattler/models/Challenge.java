@@ -60,4 +60,10 @@ public class Challenge {
     public void addRound(Round round) {
         rounds.add(round);
     }
+
+    public void createPlayerTrainer(){
+    }
+
+    public void teamSelection(){
+    }
 }

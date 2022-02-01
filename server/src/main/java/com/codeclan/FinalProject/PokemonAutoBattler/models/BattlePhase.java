@@ -36,4 +36,19 @@ public class BattlePhase {
     public void addTrainer(Trainer trainer) {
         trainers.add(trainer);
     }
+
+    public void startBattle(){
+    }
+
+    public void simulateTurn(){
+    }
+
+    public void damageCalculation(){
+    }
+
+    public void pokemonFaints(){
+    }
+
+    public void battleEnd(){
+    }
 }

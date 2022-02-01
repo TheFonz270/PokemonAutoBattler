@@ -56,6 +56,13 @@ public class User {
         return statTracker;
     }
 
+    public void login(){
+
+    }
+    public void logout(){
+
+    }
+
 //    public void setStatTracker(StatTracker statTracker) {
 //        this.statTracker = statTracker;
 //    }

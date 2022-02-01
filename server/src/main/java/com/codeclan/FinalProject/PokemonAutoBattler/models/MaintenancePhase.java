@@ -25,4 +25,18 @@ public class MaintenancePhase {
     public void addTrainer(Trainer trainer) {
         trainers.add(trainer);
     }
+
+    public void replacePokemon(Pokemon pokemon){
+    }
+
+    public void levelUpPokemon(Pokemon pokemon){
+        pokemon.increaseLevel();
+    }
+
+    public void randomiseMove(Pokemon pokemon){
+    }
+
+    public void setNewMove(Pokemon pokemon, Move move){
+        pokemon.setActiveMove(move);
+    }
 }

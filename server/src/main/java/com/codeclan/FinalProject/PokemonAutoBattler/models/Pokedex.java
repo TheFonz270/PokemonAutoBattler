@@ -109,4 +109,8 @@ public class Pokedex {
           attacksReceived += newAttacksReceived;
           return attacksReceived;
      }
+
+//     public void pokemonCaught(Pokemon pokemon){
+//          if (pokemon)
+//     }
 }

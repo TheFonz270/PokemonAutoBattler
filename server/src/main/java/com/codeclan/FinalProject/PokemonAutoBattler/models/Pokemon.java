@@ -26,7 +26,7 @@ public class Pokemon {
         this.currentHP = currentHP;
         this.types = new ArrayList<>();
         this.movePool = new ArrayList<>();
-        this.baseStats = new HashMap<>();
+        this.baseStats = new BaseStats;
         this.effectiveStats = new HashMap<>();
         this.level = StarLevel.ONE_STAR;
         this.isFainted = false;
@@ -165,6 +165,18 @@ public class Pokemon {
         setActiveMove(move);
     }
 
+    public void calculateStats(){
+    }
+
+    public void randomiseNewMove(){
+    }
+
+    public void attack(Move move){
+    }
+
+    public void heal(){
+
+    }
 
 
 }

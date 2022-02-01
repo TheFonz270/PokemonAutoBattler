@@ -27,4 +27,7 @@ public class Round {
     public void setBattlePhase(BattlePhase battlePhase) {
         this.battlePhase = battlePhase;
     }
+
+    public void createAITrainer(){
+    }
 }
