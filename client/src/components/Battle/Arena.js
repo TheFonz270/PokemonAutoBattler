@@ -54,13 +54,13 @@ const Arena = () => {
     }
 
     const trainer1 = {
-        team : [quilava, honedge],
+        team : [quilava],
         avatar : "/img/PokemonTrainer.png",
         pokeDollars : 10
     }
 
     const trainer2 = {
-        team : [honedge, quilava],
+        team : [honedge],
         avatar : "/img/VStrainers/Youngster.png",
         pokeDollars : 10
     }
@@ -82,7 +82,16 @@ const Arena = () => {
     }]
 }
 
-
+const decideP1 = (turn, BattleScript) => {
+    if (turn.playerFirst == 1) {
+        P1 = ActivePokemon1State;
+        P2 = ActivePokemon2State;
+    } else if (turn.playerFirst == 0) 
+    {
+        P1 = ActivePokemon2State;
+        P2 = ActivePokemon1State;
+    };
+}
 
     
 const PokemonAttacks = (attacker, defender) => {
@@ -90,33 +99,26 @@ const PokemonAttacks = (attacker, defender) => {
     handleDamageAnimation(defender)
 }
 
-const Pokemon2Attacks = () => {
-    /* Pokemon 1 flashes*/
-    /* Pokemon 1's hp decreases */
-
-}
-
 const handleDamage = (defender, remainingHealth) => {
-    defender.currentHP = remainingHealth;
+    defender.currentHp = remainingHealth;
+    checkHPs();
 }
 
-const Pokemon1Faints = () => {
-    /* Pokemon 1 shrinks and hides */
+const checkHPs = () => {
+    setPokemon1HP((P1.currentHp/Pokemon1MAXHP) * 100)
+    setPokemon2HP((P2.currentHp/Pokemon2MAXHP) * 100)
+    
 }
 
-const Pokemon2Faints = () => {
-    /* Pokemon 2 shrinks and hides */
+const checkIfFaints = () => {
+    if (Pokemon1HP == 0) {
+        P1.isFainted = true
+    }
+    if (Pokemon2HP == 0) {
+        P2.isFainted = true
+    }
 }
 
-const NewPokemon1 = () => {
-    /* New active pokemon is selected */
-    /* Pokemon 1 goes from hidden to shown */
-}
-
-const NewPokemon2 = () => {
-    /* New active pokemon is selected */
-    /* Pokemon 1 goes from hidden to shown */
-}
 
 const handleDamageAnimation = (int) => {
     if (int == 1) {
@@ -156,6 +158,11 @@ const handlePokemon2HP = (int) => {
     setPokemon2HP(int);
 }
 
+    let P1 = null;
+    let P2 = null;
+
+    useEffect(()=>{
+        RunBattle(BattleScript)}, [])
 
 
 const RunBattle = (BattleScript) => {
@@ -166,14 +173,25 @@ const RunBattle = (BattleScript) => {
     setActivePokemon2State(BattleScript.trainers[1].team[0])
 
     BattleScript.script.forEach(turn => {
-        if (turn.playerFirst == 1) {
-            const P1 = trainer1;
-            const P2 = trainer2;
-        } else if (turn.playerFirst == 0) 
-        {
-            const P1 = trainer2;
-            const P2 = trainer1;
-        };
+        console.log("BattleStarted")
+        decideP1(turn, BattleScript)
+        console.log({P1}, {P2})
+        PokemonAttacks(P1, P2)
+        handleDamage(P2, turn.P2CurrentHP)
+        checkIfFaints()
+        if (P2.isFainted == false) {
+        PokemonAttacks(P2, P1)
+        handleDamage(P1, turn.P1CurrentHP)
+        }
+        checkIfFaints()
+        if (P2.isFainted == true) {
+            setActivePokemon2State(BattleScript.trainers[1].team.find(pokemon => pokemon.isFainted == false))
+        }
+        if (P1.isFainted == true) {
+            setActivePokemon1State(BattleScript.trainers[0].team.find(pokemon => pokemon.isFainted == false))
+        }
+
+        // 
     
     })
 
@@ -183,6 +201,7 @@ const RunBattle = (BattleScript) => {
 if (!BattleScript) {
     return (
         <>
+        "Loading..."
         </>
     )
     } 
