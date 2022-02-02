@@ -11,7 +11,7 @@ const TrainerArea2 = ({trainer}) => {
             </div>
             <div class="trainerOuter">
                 <TrainerSprite trainer={trainer}/>
-                <Bench/>
+                <Bench trainer={trainer}/>
             </div>
         </div>
     )

@@ -3,14 +3,16 @@ import pokeball from "../../assets/img/pokeball.png"
 
 // const team = ["pokemon1", "pokemon2", "pokemon3"]
 
+
 const Bench = ({trainer}) => {
 
-const team = trainer.team;
+    // const team = trainer.team
+    console.log(trainer.team)
 
     return (
         <div class="Bench">
-        {team.map(pokemon => 
-            (<img src={pokeball} class="BenchPokeball"></img>)
+        {trainer.team.map((pokemon) => 
+            <img src={pokeball} class="BenchPokeball"></img>
         )}
         </div>
     )
