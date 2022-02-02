@@ -33,7 +33,7 @@ const Arena = () => {
         level : 17,
         canEvolve : true,
         currentHp : 120,
-        types : ["fire"],
+        types : ["Fire"],
         isFainted : false
 
     }
@@ -46,7 +46,7 @@ const Arena = () => {
         level : 17,
         canEvolve : true,
         currentHp : 100,
-        types : ["fire"],
+        types : ["Ghost", "Steel"],
         isFainted : false
 
     }
@@ -88,6 +88,7 @@ const Pokemon1Attacks = () => {
     /* Pokemon 2 flashes*/
     handleDamageAnimation(2)
     /* Pokemon 2's hp decreases */
+
 
 }
 
@@ -160,16 +161,17 @@ const handlePokemon2HP = (int) => {
     return (
         <div id="Arena">
             <TrainerArea 
-                Pokemon1State = {Pokemon1State} 
-                handleDamageAnimation={handleDamageAnimation}  
-                handleFaintAnimation={handleFaintAnimation} 
-                handleSummonAnimation={handleSummonAnimation}
-                Pokemon1HP={Pokemon1HP}
-                handlePokemon1HP={handlePokemon1HP}
                 trainer={trainer1}
+                PokemonState = {Pokemon1State} 
+                PokemonHP={Pokemon1HP}
+                PokemonMAXHP={Pokemon1MAXHP}
                 />
             <TrainerArea2
-            trainer={trainer2}/>
+                trainer={trainer2}
+                PokemonState = {Pokemon1State} 
+                PokemonHP={Pokemon1HP}
+                PokemonMAXHP={Pokemon1MAXHP}
+                />
         </div>
     )
 }
