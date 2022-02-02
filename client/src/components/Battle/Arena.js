@@ -4,9 +4,11 @@ import TrainerArea2 from './TrainerArea2';
 
 const Arena = () => {
     const [Pokemon1State, setPokemon1State] = useState("normal");
+    const [ActivePokemon1State, setActivePokemon1State] = useState(null);
     const [Pokemon1MAXHP, setPokemon1MAXHP] = useState(100);
     const [Pokemon1HP, setPokemon1HP] = useState(100);
     const [Pokemon2State, setPokemon2State] = useState("normal");
+    const [ActivePokemon2State, setActivePokemon2State] = useState(null);
     const [Pokemon2MAXHP, setPokemon2MAXHP] = useState(100);
     const [Pokemon2HP, setPokemon2HP] = useState(100);
 
@@ -63,7 +65,9 @@ const Arena = () => {
         pokeDollars : 10
     }
 
-    const BattleScript1 = {
+    const BattleScript = {
+        trainers : [trainer1, trainer2],
+        script : [{
             playerFirst : 1,
             firstDamageDealt : 23,
             P2CurrentHP: 77,
@@ -75,21 +79,15 @@ const Arena = () => {
             didP1NewMon : 0,
             P1OutOfMons : 0,
             P2OutOfMons : 0
-    }
-
-const RunBattle = (BattleScript, trainer1, trainer2) => {
-    setPokemon1MAXHP(trainer1.team[0].currentHP)
-    setPokemon2MAXHP(trainer2.team[0].currentHP)
-
+    }]
 }
 
+
+
     
-const Pokemon1Attacks = () => {
+const PokemonAttacks = (attacker, defender) => {
     /* Pokemon 2 flashes*/
-    handleDamageAnimation(2)
-    /* Pokemon 2's hp decreases */
-
-
+    handleDamageAnimation(defender)
 }
 
 const Pokemon2Attacks = () => {
@@ -98,8 +96,8 @@ const Pokemon2Attacks = () => {
 
 }
 
-const handleDamage = () => {
-
+const handleDamage = (defender, remainingHealth) => {
+    defender.currentHP = remainingHealth;
 }
 
 const Pokemon1Faints = () => {
@@ -158,16 +156,49 @@ const handlePokemon2HP = (int) => {
     setPokemon2HP(int);
 }
 
+
+
+const RunBattle = (BattleScript) => {
+    setPokemon1MAXHP(BattleScript.trainers[0].team[0].currentHP);
+    setPokemon2MAXHP(BattleScript.trainers[1].team[0].currentHP);
+    // music player
+    setActivePokemon1State(BattleScript.trainers[0].team[0])
+    setActivePokemon2State(BattleScript.trainers[1].team[0])
+
+    BattleScript.script.forEach(turn => {
+        if (turn.playerFirst == 1) {
+            const P1 = trainer1;
+            const P2 = trainer2;
+        } else if (turn.playerFirst == 0) 
+        {
+            const P1 = trainer2;
+            const P2 = trainer1;
+        };
+    
+    })
+
+
+}
+
+if (!BattleScript) {
+    return (
+        <>
+        </>
+    )
+    } 
+
+
+
     return (
         <div id="Arena">
             <TrainerArea 
-                trainer={trainer1}
+                trainer={BattleScript.trainers[0]}
                 PokemonState = {Pokemon1State} 
                 PokemonHP={Pokemon1HP}
                 PokemonMAXHP={Pokemon1MAXHP}
                 />
             <TrainerArea2
-                trainer={trainer2}
+                trainer={BattleScript.trainers[1]}
                 PokemonState = {Pokemon1State} 
                 PokemonHP={Pokemon1HP}
                 PokemonMAXHP={Pokemon1MAXHP}
