@@ -24,8 +24,8 @@ public class TrainerTest {
         fire_punch = new Move("Fire Punch", Types.FIRE, DamageType.PHYSICAL, 90);
         water_pulse = new Move("Water Pulse", Types.WATER, DamageType.SPECIAL, 120);
 
-        quilava = new Pokemon("Quilava", "quilava.png", fire_punch, true, 120);
-        honedge = new Pokemon("Honedge", "honedge.png", water_pulse, false, 90);
+        quilava = new Pokemon("Quilava", "quilava.png", fire_punch, true);
+        honedge = new Pokemon("Honedge", "honedge.png", water_pulse, false);
 
         red = new Trainer(3000);
         blue = new Trainer(5000);

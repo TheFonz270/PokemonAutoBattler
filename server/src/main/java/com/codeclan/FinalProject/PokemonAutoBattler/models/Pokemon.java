@@ -1,8 +1,11 @@
 package com.codeclan.FinalProject.PokemonAutoBattler.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Pokemon {
 
     private String name;
@@ -15,18 +18,22 @@ public class Pokemon {
     private HashMap<String, Integer> effectiveStats;
     private boolean canEvolve;
     private boolean isFainted;
-    private int currentHP;
+//    private int currentHP;
+
+    public Pokemon(String name){
+        this.name = name;
+    }
 
 
-    public Pokemon(String name, String avatarImage, Move activeMove, boolean canEvolve, int currentHP){
+    public Pokemon(String name, String avatarImage, Move activeMove, boolean canEvolve){
         this.name = name;
         this.avatarImage = avatarImage;
         this.activeMove = activeMove;
         this.canEvolve = canEvolve;
-        this.currentHP = currentHP;
+//        this.currentHP = currentHP;
         this.types = new ArrayList<>();
         this.movePool = new ArrayList<>();
-        this.baseStats = new BaseStats;
+        this.baseStats = new HashMap<>();
         this.effectiveStats = new HashMap<>();
         this.level = StarLevel.ONE_STAR;
         this.isFainted = false;
@@ -113,13 +120,13 @@ public class Pokemon {
         isFainted = fainted;
     }
 
-    public int getCurrentHP() {
-        return currentHP;
-    }
-
-    public void setCurrentHP(int currentHP) {
-        this.currentHP = currentHP;
-    }
+//    public int getCurrentHP() {
+//        return currentHP;
+//    }
+//
+//    public void setCurrentHP(int currentHP) {
+//        this.currentHP = currentHP;
+//    }
 
     public int getMovePoolSize() {
         return movePool.size();
@@ -129,25 +136,25 @@ public class Pokemon {
         movePool.add(move);
     }
 
-    public int reduceHP(int damage) {
-        setCurrentHP(currentHP - damage);
-        return currentHP;
-    }
-
-    public void checkIfFaint(){
-        if (currentHP <=0 ){
-            faint();
-        }
-    }
+//    public int reduceHP(int damage) {
+//        setCurrentHP(currentHP - damage);
+//        return currentHP;
+//    }
+//
+//    public void checkIfFaint(){
+//        if (currentHP <=0 ){
+//            faint();
+//        }
+//    }
 
     public void faint() {
         setFainted(true);
     }
 
-    public void takeDamage(int damage){
-        reduceHP(damage);
-        checkIfFaint();
-    }
+//    public void takeDamage(int damage){
+//        reduceHP(damage);
+//        checkIfFaint();
+//    }
 
     public void increaseLevel() {
         if (getLevel() == StarLevel.ONE_STAR){
