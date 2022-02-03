@@ -141,7 +141,7 @@ public class TurnScriptTest {
         turnScript.p1dealDamage(p1ActivePokemon, p2ActivePokemon);
         turnScript.p1dealDamage(p1ActivePokemon, p2ActivePokemon);
         assertEquals(0, turnScript.getCurrentHPP2(p2ActivePokemon));
-        assertEquals(true, turnScript.checkDidP2faint(p2ActivePokemon));
+        assertEquals(true, turnScript.checkDidP2Faint(p2ActivePokemon));
     }
 
     @Test
