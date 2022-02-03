@@ -3,7 +3,7 @@ import TrainerSprite from './TrainerSprite';
 import ActivePokemon from './ActivePokemon';
 import Bench from './Bench'
 
-const TrainerArea2 = ({trainer, PokemonState, PokemonHP, PokemonMAXHP}) => {
+const TrainerArea2 = ({trainer, PokemonState, PokemonHP}) => {
 
     const activePokemon = trainer.team.find(pokemon => pokemon.isFainted == false);
 
