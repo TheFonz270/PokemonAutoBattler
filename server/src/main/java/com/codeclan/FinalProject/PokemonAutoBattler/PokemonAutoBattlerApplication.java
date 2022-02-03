@@ -41,7 +41,12 @@ public class PokemonAutoBattlerApplication {
 //		System.out.println("spDef - " + pokemon.getSpDef());
 //		System.out.println("Speed - " + pokemon.getSpeed());
 
-
+//		ResponseEntity<String> result = pokemonService.getPokemon(1);
+//		String jsonString = result.getBody();
+//		JSONObject jsonObject = new JSONObject(jsonString);
+//
+//		ArrayList<String> types = pokemonService.getPokemonTypes(jsonObject);
+//		System.out.println(types);
 
 		ArrayList<Pokemon> sixPokemon = pokemonService.getSixPokemon();
 		for (Pokemon pokemon : sixPokemon) {

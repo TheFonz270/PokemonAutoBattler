@@ -206,10 +206,10 @@ public class Pokemon {
         setFainted(true);
     }
 
-//    public void takeDamage(int damage){
-//        reduceHP(damage);
-//        checkIfFaint();
-//    }
+    public void takeDamage(int damage){
+        reduceHP(damage);
+        checkIfFaint();
+    }
 
     public void increaseLevel() {
         if (getLevel() == StarLevel.ONE_STAR){

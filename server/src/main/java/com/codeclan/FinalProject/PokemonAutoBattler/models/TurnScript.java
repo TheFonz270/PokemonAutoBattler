@@ -89,15 +89,15 @@ public class TurnScript {
     }
 
 
-//    public void p1dealDamage(Pokemon p1activePokemon, Pokemon p2activePokemon) {
-//        int damage = (int) BattlePhase.damageCalculation(p1activePokemon, p2activePokemon);
-//            p2activePokemon.takeDamage(damage);
-//    }
-//
-//    public void p2dealDamage(Pokemon p1activePokemon, Pokemon p2activePokemon) {
-//        int damage = (int) BattlePhase.damageCalculation(p2activePokemon, p1activePokemon);
-//        p1activePokemon.takeDamage(damage);
-//    }
+    public void p1dealDamage(Pokemon p1activePokemon, Pokemon p2activePokemon) {
+        int damage = (int) BattlePhase.damageCalculation(p1activePokemon, p2activePokemon);
+            p2activePokemon.takeDamage(damage);
+    }
+
+    public void p2dealDamage(Pokemon p1activePokemon, Pokemon p2activePokemon) {
+        int damage = (int) BattlePhase.damageCalculation(p2activePokemon, p1activePokemon);
+        p1activePokemon.takeDamage(damage);
+    }
 
     public boolean checkDidP2Faint(Pokemon p2activePokemon){
         if (p2activePokemon.getIsFainted() == true){

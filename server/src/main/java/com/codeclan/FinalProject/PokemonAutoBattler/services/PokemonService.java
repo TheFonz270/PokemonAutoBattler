@@ -233,6 +233,21 @@ public class PokemonService {
         return statsPool;
     };
 
+    public static ArrayList<String> getPokemonTypes(JSONObject jsonObject) throws JSONException {
+
+        String typesJson = jsonObject.get("types").toString();
+        JSONArray jsonArray = new JSONArray(typesJson);
+        ArrayList types = new ArrayList<String>();
+
+        for (int i = 0; i < jsonArray.length(); i++){
+            JSONObject typesObject = jsonArray.getJSONObject(i);
+            JSONObject type = typesObject.getJSONObject("type");
+            String typeName = type.get("name").toString();
+            types.add(typeName);
+        }
+        return types;
+    };
+
     public static Pokemon getOnePokemon() throws JSONException {
 
         Random r = new Random();
