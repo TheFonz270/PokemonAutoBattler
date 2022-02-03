@@ -1,116 +1,74 @@
 package com.codeclan.FinalProject.PokemonAutoBattler.models;
 
+import java.util.ArrayList;
+
 public class Pokedex {
-     private int PokemonId;
+    private ArrayList<PokedexEntry> pokedex;
 
-     private boolean used;
+    public Pokedex() {
+        this.pokedex = new ArrayList<PokedexEntry>();
+    }
 
-     private int opponentsFainted;
+    public ArrayList<PokedexEntry> getPokedex() {
+        return pokedex;
+    }
 
-     private long damageDealt;
+    public void setPokedex(ArrayList<PokedexEntry> pokedex) {
+        this.pokedex = pokedex;
+    }
 
-     private long damageTaken;
+    public PokedexEntry findById(int id){
+        for (PokedexEntry oldPokedexEntry : pokedex){
+            if (oldPokedexEntry.getPokemonId() == id){
+                return oldPokedexEntry;
+            }
+        }
+        return null;
+    }
 
-     private int attacksUsed;
+    public void addPokedexEntry(PokedexEntry newPokedexEntry) {
+            pokedex.add(newPokedexEntry);
+    }
 
-     private int attacksReceived;
+    private void updateDexEntry(PokedexEntry oldPokedexEntry, PokedexEntry newPokedexEntry) {
+        oldPokedexEntry.addToAttacksRecieved(newPokedexEntry.getAttacksReceived());
+        oldPokedexEntry.addToAttacksUsed(newPokedexEntry.getAttacksUsed());
+        oldPokedexEntry.addToDamageDealt(newPokedexEntry.getDamageDealt());
+        oldPokedexEntry.addToDamageTaken(newPokedexEntry.getDamageTaken());
+        oldPokedexEntry.addToOpponentsFainted(newPokedexEntry.getOpponentsFainted());
+    }
 
-     public Pokedex(int pokemonId, boolean used, int opponentsFainted, long damageDealt, long damageTaken, int attacksUsed, int attacksReceived) {
-          PokemonId = pokemonId;
-          this.used = used;
-          this.opponentsFainted = opponentsFainted;
-          this.damageDealt = damageDealt;
-          this.damageTaken = damageTaken;
-          this.attacksUsed = attacksUsed;
-          this.attacksReceived = attacksReceived;
-     }
+    public boolean checkDexDuplicate(PokedexEntry newDexEntry) {
+        int newId = newDexEntry.getPokemonId();
+        for (PokedexEntry oldPokedexEntry : pokedex) {
+            if (newId == oldPokedexEntry.getPokemonId()) {
+                return true;
+            }
+        } return false;
+    }
 
-     public int getPokemonId() {
-          return PokemonId;
-     }
+    public void addOrUpdateDex(PokedexEntry newDexEntry){
 
-     public void setPokemonId(int pokemonId) {
-          PokemonId = pokemonId;
-     }
+        checkDexDuplicate(newDexEntry);
 
-     public boolean isUsed() {
-          return used;
-     }
+        if (checkDexDuplicate(newDexEntry) == false){
+            addPokedexEntry(newDexEntry);
+        } else {
+            PokedexEntry oldDexEntry = findById(newDexEntry.getPokemonId());
+            updateDexEntry(oldDexEntry, newDexEntry);
+        }
+    }
 
-     public void setUsed(boolean used) {
-          this.used = used;
-     }
-
-     public int getOpponentsFainted() {
-          return opponentsFainted;
-     }
-
-     public void setOpponentsFainted(int opponentsFainted) {
-          this.opponentsFainted = opponentsFainted;
-     }
-
-     public double getDamageDealt() {
-          return damageDealt;
-     }
-
-     public void setDamageDealt(long damageDealt) {
-          this.damageDealt = damageDealt;
-     }
-
-     public double getDamageTaken() {
-          return damageTaken;
-     }
-
-     public void setDamageTaken(long damageTaken) {
-          this.damageTaken = damageTaken;
-     }
-
-     public int getAttacksUsed() {
-          return attacksUsed;
-     }
-
-     public void setAttacksUsed(int attacksUsed) {
-          this.attacksUsed = attacksUsed;
-     }
-
-     public int getAttacksReceived() {
-          return attacksReceived;
-     }
-
-     public void setAttacksReceived(int attacksReceived) {
-          this.attacksReceived = attacksReceived;
-     }
-
-     public void markUsed() {
-          setUsed(true);
-     }
-
-     public int addToOpponentsFainted(int newOpponentsFainted) {
-          opponentsFainted += newOpponentsFainted;
-          return opponentsFainted;
-     }
-
-     public long addToDamageDealt(int newDamageDealt) {
-          damageDealt += newDamageDealt;
-          return damageDealt;
-     }
-
-     public long addToDamageTaken(int newDamageTaken) {
-          damageTaken += newDamageTaken;
-          return damageTaken;
-     }
-
-     public int addToAttacksUsed(int newAttacksUsed) {
-          attacksUsed += newAttacksUsed;
-          return attacksUsed;
-     }
-
-     public int addToAttacksRecieved(int newAttacksReceived) {
-          attacksReceived += newAttacksReceived;
-          return attacksReceived;
-     }
-
-//     public void pokemonCaught(Pokemon pokemon){
-//          if (pokemon)
-//     }
+    public int getPokedexSize() {
+        return pokedex.size();
+    }
+//
+//    public PokedexEntry getPokedexEntryById(int pokedexID){
+//        for (PokedexEntry pokedexEntry :pokedex){
+//
+//        }
+//    }
 }
+
+
+

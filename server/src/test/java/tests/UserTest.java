@@ -1,6 +1,7 @@
 package tests;
 
 import com.codeclan.FinalProject.PokemonAutoBattler.models.Pokedex;
+import com.codeclan.FinalProject.PokemonAutoBattler.models.PokedexEntry;
 import com.codeclan.FinalProject.PokemonAutoBattler.models.StatTracker;
 import com.codeclan.FinalProject.PokemonAutoBattler.models.User;
 import org.junit.jupiter.api.BeforeAll;
@@ -12,11 +13,12 @@ public class UserTest {
     static Pokedex pokedex;
     static User user1;
     static StatTracker statTracker;
+    static PokedexEntry pokedexEntry;
 
     @BeforeAll
     static void beforeAll() {
-
-        pokedex = new Pokedex(1, true, 20, 5000,1257, 300, 250);
+        pokedex = new Pokedex();
+        pokedexEntry = new PokedexEntry(1, true);
         statTracker = new StatTracker(10, 8, pokedex, 50);
         user1 = new User("roger@rogerland.com", "rogertmalg", "pokemon123", "image", statTracker);
     }

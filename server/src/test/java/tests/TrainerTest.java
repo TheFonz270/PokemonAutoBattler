@@ -24,11 +24,11 @@ public class TrainerTest {
         fire_punch = new Move("Fire Punch", Types.FIRE, DamageType.PHYSICAL, 90);
         water_pulse = new Move("Water Pulse", Types.WATER, DamageType.SPECIAL, 120);
 
-        quilava = new Pokemon("Quilava", "quilava.png", fire_punch, true, 120);
-        honedge = new Pokemon("Honedge", "honedge.png", water_pulse, false, 90);
+        quilava = new Pokemon(159,"Quilava", "quilava.png", fire_punch, 58,64,58,80,65,90);
+        honedge = new Pokemon(657, "Honedge", "honedge.png", water_pulse, 45, 80, 100,35, 37,28);
 
-        red = new Trainer(3000);
-        blue = new Trainer(5000);
+        red = new Trainer(3000, "red.png");
+        blue = new Trainer(5000, "blue.png");
     }
 
     @Test
@@ -73,11 +73,6 @@ public class TrainerTest {
         assertEquals(1, red.getPokemonsSize());
         assertEquals(2, blue.getPokemonsSize());
     }
-
-
-
-
-
 }
 
 

@@ -1,24 +1,28 @@
 package com.codeclan.FinalProject.PokemonAutoBattler.models;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Trainer {
 
-    private List<Pokemon> pokemons;
+    private ArrayList<Pokemon> pokemons;
 
     private int pokedollars;
 
-    public Trainer(int pokedollars){
+    private String avatar;
+
+    public Trainer(int pokedollars, String avatar){
         this.pokedollars = pokedollars;
+        this.avatar = avatar;
         this.pokemons = new ArrayList<Pokemon>();
     }
 
-    public List<Pokemon> getPokemons() {
+    public ArrayList<Pokemon> getPokemons() {
         return pokemons;
     }
 
-    public void setPokemons(List<Pokemon> pokemons) {
+    public void setPokemons(ArrayList<Pokemon> pokemons) {
         this.pokemons = pokemons;
     }
 
@@ -47,6 +51,19 @@ public class Trainer {
     public int getPokemonsSize(){
         return pokemons.size();
     }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public Pokemon getFirstPokemon(){
+        return pokemons.get(0);
+    }
+
 
     public void winRound(){
     }

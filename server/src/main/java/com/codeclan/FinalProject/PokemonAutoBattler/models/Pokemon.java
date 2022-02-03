@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 public class Pokemon {
 
+    private int pokemonId;
     private String name;
     private String avatarImage;
     private ArrayList<Types> types;
@@ -16,21 +17,44 @@ public class Pokemon {
     private boolean canEvolve;
     private boolean isFainted;
     private int currentHP;
+    int hp;
+    int atk;
+    int def;
+    int spAtk;
+    int spDef;
+    int speed;
 
 
-    public Pokemon(String name, String avatarImage, Move activeMove, boolean canEvolve, int currentHP){
+    public Pokemon(int pokemonId, String name, String avatarImage, Move activeMove, int hp, int atk, int def, int spAtk, int spDef, int speed){
+        this.pokemonId = pokemonId;
         this.name = name;
         this.avatarImage = avatarImage;
-        this.activeMove = activeMove;
-        this.canEvolve = canEvolve;
-        this.currentHP = currentHP;
         this.types = new ArrayList<>();
         this.movePool = new ArrayList<>();
-        this.baseStats = new BaseStats;
-        this.effectiveStats = new HashMap<>();
+        this.activeMove = activeMove;
         this.level = StarLevel.ONE_STAR;
+        this.atk = atk;
+        this.hp = hp;
+        this.def = def;
+        this.spAtk = spAtk;
+        this.spDef = spDef;
+        this.speed = speed;
+        this.baseStats = new HashMap<String, Integer>();
+        baseStats.put("HP", hp);
+        baseStats.put("Atk", atk);
+        baseStats.put("Def", def);
+        baseStats.put("SpAtk", spAtk);
+        baseStats.put("SpDef", spDef);
+        baseStats.put("Speed", speed);
+        this.effectiveStats = new HashMap<String, Integer>();
         this.isFainted = false;
+        this.currentHP = 0;
 
+
+    }
+
+    public int getPokemonId(){
+        return pokemonId;
     }
 
     public String getName() {
@@ -81,6 +105,11 @@ public class Pokemon {
         this.level = level;
     }
 
+    public int getIntLevel(){
+        int calcLevel = level.level;
+        return calcLevel;
+    }
+
     public HashMap<String, Integer> getBaseStats() {
         return baseStats;
     }
@@ -89,12 +118,45 @@ public class Pokemon {
         this.baseStats = baseStats;
     }
 
+//    public HashMap<String, Integer> addStats(int hp, int atk, int def, int spatk, int spdef, int speed){
+//        baseStats.put("HP", hp);
+//        baseStats.put("Atk", atk);
+//        baseStats.put("Def", def);
+//        baseStats.put("SpAtk", spatk);
+//        baseStats.put("SpDef", spdef);
+//        baseStats.put("Speed", speed);
+//        return  baseStats;
+//    }
+
     public HashMap<String, Integer> getEffectiveStats() {
         return effectiveStats;
     }
 
     public void setEffectiveStats(HashMap<String, Integer> effectiveStats) {
         this.effectiveStats = effectiveStats;
+    }
+
+    public HashMap<String, Integer> calculateEffectiveStats(){
+
+        int calcLevel = level.level;
+
+        Integer newHP = ((((baseStats.get("HP")*2) *calcLevel)/100)+calcLevel)+10;
+        Integer newAtk = (((baseStats.get("Atk")*2) *calcLevel)/100)+5;
+        Integer newDef = (((baseStats.get("Def")*2) *calcLevel)/100)+5;
+        Integer newSpAtk = (((baseStats.get("SpAtk")*2) *calcLevel)/100)+5;
+        Integer newSpDef = (((baseStats.get("SpDef")*2) *calcLevel)/100)+5;
+        Integer newSpeed = (((baseStats.get("Speed")*2) *calcLevel)/100)+5;
+
+        effectiveStats.put("HP", newHP);
+        effectiveStats.put("Atk", newAtk);
+        effectiveStats.put("Def", newDef);
+        effectiveStats.put("SpAtk", newSpAtk);
+        effectiveStats.put("SpDef", newSpDef);
+        effectiveStats.put("Speed", newSpeed);
+        setCurrentHP();
+
+        return effectiveStats;
+
     }
 
     public boolean canEvolve() {
@@ -105,7 +167,7 @@ public class Pokemon {
         this.canEvolve = canEvolve;
     }
 
-    public boolean isFainted() {
+    public boolean getIsFainted(){
         return isFainted;
     }
 
@@ -114,11 +176,11 @@ public class Pokemon {
     }
 
     public int getCurrentHP() {
-        return currentHP;
+        return Math.max(0, currentHP);
     }
 
-    public void setCurrentHP(int currentHP) {
-        this.currentHP = currentHP;
+    public void setCurrentHP() {
+        this.currentHP = getEffectiveHP();
     }
 
     public int getMovePoolSize() {
@@ -129,9 +191,8 @@ public class Pokemon {
         movePool.add(move);
     }
 
-    public int reduceHP(int damage) {
-        setCurrentHP(currentHP - damage);
-        return currentHP;
+    public void reduceHP(int damage) {
+        currentHP -= damage;
     }
 
     public void checkIfFaint(){
@@ -171,12 +232,69 @@ public class Pokemon {
     public void randomiseNewMove(){
     }
 
-    public void attack(Move move){
-    }
-
     public void heal(){
 
     }
 
 
+    public int getHP() {
+         return baseStats.get("HP");
+    }
+
+    public int getAtk() {
+        return baseStats.get("Atk");
+    }
+
+    public int getDef() {
+        return baseStats.get("Def");
+    }
+    public int getSpAtk() {
+        return baseStats.get("SpAtk");
+    }
+    public int getSpDef() {
+        return baseStats.get("SpDef");
+    }
+    public int getSpeed() {
+        return baseStats.get("Speed");
+    }
+    public int getLevelLevel() {
+        return level.level;
+    }
+
+    public int getEffectiveHP() {
+        return effectiveStats.get("HP");
+    }
+
+    public int getEffectiveAtk() {
+        return effectiveStats.get("Atk");
+    }
+
+    public int getEffectiveDef() {
+        return effectiveStats.get("Def");
+    }
+
+    public int getEffectiveSpAtk() {
+        return effectiveStats.get("SpAtk");
+    }
+
+    public int getEffectiveSpDef() {
+        return effectiveStats.get("SpDef");
+    }
+
+    public int getEffectiveSpeed() {
+        return effectiveStats.get("Speed");
+    }
+
+    public double getStab(){
+        if (getTypes().contains(activeMove.getType())){
+            return 1.5;
+        } else {
+        return 1.0;
+        }
+    }
+
+
+    public void addType(Types type) {
+        types.add(type);
+    }
 }

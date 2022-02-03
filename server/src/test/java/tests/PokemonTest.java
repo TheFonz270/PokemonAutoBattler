@@ -24,9 +24,12 @@ public class PokemonTest {
         fire_punch = new Move("Fire Punch", Types.FIRE, DamageType.PHYSICAL, 90);
         water_pulse = new Move("Water Pulse", Types.WATER, DamageType.SPECIAL, 120);
 
-        quilava = new Pokemon("Quilava", "quilava.png", fire_punch, true, 120);
-        honedge = new Pokemon("Honedge", "honedge.png", water_pulse, false, 90);
+
+
+        quilava = new Pokemon(159,"Quilava", "quilava.png", fire_punch, 58,64,58,80,65,90);
+        honedge = new Pokemon(657, "Honedge", "honedge.png", water_pulse, 45, 80, 100,35, 37,28);
     }
+
 
     @Test
     public void pokemonHasName(){
@@ -57,56 +60,69 @@ public class PokemonTest {
 
     @Test
     public void pokemonCanEvolve(){
-        assertEquals(true, quilava.canEvolve());
+        assertEquals(false, quilava.canEvolve());
         assertEquals(false, honedge.canEvolve());
     }
 
     @Test
     public void pokemonHasCurrentHP(){
-        assertEquals(120, quilava.getCurrentHP());
-        assertEquals(90, honedge.getCurrentHP());
+        quilava.calculateEffectiveStats();
+        honedge.calculateEffectiveStats();
+        assertEquals(46, quilava.getCurrentHP());
+        assertEquals(42, honedge.getCurrentHP());
     }
 
     @Test
     public void pokemonCanReduceHP(){
+        quilava.calculateEffectiveStats();
+        honedge.calculateEffectiveStats();
         quilava.reduceHP(20);
-        assertEquals(100, quilava.getCurrentHP());
+        assertEquals(26, quilava.getCurrentHP());
         honedge.reduceHP(10);
-        assertEquals(80, honedge.getCurrentHP());
+        assertEquals(32, honedge.getCurrentHP());
     }
 
     @Test
     public void pokemonHasIsFainted(){
-        assertEquals(false, quilava.isFainted());
-        assertEquals(false, honedge.isFainted());
+        assertEquals(false, quilava.getIsFainted());
+        assertEquals(false, honedge.getIsFainted());
     }
 
     @Test
     public void pokemonCanFaint(){
         quilava.faint();
         honedge.faint();
-        assertEquals(true, quilava.isFainted());
-        assertEquals(true, honedge.isFainted());
+        assertEquals(true, quilava.getIsFainted());
+        assertEquals(true, honedge.getIsFainted());
     }
 
     @Test
     public void pokemonCanKnockedOut(){
-        assertEquals(false, quilava.isFainted());
-        assertEquals(false, honedge.isFainted());
-        quilava.takeDamage(110);
-        honedge.takeDamage(80);
-        assertEquals(false, quilava.isFainted());
-        assertEquals(false, honedge.isFainted());
+        quilava.calculateEffectiveStats();
+        honedge.calculateEffectiveStats();
+        assertEquals(false, quilava.getIsFainted());
+        assertEquals(false, honedge.getIsFainted());
         quilava.takeDamage(20);
         honedge.takeDamage(20);
-        assertEquals(true, quilava.isFainted());
-        assertEquals(true, honedge.isFainted());
+        assertEquals(false, quilava.getIsFainted());
+        assertEquals(false, honedge.getIsFainted());
+        quilava.takeDamage(110);
+        honedge.takeDamage(110);
+        assertEquals(true, quilava.getIsFainted());
+        assertEquals(true, honedge.getIsFainted());
     }
 
     @Test
     public void pokemonHasStarLevel(){
         assertEquals(StarLevel.ONE_STAR, quilava.getLevel());
         assertEquals(StarLevel.ONE_STAR, honedge.getLevel());
+    }
+
+    @Test
+    public void pokemonHasLevel(){
+        assertEquals(17, quilava.getLevelLevel());
+        quilava.increaseLevel();
+        assertEquals(34, quilava.getLevelLevel());
     }
 
     @Test
@@ -136,8 +152,34 @@ public class PokemonTest {
     }
 
 
-//        this.baseStats = new HashMap<>();
-//        this.effectiveStats = new HashMap<>();
+    @Test
+    public void canGetBaseStats()
+    {
+        assertEquals(58, quilava.getHP());
+        assertEquals(64, quilava.getAtk());
+        assertEquals(58, quilava.getDef());
+        assertEquals(80, quilava.getSpAtk());
+        assertEquals(65, quilava.getSpDef());
+        assertEquals(90, quilava.getSpeed());
+    }
+
+    @Test
+    public void canCalculateEffectiveStats()
+    {
+        quilava.calculateEffectiveStats();
+        assertEquals(46, quilava.getEffectiveHP());
+        assertEquals(26, quilava.getEffectiveAtk());
+        assertEquals(24, quilava.getEffectiveDef());
+        assertEquals(32, quilava.getEffectiveSpAtk());
+        assertEquals(27, quilava.getEffectiveSpDef());
+        assertEquals(35, quilava.getEffectiveSpeed());
+    }
+
+    @Test
+    public void canGetStab(){
+        quilava.addType(Types.FIRE);
+        assertEquals(1.5, quilava.getStab());
+    }
 
 
 }
