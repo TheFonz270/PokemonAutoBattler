@@ -3,23 +3,21 @@ import TrainerSprite from './TrainerSprite';
 import ActivePokemon from './ActivePokemon';
 import Bench from './Bench'
 
-const TrainerArea = ({Pokemon1State, handleDamageAnimation, handleFaintAnimation, handleSummonAnimation, Pokemon1HP, handlePokemon1HP, trainer}) => {
+const TrainerArea = ({trainer, PokemonState, PokemonHP, PokemonMAXHP}) => {
 
-    const handle100Click = () => {
-        handlePokemon1HP(100)
-        
-    }
+    // const handle100Click = () => {
+    //     handlePokemon1HP(100)    
+    // }
 
-    const handle40Click = () => {
-        handlePokemon1HP(40)
-        
-    }
+    // const handle40Click = () => {
+    //     handlePokemon1HP(40)     
+    // }
 
-    const handle10Click = () => {
-        handlePokemon1HP(10)
-        
-    }
+    // const handle10Click = () => {
+    //     handlePokemon1HP(10)      
+    // }
 
+    const activePokemon = trainer.team.find(pokemon => pokemon.isFainted == false);
    
 
     return (
@@ -29,9 +27,9 @@ const TrainerArea = ({Pokemon1State, handleDamageAnimation, handleFaintAnimation
                 <Bench trainer={trainer}/>
             </div>
             <div class="trainerInner">
-                <ActivePokemon Pokemon1State={Pokemon1State} Pokemon1HP={Pokemon1HP} trainer={trainer}/>
-                <button onClick={handleDamageAnimation} >Damage</button>  <button onClick={handleFaintAnimation} >Faint</button>  <button onClick={handleSummonAnimation} >Summon</button>
-                <button onClick={handle100Click} >100%</button> <button onClick={handle40Click} >40%</button> <button onClick={handle10Click} >10%</button>
+                <ActivePokemon PokemonState={PokemonState} PokemonHP={PokemonHP} PokemonMAXHP={PokemonMAXHP} activePokemon={activePokemon}/>
+                {/* <button onClick={handleDamageAnimation(1)} >Damage</button>  <button onClick={handleFaintAnimation} >Faint</button>  <button onClick={handleSummonAnimation} >Summon</button>
+                <button onClick={handle100Click} >100%</button> <button onClick={handle40Click} >40%</button> <button onClick={handle10Click} >10%</button> */}
             </div>
         </div>
     )

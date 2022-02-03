@@ -3,11 +3,14 @@ import TrainerSprite from './TrainerSprite';
 import ActivePokemon from './ActivePokemon';
 import Bench from './Bench'
 
-const TrainerArea2 = ({trainer}) => {
+const TrainerArea2 = ({trainer, PokemonState, PokemonHP, PokemonMAXHP}) => {
+
+    const activePokemon = trainer.team.find(pokemon => pokemon.isFainted == false);
+
     return (
         <div class="trainerArea trainerArea2">
             <div class="trainerInner">
-                <ActivePokemon/>
+                <ActivePokemon PokemonState={PokemonState} PokemonHP={PokemonHP} activePokemon={activePokemon} />
             </div>
             <div class="trainerOuter">
                 <TrainerSprite trainer={trainer}/>

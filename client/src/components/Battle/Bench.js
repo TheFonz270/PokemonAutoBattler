@@ -7,7 +7,7 @@ import pokeball from "../../assets/img/pokeball.png"
 const Bench = ({trainer}) => {
 
     // const team = trainer.team
-    console.log(trainer.team)
+    // console.log(trainer.team)
 
     return (
         <div class="Bench">
