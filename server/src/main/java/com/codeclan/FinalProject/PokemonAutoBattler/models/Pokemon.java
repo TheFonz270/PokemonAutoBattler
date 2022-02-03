@@ -1,8 +1,11 @@
 package com.codeclan.FinalProject.PokemonAutoBattler.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Pokemon {
 
     private int pokemonId;
@@ -16,6 +19,7 @@ public class Pokemon {
     private HashMap<String, Integer> effectiveStats;
     private boolean canEvolve;
     private boolean isFainted;
+
     private int currentHP;
     int hp;
     int atk;
@@ -174,7 +178,6 @@ public class Pokemon {
     public void setFainted(boolean fainted) {
         isFainted = fainted;
     }
-
     public int getCurrentHP() {
         return Math.max(0, currentHP);
     }
@@ -205,10 +208,10 @@ public class Pokemon {
         setFainted(true);
     }
 
-    public void takeDamage(int damage){
-        reduceHP(damage);
-        checkIfFaint();
-    }
+//    public void takeDamage(int damage){
+//        reduceHP(damage);
+//        checkIfFaint();
+//    }
 
     public void increaseLevel() {
         if (getLevel() == StarLevel.ONE_STAR){
