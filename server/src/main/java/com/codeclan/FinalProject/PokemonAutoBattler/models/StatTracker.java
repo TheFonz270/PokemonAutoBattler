@@ -1,5 +1,7 @@
 package com.codeclan.FinalProject.PokemonAutoBattler.models;
 
+import java.util.ArrayList;
+
 public class StatTracker {
 
     private int wins;
@@ -49,17 +51,23 @@ public class StatTracker {
         this.pokemonCaught = pokemonCaught;
     }
 
-    public int increaseWins() {
-        wins += 1;
+    public int increaseWins(int n) {
+        wins += n;
         return wins;
     }
 
-    public int increaseLosses() {
-        losses += 1;
+    public int increaseLosses(int n) {
+        losses += n;
         return losses;
     }
 
-//    public int getPokedexSize() {
-//        return pokedex.size();
-//    }
+    public ArrayList<PokedexEntry> getPokedexArray() {
+        return pokedex.getPokedex();
+    }
+
+    public int increasePokemonCaught(int newPokemonCaught) {
+        pokemonCaught += newPokemonCaught;
+        return pokemonCaught;
+    }
+
 }

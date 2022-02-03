@@ -16,8 +16,8 @@ public class MaintenancePhaseTest {
 
   @BeforeAll
   static void beforeAll() {
-      red = new Trainer(3000);
-      blue = new Trainer(5000);
+      red = new Trainer(3000, "red.png");
+      blue = new Trainer(5000, "blue.png");
 
       maintenancePhase = new MaintenancePhase();
   }

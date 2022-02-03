@@ -11,14 +11,29 @@ public class Challenge {
 
     private List<Round> rounds;
 
-    private StatTracker runTracker;
+    private RunTracker runTracker;
 
-    public Challenge(User user, Trainer playerTrainer, StatTracker runTracker) {
+    public Challenge(User user, Trainer playerTrainer, RunTracker runTracker) {
         this.user = user;
         this.playerTrainer = playerTrainer;
         this.rounds = new ArrayList<>();
         this.runTracker = runTracker;
+    }
 
+    public void mergeStattrackerRuntracker(User user, RunTracker runTracker){
+        StatTracker statTracker = user.getStatTracker();
+        statTracker.increaseLosses(runTracker.getLosses());
+        statTracker.increaseWins(runTracker.getWins());
+        statTracker.increasePokemonCaught(runTracker.getPokemonCaught());
+
+
+        Pokedex nationalDex = statTracker.getPokedex();
+        ArrayList nationalDexArray = statTracker.getPokedexArray();
+        ArrayList rundex = runTracker.getRundexArray();
+
+         for (Object runDexEntry : rundex) {
+             nationalDex.addOrUpdateDex((PokedexEntry) runDexEntry);
+         }
     }
 
     public User getUser() {
@@ -45,11 +60,11 @@ public class Challenge {
         this.rounds = rounds;
     }
 
-    public StatTracker getRunTracker() {
+    public RunTracker getRunTracker() {
         return runTracker;
     }
 
-    public void setRunTracker(StatTracker runTracker) {
+    public void setRunTracker(RunTracker runTracker) {
         this.runTracker = runTracker;
     }
 
