@@ -161,8 +161,8 @@ const handlePokemon2HP = (int) => {
     let P1 = null;
     let P2 = null;
 
-    useEffect(()=>{
-        RunBattle(BattleScript)}, [])
+    // useEffect(()=>{
+    //     RunBattle(BattleScript)}, [])
 
 
 const RunBattle = (BattleScript) => {
@@ -170,7 +170,9 @@ const RunBattle = (BattleScript) => {
     setPokemon2MAXHP(BattleScript.trainers[1].team[0].currentHP);
     // music player
     setActivePokemon1State(BattleScript.trainers[0].team[0])
+    console.log(ActivePokemon1State)
     setActivePokemon2State(BattleScript.trainers[1].team[0])
+    console.log(ActivePokemon2State)
 
     BattleScript.script.forEach(turn => {
         console.log("BattleStarted")
