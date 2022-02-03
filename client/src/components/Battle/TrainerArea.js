@@ -3,7 +3,7 @@ import TrainerSprite from './TrainerSprite';
 import ActivePokemon from './ActivePokemon';
 import Bench from './Bench'
 
-const TrainerArea = ({trainer, PokemonState, PokemonHP}) => {
+const TrainerArea = ({trainer, PokemonState, PokemonHP, activePokemon}) => {
 
     // const handle100Click = () => {
     //     handlePokemon1HP(100)    
@@ -17,7 +17,7 @@ const TrainerArea = ({trainer, PokemonState, PokemonHP}) => {
     //     handlePokemon1HP(10)      
     // }
 
-    const activePokemon = trainer.team.find(pokemon => pokemon.isFainted == false);
+    // const activePokemon = trainer.team.find(pokemon => pokemon.isFainted == false);
    
 
     return (
