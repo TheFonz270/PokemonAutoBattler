@@ -32,8 +32,8 @@ public class PokemonService {
         return responseJson;
     };
 
-    public static Pokemon getPokemonObject() throws JSONException {
-        int id = 1;
+    public static Pokemon getPokemonObject(int pokeId) throws JSONException {
+        int id = pokeId;
 
         ResponseEntity<String> result = getPokemon(id);
         String jsonString = result.getBody();
@@ -49,22 +49,29 @@ public class PokemonService {
         JSONObject home = new JSONObject(other.get("home").toString());
         String avatarImg = home.get("front_default").toString();
 
-        //get can evolve
-        JSONObject species = new JSONObject(jsonObject.get("species").toString());
-        String speciesUrl = species.get("url").toString();
-        String evolutionChainUrl = getEvolutionChainUrl(speciesUrl);
-        boolean canEvolve = checkEvolutionChain(evolutionChainUrl);
+//        //get can evolve
+//        JSONObject species = new JSONObject(jsonObject.get("species").toString());
+//        String speciesUrl = species.get("url").toString();
+//        String evolutionChainUrl = getEvolutionChainUrl(speciesUrl);
+//        boolean canEvolve = checkEvolutionChain(evolutionChainUrl);
 
         //get move
-        List movePool = getMovePool(jsonObject);
-        ResponseEntity<String> moveResponse = getMove(movePool);
-        Move activeMove = getMoveObject(moveResponse);
+        ArrayList<String> movePool = getMovePool(jsonObject);
+        Move activeMove = getMoveObject(movePool);
+
+        //get Stats
+        ArrayList<Integer> stats = getStats(jsonObject);
+
+        int hp = stats.get(0);
+        int atk = stats.get(1);
+        int def = stats.get(2);
+        int spAtk = stats.get(3);
+        int spDef = stats.get(4);
+        int speed = stats.get(5);
 
 
-        Pokemon pokemon = new Pokemon(name, avatarImg, activeMove, canEvolve);
-        System.out.println(pokemon.getName());
-        System.out.println(pokemon.getAvatarImage());
-        System.out.println(pokemon.getActiveMove());
+        Pokemon pokemon = new Pokemon(id, name, avatarImg, activeMove, hp, atk, def, spAtk, spDef, speed);
+        pokemon.setMovePool(movePool);
         return pokemon;
     }
 
@@ -108,32 +115,30 @@ public class PokemonService {
         String jsonString = responseJson.getBody();
         JSONObject jsonObject = new JSONObject(jsonString);
         JSONObject chain = new JSONObject(jsonObject.get("chain").toString());
-        List evolvesTo = Collections.singletonList(chain.get("evolves_to").toString());
-        if (evolvesTo.size() != 0) {
+        String evolvesTo = chain.get("evolves_to").toString();
+        JSONArray evolvesToArray = new JSONArray(evolvesTo);
+        if (evolvesToArray.length() != 0) {
             return true;
         }
         return false;
     };
 
-    public static List<String> getMovePool(JSONObject jsonObject) throws JSONException {
-//        List moves = Collections.singletonList(jsonObject.get("moves").toString());
-        JSONObject moves = jsonObject.getJSONObject("moves");
-        JSONObject move = moves.getJSONObject("move");
-        String moveName = move.get("name").toString();
-        List movePool = new ArrayList();
+    public static ArrayList<String> getMovePool(JSONObject jsonObject) throws JSONException {
 
-        movePool.add(moveName);
+        String moves = jsonObject.get("moves").toString();
+        JSONArray jsonArray = new JSONArray(moves);
+        ArrayList movePool = new ArrayList<String>();
 
-//        for (Object move : moves) {
-//            JSONObject jsonMove = new JSONObject(move.toString());
-//            JSONObject jsonMoveMove = new JSONObject(jsonMove.get("move").toString());
-//            String moveName = jsonMoveMove.get("name").toString();
-//            movePool.add(moveName);
-//        }
+        for (int i = 0; i < jsonArray.length(); i++){
+            JSONObject movesObject = jsonArray.getJSONObject(i);
+            JSONObject move = movesObject.getJSONObject("move");
+            String moveName = move.get("name").toString();
+            movePool.add(moveName);
+        }
         return movePool;
     };
 
-    public static ResponseEntity<String> getMove(List<String> movePool) {
+    public static ResponseEntity<String> getMove(ArrayList<String> movePool) {
         Random r = new Random();
         int randomItem = r.nextInt(movePool.size());
         String randomMoveName = movePool.get(randomItem);
@@ -154,7 +159,9 @@ public class PokemonService {
         return responseJson;
     };
 
-    public static Move getMoveObject(ResponseEntity<String> responseMove) throws JSONException {
+    public static Move getMoveObject(ArrayList<String> movePool) throws JSONException {
+
+        ResponseEntity<String> responseMove = getMove(movePool);
 
         HashMap<String , Types> typesConverter = new HashMap<>();
         typesConverter.put("normal", Types.NORMAL);
@@ -199,21 +206,71 @@ public class PokemonService {
 
         //Get move damage power
 
-        int moveDamage = Integer.parseInt(jsonMove.get("power").toString());
+        int moveDamage = 0;
+
+        if (jsonMove.get("power").toString() != "null"){
+            moveDamage = Integer.parseInt(jsonMove.get("power").toString());
+        } else {
+            return getMoveObject(movePool);
+        }
 
         Move activeMove = new Move(moveName, moveType, moveDamageType, moveDamage);
         return activeMove;
 
     }
 
-    public static String printMoveName(JSONObject jsonObject) throws JSONException {
-        JSONObject moves = jsonObject.getJSONObject("moves");
-        JSONObject move = moves.getJSONObject("move");
-        String moveName = move.get("name").toString();
-        System.out.println(moveName);
-        return moveName;
+    public static ArrayList<Integer> getStats(JSONObject jsonObject) throws JSONException {
 
+        String stats = jsonObject.get("stats").toString();
+        JSONArray jsonArray = new JSONArray(stats);
+        ArrayList<Integer> statsPool = new ArrayList<Integer>();
+
+        for (int i = 0; i < jsonArray.length(); i++){
+            JSONObject statsObject = jsonArray.getJSONObject(i);
+            String statValue = statsObject.getString("base_stat");
+            statsPool.add(Integer.valueOf(statValue));
+        }
+        return statsPool;
     };
+
+    public static Pokemon getOnePokemon() throws JSONException {
+
+        Random r = new Random();
+        ArrayList<Integer> excludedIDs = new ArrayList<>(Arrays.asList(132, 235, 202, 291, 290, 292));
+        int randomItem = r.nextInt( 807) + 1;
+        if (excludedIDs.contains(randomItem)) {
+            return getOnePokemon();
+        }
+        Pokemon pokemon = getPokemonObject(randomItem);
+        return pokemon;
+    }
+
+    public static ArrayList<Pokemon> getSixPokemon() throws JSONException {
+
+        Random r = new Random();
+		ArrayList<Integer> excludedIDs = new ArrayList<>(Arrays.asList(132, 235, 202, 291, 290, 292));
+		ArrayList<Integer> randomIDs = new ArrayList<>();
+
+		for (int i = 0; i < 6; i++) {
+			int randomItem = r.nextInt( 807) + 1;
+			if (excludedIDs.contains(randomItem)){
+				i--;
+			} else {
+				randomIDs.add(randomItem);
+				excludedIDs.add(randomItem);
+			}
+		}
+
+        ArrayList<Pokemon> sixPokemon = new ArrayList<>();
+        for (int pokeId : randomIDs){
+            Pokemon newPokemon = getPokemonObject(pokeId);
+            sixPokemon.add(newPokemon);
+        }
+
+        return sixPokemon;
+    }
+
+
 
 
 
