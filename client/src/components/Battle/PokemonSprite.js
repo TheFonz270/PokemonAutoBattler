@@ -1,10 +1,13 @@
 import React, {useState, useEffect} from 'react';
-import poke from "../../assets/img/quilava.png";
+import ActivePokemon from './ActivePokemon';
 
-const PokemonSprite = () => {
+const PokemonSprite = ({activePokemon, Pokemon1State}) => {
+
+// console.log(activePokemon.AvatarImage)
+
     return (
-        <div class="pokemonSprite">
-        <img src={poke}></img>
+        <div className="pokemonSprite">
+        <img className={Pokemon1State} src={activePokemon.AvatarImage}></img>
         </div>
     )
 }

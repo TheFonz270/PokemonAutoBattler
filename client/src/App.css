@@ -75,7 +75,7 @@ main {
 }
 
 .type {
-  width:125px;
+  width:50%;
 }
 
 .trainerArea2 .pokemonSprite img {
@@ -116,6 +116,7 @@ main {
     inset 0 -2px 6px rgba(0, 0, 0, 0.4);
   position: relative;
   overflow: hidden;
+  animation:expandWidth 1s;
 }
 .HpBar > div:after,
 .animate > div > div {
@@ -145,6 +146,11 @@ main {
   overflow: hidden;
 }
 
+@keyframes expandWidth {
+  0% { width: 0%; }
+  100% {width: 100%;}
+}
+
 .animate > div:after {
   display: none;
 }
@@ -156,5 +162,61 @@ main {
   100% {
     background-position: 50px 50px;
   }
+}
+
+.HpBar > .yellow {
+  background-color: rgb(213, 216, 44);
+  background-image: linear-gradient(
+    center bottom,
+    rgb(223, 183, 8) 37%,
+    rgb(217, 235, 59) 69%)
+}
+
+.HpBar > .red {
+  background-color: rgb(216, 44, 44);
+  background-image: linear-gradient(
+    center bottom,
+    rgb(238, 0, 0) 37%,
+    rgb(218, 82, 82) 69%)
+}
+
+/* damage flash effect from https://cssdeck.com/blog/create-a-flash-effect-on-images-on-hover-using-css3/ */
+
+ @-webkit-keyframes flash {
+  0%, 50%, 100% { opacity: 1; }
+  25%, 75% { opacity: 0; }
+ }
+ @keyframes flash {
+  0%, 50%, 100% { opacity: 1; }
+  25%, 75% { opacity: 0; }
+ }
+
+ .damaged {
+  opacity: 1;
+  -webkit-animation: flash 1s;
+  animation: flash 1s;
+ }
+
+ .fainting {
+  animation: fainting 1s;
+ }
+
+ @keyframes fainting {
+  0% {transform: scale(1)}; 
+  50%, 75% {transform: scale(0.4)}
+  100% {transform: scale(0.1)}
+}
+
+@keyframes summoned {
+  0% {transform: scale(0.1)}; 
+  50%, 75% {transform: scale(0.4)}
+  100% {transform: scale(1)}
+}
+.fainted {
+  display:none;
+}
+
+.summoned {
+  animation: summoned 1s;
 }
 

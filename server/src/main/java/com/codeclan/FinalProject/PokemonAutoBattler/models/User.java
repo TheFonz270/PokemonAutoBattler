@@ -63,7 +63,4 @@ public class User {
 
     }
 
-//    public void setStatTracker(StatTracker statTracker) {
-//        this.statTracker = statTracker;
-//    }
 }

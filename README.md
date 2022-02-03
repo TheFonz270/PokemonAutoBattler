@@ -18,3 +18,8 @@ Risks: Re-learning how to use React. Scope is large. Potentially too much for 3 
 Exclusions: Not targeting mobile.
 
 Prerequisites: 
+
+
+References:
+audio files:    https://downloads.khinsider.com/game-soundtracks/album/pokemon-gameboy-sound-collection
+                https://downloads.khinsider.com/game-soundtracks/album/pokemon-let-s-go-pikachu-and-let-s-go-eevee
