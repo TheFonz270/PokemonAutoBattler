@@ -99,7 +99,7 @@ public class TurnScript {
 //        p1activePokemon.takeDamage(damage);
 //    }
 
-    public boolean checkDidP2faint(Pokemon p2activePokemon){
+    public boolean checkDidP2Faint(Pokemon p2activePokemon){
         if (p2activePokemon.getIsFainted() == true){
             return true;
         }
@@ -120,7 +120,7 @@ public class TurnScript {
         return p2activePokemon.getCurrentHP();
     }
 
-    public void playTurn(Trainer userTrainer, Trainer aiTrainer){
+    public void playTurnP1(Trainer userTrainer, Trainer aiTrainer){
         playerFirst(userTrainer, aiTrainer);
         Trainer player1 = setP1(userTrainer, aiTrainer);
         Trainer player2 = setP2(userTrainer, aiTrainer);
@@ -128,8 +128,28 @@ public class TurnScript {
         Pokemon player1ActivePokemon = setP1ActivePokemon(player1);
         Pokemon player2ActivePokemon = setP2ActivePokemon(player2);
         
-//        p1dealDamage(player1ActivePokemon, player2ActivePokemon);
+        p1dealDamage(player1ActivePokemon, player2ActivePokemon);
+        getCurrentHPP2(player2ActivePokemon);
+        checkDidP2Faint(player2ActivePokemon);
+    }
 
+    public void playTurnP2(Trainer userTrainer, Trainer aiTrainer){
+        playerFirst(userTrainer, aiTrainer);
+        Trainer player1 = setP1(userTrainer, aiTrainer);
+        Trainer player2 = setP2(userTrainer, aiTrainer);
+
+        Pokemon player1ActivePokemon = setP1ActivePokemon(player1);
+        Pokemon player2ActivePokemon = setP2ActivePokemon(player2);
+
+        p2dealDamage(player2ActivePokemon, player1ActivePokemon);
+        getCurrentHPP1(player1ActivePokemon);
+        checkDidP1Faint(player1ActivePokemon);
+    }
+//>>>>>>> 243033d1f754342cf3ec83ad084e2827cb2329a6
+
+    public void playWholeTurn(Trainer userTrainer, Trainer aiTrainer){
+        playTurnP1(userTrainer, aiTrainer);
+        playTurnP2(userTrainer, aiTrainer);
     }
 
 
