@@ -28,8 +28,8 @@ public class BattlePhaseTest {
         red = new Trainer(3000, "red.png");
         blue = new Trainer(5000, "blue.png");
 
-        fire_punch = new Move("Fire Punch", Types.FIRE, DamageType.PHYSICAL, 90);
-        water_pulse = new Move("Water Pulse", Types.WATER, DamageType.SPECIAL, 120);
+        fire_punch = new Move("Fire Punch", "fire", DamageType.PHYSICAL, 90);
+        water_pulse = new Move("Water Pulse", "fire", DamageType.SPECIAL, 120);
 
 
 
@@ -39,9 +39,9 @@ public class BattlePhaseTest {
         quilava.calculateEffectiveStats();
         honedge.calculateEffectiveStats();
 
-        quilava.addType(Types.FIRE);
-        honedge.addType(Types.GHOST);
-        honedge.addType(Types.STEEL);
+        quilava.addType("fire");
+        honedge.addType("ghost");
+        honedge.addType("steel");
 
         battlePhase = new BattlePhase("VS Champion Blue");
     }
