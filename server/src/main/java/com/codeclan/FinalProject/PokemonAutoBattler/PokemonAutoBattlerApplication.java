@@ -3,6 +3,7 @@ package com.codeclan.FinalProject.PokemonAutoBattler;
 import com.codeclan.FinalProject.PokemonAutoBattler.models.Move;
 import com.codeclan.FinalProject.PokemonAutoBattler.models.Pokemon;
 //import com.codeclan.FinalProject.PokemonAutoBattler.services.PokemonService;
+import com.codeclan.FinalProject.PokemonAutoBattler.services.PokemonService;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,7 +24,7 @@ import java.util.Random;
 @SpringBootApplication
 public class PokemonAutoBattlerApplication {
 
-//	static PokemonService pokemonService;
+	static PokemonService pokemonService;
 
 	public static void main(String[] args) throws JSONException {
 		SpringApplication.run(PokemonAutoBattlerApplication.class, args);
