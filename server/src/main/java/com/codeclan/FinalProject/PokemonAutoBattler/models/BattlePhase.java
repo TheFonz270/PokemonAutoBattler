@@ -101,15 +101,15 @@ public class BattlePhase {
         return 1;
     }
 
-    public double effectivenessLookup(Pokemon attackingPokemon, Pokemon defendingPokemon){
-        int effectiveness = 0;
-
-        Types attackingType = attackingPokemon.getActiveMove().getType();
-        ArrayList<Types> defendingTypes = defendingPokemon.getTypes();
-
-
-        return effectiveness;
-    }
+//    public double effectivenessLookup(Pokemon attackingPokemon, Pokemon defendingPokemon){
+//        int effectiveness = 0;
+//
+//        Types attackingType = attackingPokemon.getActiveMove().getType();
+//        ArrayList<Types> defendingTypes = defendingPokemon.getTypes();
+//
+//
+//        return effectiveness;
+//    }
 
 //    public HashMap<Types, ArrayList<ArrayList<Types>>> effectivness() {
 //

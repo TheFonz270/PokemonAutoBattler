@@ -3,11 +3,11 @@ package com.codeclan.FinalProject.PokemonAutoBattler.models;
 public class Move {
 
     private String name;
-    private Types type;
+    private String type;
     private DamageType damageType;
     private int damage;
 
-    public Move(String name, Types type, DamageType damageType, int damage) {
+    public Move(String name, String type, DamageType damageType, int damage) {
         this.name = name;
         this.type = type;
         this.damageType = damageType;
@@ -22,11 +22,11 @@ public class Move {
         this.name = name;
     }
 
-    public Types getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(Types type) {
+    public void setType(String type) {
         this.type = type;
     }
 

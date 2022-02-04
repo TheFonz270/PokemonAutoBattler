@@ -9,7 +9,7 @@ public class Pokemon {
     private int pokemonId;
     private String name;
     private String avatarImage;
-    private ArrayList<Types> types;
+    private ArrayList<String> types;
     private ArrayList<String> movePool;
     private Move activeMove;
     private StarLevel level;
@@ -17,6 +17,8 @@ public class Pokemon {
     private HashMap<String, Integer> effectiveStats;
     private boolean canEvolve;
     private boolean isFainted;
+
+    private Trainer trainer;
 
     private int currentHP;
     int hp;
@@ -51,6 +53,7 @@ public class Pokemon {
         this.effectiveStats = new HashMap<String, Integer>();
         this.isFainted = false;
         this.currentHP = 0;
+        this.trainer = trainer;
 
 
     }
@@ -75,11 +78,11 @@ public class Pokemon {
         this.avatarImage = avatarImage;
     }
 
-    public ArrayList<Types> getTypes() {
+    public ArrayList<String> getTypes() {
         return types;
     }
 
-    public void setTypes(ArrayList<Types> types) {
+    public void setTypes(ArrayList<String> types) {
         this.types = types;
     }
 
@@ -295,7 +298,7 @@ public class Pokemon {
     }
 
 
-    public void addType(Types type) {
+    public void addType(String type) {
         types.add(type);
     }
 }

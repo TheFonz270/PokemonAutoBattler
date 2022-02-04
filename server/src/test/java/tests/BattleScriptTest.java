@@ -29,8 +29,8 @@ public class BattleScriptTest {
 
     @BeforeAll
     static void beforeAll(){
-        fire_punch = new Move("Fire Punch", Types.FIRE, DamageType.PHYSICAL, 75);
-        water_pulse = new Move("Water Pulse", Types.WATER, DamageType.SPECIAL, 60);
+        fire_punch = new Move("Fire Punch", "fire", DamageType.PHYSICAL, 75);
+        water_pulse = new Move("Water Pulse", "water", DamageType.SPECIAL, 60);
 
         quilava = new Pokemon(159,"Quilava", "quilava.png", fire_punch, 58,64,58,80,65,90);
         honedge = new Pokemon(657, "Honedge", "honedge.png", water_pulse, 45, 80, 100,35, 37,28);
