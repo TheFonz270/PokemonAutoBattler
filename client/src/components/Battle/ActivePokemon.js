@@ -6,13 +6,13 @@ import Types from './Types';
 import PokemonSprite from './PokemonSprite'
 
 
-const ActivePokemon = ({Pokemon1State, Pokemon1HP, activePokemon}) => {
+const ActivePokemon = ({PokemonState, PokemonHP, activePokemon}) => {
     return (
         <div className="ActivePokemon">
             <NameBar activePokemon={activePokemon}/>
             <Types activePokemon={activePokemon}/>
-            <HpBar Pokemon1HP={Pokemon1HP}/>
-            <PokemonSprite activePokemon={activePokemon} Pokemon1State={Pokemon1State}/>
+            <HpBar PokemonHP={PokemonHP}/>
+            <PokemonSprite activePokemon={activePokemon} PokemonState={PokemonState}/>
             <Move activePokemon={activePokemon}/>
         </div>
     )
