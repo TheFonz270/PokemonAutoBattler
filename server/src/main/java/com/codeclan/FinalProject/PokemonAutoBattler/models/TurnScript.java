@@ -89,14 +89,16 @@ public class TurnScript {
     }
 
 
-    public void p1dealDamage(Pokemon p1activePokemon, Pokemon p2activePokemon) {
+    public int p1dealDamage(Pokemon p1activePokemon, Pokemon p2activePokemon) {
         int damage = (int) BattlePhase.damageCalculation(p1activePokemon, p2activePokemon);
             p2activePokemon.takeDamage(damage);
+            return damage;
     }
 
-    public void p2dealDamage(Pokemon p1activePokemon, Pokemon p2activePokemon) {
+    public int p2dealDamage(Pokemon p1activePokemon, Pokemon p2activePokemon) {
         int damage = (int) BattlePhase.damageCalculation(p2activePokemon, p1activePokemon);
         p1activePokemon.takeDamage(damage);
+        return damage;
     }
 
     public boolean checkDidP2Faint(Pokemon p2activePokemon){
@@ -120,39 +122,68 @@ public class TurnScript {
         return p2activePokemon.getCurrentHP();
     }
 
-    public void playTurnP1(Trainer userTrainer, Trainer aiTrainer){
+    public boolean playTurnP1(Trainer userTrainer, Trainer aiTrainer){
         playerFirst(userTrainer, aiTrainer);
         Trainer player1 = setP1(userTrainer, aiTrainer);
         Trainer player2 = setP2(userTrainer, aiTrainer);
 
         Pokemon player1ActivePokemon = setP1ActivePokemon(player1);
         Pokemon player2ActivePokemon = setP2ActivePokemon(player2);
+
+        System.out.println("First part of turn readout: Player 1's " + player1ActivePokemon.getName()+  "'s currentHP: " + player1ActivePokemon.getCurrentHP()+ ", Player 2's " + player2ActivePokemon.getName() + "'s currentHP: " + player2ActivePokemon.getCurrentHP());
+
 
         p1dealDamage(player1ActivePokemon, player2ActivePokemon);
+        System.out.println(player1ActivePokemon.getName() + " used " + player1ActivePokemon.getActiveMove().getName() +  " on " + player2ActivePokemon.getName());
         getCurrentHPP2(player2ActivePokemon);
         checkDidP2Faint(player2ActivePokemon);
+        if (checkDidP2Faint(player2ActivePokemon)){
+            System.out.println("player 1 currentHP " + player1ActivePokemon.getCurrentHP()+ ", player 2 currentHP " + player2ActivePokemon.getCurrentHP());
+            System.out.println("Player 2's pokemon fainted!");
+            return true;
+        } else {
+            playTurnP2(player1, player2);
+            return false;
+        }
     }
 
-    public void playTurnP2(Trainer userTrainer, Trainer aiTrainer){
+    public boolean playTurnP2(Trainer userTrainer, Trainer aiTrainer){
         playerFirst(userTrainer, aiTrainer);
         Trainer player1 = setP1(userTrainer, aiTrainer);
         Trainer player2 = setP2(userTrainer, aiTrainer);
 
         Pokemon player1ActivePokemon = setP1ActivePokemon(player1);
         Pokemon player2ActivePokemon = setP2ActivePokemon(player2);
+        System.out.println("Second part of turn readout: Player 1's " + player1ActivePokemon.getName()+  "'s currentHP: " + player1ActivePokemon.getCurrentHP()+ ", Player 2's " + player2ActivePokemon.getName() + "'s currentHP: " + player2ActivePokemon.getCurrentHP());
 
-        p2dealDamage(player2ActivePokemon, player1ActivePokemon);
+        p2dealDamage(player1ActivePokemon, player2ActivePokemon);
+        System.out.println(player2ActivePokemon.getName() + " used " + player2ActivePokemon.getActiveMove().getName() +  " on " + player1ActivePokemon.getName());
         getCurrentHPP1(player1ActivePokemon);
         checkDidP1Faint(player1ActivePokemon);
+        if (checkDidP1Faint(player1ActivePokemon)){
+            System.out.println("player 1 currentHP " + player1ActivePokemon.getCurrentHP()+ ", player 2 currentHP " + player2ActivePokemon.getCurrentHP());
+            System.out.println("Player 1's pokemon fainted!");
+            return true;
+        } else {
+            playTurnP1(player1, player2);
+            return false;
+        }
     }
 
-    public void playWholeTurn(Trainer userTrainer, Trainer aiTrainer){
-        playTurnP1(userTrainer, aiTrainer);
-        playTurnP2(userTrainer, aiTrainer);
+//    public String playWholeTurn(Trainer userTrainer, Trainer aiTrainer) {
+//        playTurnP1(userTrainer, aiTrainer);
+//        if (playTurnP1(userTrainer, aiTrainer) == false) {
+//            playTurnP2(userTrainer, aiTrainer);
+//            return "It's player 2's turn now!";
+//        } else {
+//            return "P2's pokemon has fainted!";
+//        }
+//    }
+
     }
 
 
 
 
 
-}
+
