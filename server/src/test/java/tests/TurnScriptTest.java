@@ -88,6 +88,8 @@ public class TurnScriptTest {
         assertEquals(quilava2, turnScript.setP1ActivePokemon(red));
         quilava2.faint();
         assertEquals(quilava3, turnScript.setP1ActivePokemon(red));
+        quilava3.faint();
+        assertEquals(null, turnScript.setP1ActivePokemon(red));
     }
 
     @Test
@@ -145,9 +147,20 @@ public class TurnScriptTest {
     }
 
     @Test
-    public void canPlayTurn(){
-
+    public void canPlayTurnP1(){
+//        turnScript.playTurnP1(red, blue);
+        assertEquals(false,turnScript.playTurnP1(red, blue));
     }
+
+    @Test
+    public void canPlayTurnP2(){
+        assertEquals(false,turnScript.playTurnP2(red, blue));
+    }
+
+//    @Test
+//    public void canPlayWholeTurn(){
+//        assertEquals("It's player 2's turn now!", turnScript.playWholeTurn(red, blue));
+//    }
 
 
 }

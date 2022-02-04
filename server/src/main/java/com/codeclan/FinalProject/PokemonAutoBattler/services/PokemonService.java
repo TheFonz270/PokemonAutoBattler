@@ -49,6 +49,7 @@ public class PokemonService {
         JSONObject home = new JSONObject(other.get("home").toString());
         String avatarImg = home.get("front_default").toString();
 
+
 //        //get can evolve
 //        JSONObject species = new JSONObject(jsonObject.get("species").toString());
 //        String speciesUrl = species.get("url").toString();
@@ -295,3 +296,4 @@ public class PokemonService {
 
 
 }
+

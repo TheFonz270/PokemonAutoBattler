@@ -80,4 +80,5 @@ public class BattlePhaseTest {
     public void canDamageCalculation2(){
         assertEquals(23, battlePhase.damageCalculation(honedge, quilava));
     }
+
 }
