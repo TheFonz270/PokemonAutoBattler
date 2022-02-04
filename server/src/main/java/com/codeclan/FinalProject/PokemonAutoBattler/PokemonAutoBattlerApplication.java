@@ -13,7 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.reactive.function.client.WebClient;
+//import org.springframework.web.reactive.function.client.WebClient;
 
 import java.sql.SQLOutput;
 import java.util.ArrayList;
@@ -49,10 +49,10 @@ public class PokemonAutoBattlerApplication {
 //		ArrayList<String> types = pokemonService.getPokemonTypes(jsonObject);
 //		System.out.println(types);
 
-		ArrayList<Pokemon> sixPokemon = pokemonService.getSixPokemon();
-		for (Pokemon pokemon : sixPokemon) {
-			System.out.println(pokemon.getName());
-		}
+//		ArrayList<Pokemon> sixPokemon = pokemonService.getSixPokemon();
+//		for (Pokemon pokemon : sixPokemon) {
+//			System.out.println(pokemon.getName());
+//		}
 
 	}
 

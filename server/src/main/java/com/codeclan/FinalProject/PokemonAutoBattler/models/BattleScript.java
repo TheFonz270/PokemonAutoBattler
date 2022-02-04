@@ -12,6 +12,8 @@ public class BattleScript {
 
     private TurnScript turnScript;
 
+    private ArrayList<Trainer> trainers;
+
     private ArrayList<TurnScript> turnScripts;
 
     private Trainer winningTrainer;

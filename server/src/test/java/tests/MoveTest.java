@@ -19,8 +19,8 @@ public class MoveTest {
     @BeforeAll
     static void beforeAll() {
 
-        fire_punch = new Move("Fire Punch", Types.FIRE, DamageType.PHYSICAL, 90);
-        water_pulse= new Move("Water Pulse", Types.WATER, DamageType.SPECIAL, 120);
+        fire_punch = new Move("Fire Punch", "fire", DamageType.PHYSICAL, 90);
+        water_pulse= new Move("Water Pulse", "water", DamageType.SPECIAL, 120);
     }
 
     @Test
