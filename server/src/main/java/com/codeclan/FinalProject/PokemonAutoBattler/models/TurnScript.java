@@ -132,7 +132,6 @@ public class TurnScript {
 
         System.out.println("First part of turn readout: Player 1's " + player1ActivePokemon.getName()+  "'s currentHP: " + player1ActivePokemon.getCurrentHP()+ ", Player 2's " + player2ActivePokemon.getName() + "'s currentHP: " + player2ActivePokemon.getCurrentHP());
 
-
         p1dealDamage(player1ActivePokemon, player2ActivePokemon);
         System.out.println(player1ActivePokemon.getName() + " used " + player1ActivePokemon.getActiveMove().getName() +  " on " + player2ActivePokemon.getName());
         getCurrentHPP2(player2ActivePokemon);
@@ -169,6 +168,7 @@ public class TurnScript {
             return false;
         }
     }
+//>>>>>>> 243033d1f754342cf3ec83ad084e2827cb2329a6
 
 //    public String playWholeTurn(Trainer userTrainer, Trainer aiTrainer) {
 //        playTurnP1(userTrainer, aiTrainer);

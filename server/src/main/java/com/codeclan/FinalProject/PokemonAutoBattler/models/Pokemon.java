@@ -1,18 +1,16 @@
 package com.codeclan.FinalProject.PokemonAutoBattler.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class Pokemon {
 
     private int pokemonId;
     private String name;
     private String avatarImage;
     private ArrayList<Types> types;
-    private ArrayList<Move> movePool;
+    private ArrayList<String> movePool;
     private Move activeMove;
     private StarLevel level;
     private HashMap<String, Integer> baseStats;
@@ -85,11 +83,11 @@ public class Pokemon {
         this.types = types;
     }
 
-    public ArrayList<Move> getMovePool() {
+    public ArrayList<String> getMovePool() {
         return movePool;
     }
 
-    public void setMovePool(ArrayList<Move> movePool) {
+    public void setMovePool(ArrayList<String> movePool) {
         this.movePool = movePool;
     }
 
@@ -190,7 +188,7 @@ public class Pokemon {
         return movePool.size();
     }
 
-    public void addToMovePool(Move move) {
+    public void addToMovePool(String move) {
         movePool.add(move);
     }
 
