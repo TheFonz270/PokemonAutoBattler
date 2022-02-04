@@ -49,10 +49,12 @@ public class PokemonAutoBattlerApplication {
 //		ArrayList<String> types = pokemonService.getPokemonTypes(jsonObject);
 //		System.out.println(types);
 
-//		ArrayList<Pokemon> sixPokemon = pokemonService.getSixPokemon();
-//		for (Pokemon pokemon : sixPokemon) {
-//			System.out.println(pokemon.getName());
-//		}
+		ArrayList<Pokemon> sixPokemon = pokemonService.getSixPokemon();
+		for (Pokemon pokemon : sixPokemon) {
+			System.out.println("name - " + pokemon.getName());
+			System.out.println("types - " + pokemon.getTypes());
+			System.out.println("can evolve? - " + pokemon.canEvolve());
+		}
 
 	}
 

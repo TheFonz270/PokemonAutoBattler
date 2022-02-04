@@ -49,12 +49,16 @@ public class PokemonService {
         JSONObject home = new JSONObject(other.get("home").toString());
         String avatarImg = home.get("front_default").toString();
 
+        // get pokemon types
 
-//        //get can evolve
-//        JSONObject species = new JSONObject(jsonObject.get("species").toString());
-//        String speciesUrl = species.get("url").toString();
-//        String evolutionChainUrl = getEvolutionChainUrl(speciesUrl);
-//        boolean canEvolve = checkEvolutionChain(evolutionChainUrl);
+        ArrayList<String> types = getPokemonTypes(jsonObject);
+
+
+        //get can evolve
+        JSONObject species = new JSONObject(jsonObject.get("species").toString());
+        String speciesUrl = species.get("url").toString();
+        String evolutionChainUrl = getEvolutionChainUrl(speciesUrl);
+        boolean canEvolve = checkEvolutionChain(evolutionChainUrl);
 
         //get move
         ArrayList<String> movePool = getMovePool(jsonObject);
@@ -73,6 +77,8 @@ public class PokemonService {
 
         Pokemon pokemon = new Pokemon(id, name, avatarImg, activeMove, hp, atk, def, spAtk, spDef, speed);
         pokemon.setMovePool(movePool);
+        pokemon.setTypes(types);
+        pokemon.setCanEvolve(canEvolve);
         return pokemon;
     }
 
@@ -164,26 +170,6 @@ public class PokemonService {
 
         ResponseEntity<String> responseMove = getMove(movePool);
 
-        HashMap<String , Types> typesConverter = new HashMap<>();
-        typesConverter.put("normal", Types.NORMAL);
-        typesConverter.put("fire", Types.FIRE);
-        typesConverter.put("water", Types.WATER);
-        typesConverter.put("electric", Types.ELECTRIC);
-        typesConverter.put("grass", Types.GRASS);
-        typesConverter.put("ice", Types.ICE);
-        typesConverter.put("fighting", Types.FIGHTING);
-        typesConverter.put("poison", Types.POISON);
-        typesConverter.put("ground", Types.GROUND);
-        typesConverter.put("flying", Types.FLYING);
-        typesConverter.put("psychic", Types.PSYCHIC);
-        typesConverter.put("bug", Types.BUG);
-        typesConverter.put("rock", Types.ROCK);
-        typesConverter.put("ghost", Types.GHOST);
-        typesConverter.put("dragon", Types.DRAGON);
-        typesConverter.put("dark", Types.DARK);
-        typesConverter.put("steel", Types.STEEL);
-        typesConverter.put("fairy", Types.FAIRY);
-
         HashMap<String, DamageType> damageTypeConverter = new HashMap<>();
         damageTypeConverter.put("physical", DamageType.PHYSICAL);
         damageTypeConverter.put("special", DamageType.SPECIAL);
@@ -197,8 +183,7 @@ public class PokemonService {
 
         //Get move type from jsonObject
         JSONObject jsonType = new JSONObject(jsonMove.get("type").toString());
-        String typeName = jsonType.get("name").toString();
-        Types moveType = typesConverter.get(typeName);
+        String moveType = jsonType.get("name").toString();
 
         //Get damage type from jsonObject
         JSONObject jsonDamageClass = new JSONObject(jsonMove.get("damage_class").toString());
