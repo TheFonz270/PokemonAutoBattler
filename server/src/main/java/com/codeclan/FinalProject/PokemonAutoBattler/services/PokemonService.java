@@ -79,6 +79,7 @@ public class PokemonService {
         pokemon.setMovePool(movePool);
         pokemon.setTypes(types);
         pokemon.setCanEvolve(canEvolve);
+        pokemon.setEffectiveStats(pokemon.calculateEffectiveStats());
         return pokemon;
     }
 

@@ -24,7 +24,7 @@ import java.util.Random;
 @SpringBootApplication
 public class PokemonAutoBattlerApplication {
 
-	static PokemonService pokemonService;
+//	static PokemonService pokemonService;
 
 	public static void main(String[] args) throws JSONException {
 		SpringApplication.run(PokemonAutoBattlerApplication.class, args);
@@ -49,12 +49,12 @@ public class PokemonAutoBattlerApplication {
 //		ArrayList<String> types = pokemonService.getPokemonTypes(jsonObject);
 //		System.out.println(types);
 
-		ArrayList<Pokemon> sixPokemon = pokemonService.getSixPokemon();
-		for (Pokemon pokemon : sixPokemon) {
-			System.out.println("name - " + pokemon.getName());
-			System.out.println("types - " + pokemon.getTypes());
-			System.out.println("can evolve? - " + pokemon.canEvolve());
-		}
+//		ArrayList<Pokemon> sixPokemon = pokemonService.getSixPokemon();
+//		for (Pokemon pokemon : sixPokemon) {
+//			System.out.println("name - " + pokemon.getName());
+//			System.out.println("types - " + pokemon.getTypes());
+//			System.out.println("can evolve? - " + pokemon.canEvolve());
+//		}
 
 	}
 

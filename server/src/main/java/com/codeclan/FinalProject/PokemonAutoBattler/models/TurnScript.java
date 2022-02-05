@@ -73,7 +73,7 @@ public class TurnScript {
 
     public Pokemon setActivePokemon(Trainer trainer){
         Pokemon activePokemon;
-        ArrayList<Pokemon> pokemons = trainer.getPokemons();
+        List<Pokemon> pokemons = trainer.getPokemons();
         activePokemon = pokemons.stream().filter(pokemon -> pokemon.getIsFainted() == false).findFirst().orElse(null);
         return activePokemon;
     }
