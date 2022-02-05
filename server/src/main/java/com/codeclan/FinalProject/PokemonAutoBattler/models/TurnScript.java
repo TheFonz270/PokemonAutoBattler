@@ -168,17 +168,9 @@ public class TurnScript {
             return false;
         }
     }
-//>>>>>>> 243033d1f754342cf3ec83ad084e2827cb2329a6
 
-//    public String playWholeTurn(Trainer userTrainer, Trainer aiTrainer) {
-//        playTurnP1(userTrainer, aiTrainer);
-//        if (playTurnP1(userTrainer, aiTrainer) == false) {
-//            playTurnP2(userTrainer, aiTrainer);
-//            return "It's player 2's turn now!";
-//        } else {
-//            return "P2's pokemon has fainted!";
-//        }
-//    }
+
+
 
     }
 
