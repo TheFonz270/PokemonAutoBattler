@@ -1,11 +1,13 @@
 import logo from './logo.svg';
 import './App.css';
 import BattleContainer from './containers/BattleContainer';
+import MaintenanceContainer from './containers/MaintenanceContainer'
 
 function App() {
   return (
     <main>
-      <BattleContainer />
+      <MaintenanceContainer />
+      {/* <BattleContainer /> */}
     </main>
   );
 }

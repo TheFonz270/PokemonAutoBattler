@@ -6,14 +6,11 @@ body, html {
 }
 
 #root {
-  height:100%;
-  background-image: url("./assets/img/StadiumBG.png");
-  background-size: 100%;
-  background-repeat: no-repeat;
+  
 }
 
 main {
-  width:90%;
+  width:100%;
   margin:0 auto;
   height:100%;
 }
@@ -21,11 +18,15 @@ main {
 #Arena {
   width:100%;
   display:flex;
+  height:100%;
+  background-image: url("./assets/img/StadiumBG.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
 }
 
 .trainerArea {
   width:40%;
-  margin: 21% 5% 0;
+  margin: 21% 5% 6%;
   display:flex;
 }
 
@@ -50,9 +51,20 @@ main {
   height:auto;
 }
 
+.pokemonSprite {
+  position:relative;
+}
+
 .pokemonSprite img {
   width : 100%;
   height : auto;
+  position:relative;
+}
+
+.pokemonSprite > .star {
+  position : absolute;
+  top:0px;
+  width:32px;
 }
 
 .nameBar {
@@ -77,6 +89,7 @@ main {
 .type {
   width:50%;
 }
+
 
 .trainerArea2 .pokemonSprite img {
     transform: scaleX(-1);
@@ -220,3 +233,47 @@ main {
   animation: summoned 1s;
 }
 
+/* MAINTENANCE PHASE */
+
+.MaintenanceArea {
+  display:flex;
+}
+
+.pokemonWindow {
+  width : 30%;
+  margin:0 2%;
+  padding:10px;
+  background: #eee;
+  border-radius: 15px;
+  border-top:2px solid orangered;
+  border-right:2px solid orangered;
+  border-bottom:2px solid blue;
+  border-left:2px solid blue;
+  color:#222;
+}
+
+.maintenanceNameBar {
+  text-align:center;
+}
+
+.maintenanceNameBar p {
+padding:2px; 
+font-size:22px;
+border-bottom: 2px solid #222;
+margin-bottom:15px;
+max-width:50%;
+  margin:0 auto;
+}
+
+.maintenanceMove {
+  text-align:center;
+}
+
+.maintenanceMove p {
+  display:block;
+  border:2px solid #222;
+  padding:2px;
+  font-size:18px;
+  max-width:50%;
+  margin:0 auto;
+}
