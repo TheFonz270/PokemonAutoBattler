@@ -2,6 +2,7 @@ package com.codeclan.FinalProject.PokemonAutoBattler.models;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -51,9 +52,10 @@ public class Pokemon {
     @Column(name = "isFainted")
     private boolean isFainted;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "trainer_id")
     @JsonIgnoreProperties({"pokemons"})
+    @JsonBackReference
     private Trainer trainer;
 
     private int currentHP;
@@ -304,27 +306,28 @@ public class Pokemon {
         return level.level;
     }
 
-    public int getEffectiveHP() {
+
+    public Integer getEffectiveHP() {
         return effectiveStats.get("HP");
     }
 
-    public int getEffectiveAtk() {
+    public Integer getEffectiveAtk() {
         return effectiveStats.get("Atk");
     }
 
-    public int getEffectiveDef() {
+    public Integer getEffectiveDef() {
         return effectiveStats.get("Def");
     }
 
-    public int getEffectiveSpAtk() {
+    public Integer getEffectiveSpAtk() {
         return effectiveStats.get("SpAtk");
     }
 
-    public int getEffectiveSpDef() {
+    public Integer getEffectiveSpDef() {
         return effectiveStats.get("SpDef");
     }
 
-    public int getEffectiveSpeed() {
+    public Integer getEffectiveSpeed() {
         return effectiveStats.get("Speed");
     }
 
@@ -347,5 +350,13 @@ public class Pokemon {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Trainer getTrainer() {
+        return trainer;
+    }
+
+    public void setTrainer(Trainer trainer) {
+        this.trainer = trainer;
     }
 }
