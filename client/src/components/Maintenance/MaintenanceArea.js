@@ -10,7 +10,6 @@ const MaintenanceArea = ({trainer}) => {
 
     return (
         <div class="MaintenanceArea">
-            <BattleButton />
             {pokemonWindows}
         </div>
     )

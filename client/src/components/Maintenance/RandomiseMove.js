@@ -4,7 +4,7 @@ const RandomiseMove = ({trainer, pokemon}) => {
 
     return (
         <div class="randomiseMove">
-            <button>RandomiseMove</button>
+            <button>Randomise Move</button> <button class="ptsCost">2 pts</button>
         </div>
     )
 }

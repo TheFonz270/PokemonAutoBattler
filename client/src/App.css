@@ -79,15 +79,17 @@ main {
 .moveName {
   margin-top:20px;
   display : block;
-  background:orange;
   color:#222;
   padding:2px;
   font-size:21px;
   border: 2px solid #222;
+  width:80%;
+  text-align:center;
 }
 
 .type {
   width:50%;
+  max-width:139px;
 }
 
 
@@ -98,6 +100,26 @@ main {
 .trainerArea1 .trainerSprite img {
   transform: scaleX(-1);
 }
+
+/* POKEMON TYPES https://www.epidemicjohto.com/t882-type-colors-hex-colors */
+
+.Fire {background-color: #EE8130;}
+.Water {background-color:  #6390F0;}
+.Electric {background-color: #F7D02C;}
+.Grass {background-color:#7AC74C;}
+.Ice {background-color:96D9D6;}
+.Fighting {background-color:#C22E28;}
+.Poison {background-color:  #A33EA1;}
+.Ground {background-color: #E2BF65;}
+.Flying {background-color: #A98FF3;}
+.Psychic {background-color: #F95587;}
+.Bug {background-color: #A6B91A;}
+.Rock {background-color: #B6A136;}
+.Ghost {background-color: #735797;}
+.Dragon {background-color: #6F35FC;}
+.Dark {background-color: #705746;}
+.Steel {background-color: #B7B7CE;}
+.Fairy {background-color: #D685AD;}
 
 
 
@@ -245,22 +267,22 @@ main {
   padding:10px;
   background: #eee;
   border-radius: 15px;
-  border-top:2px solid orangered;
-  border-right:2px solid orangered;
-  border-bottom:2px solid blue;
-  border-left:2px solid blue;
+  border-top:2px solid #FB1B1B;
+  border-right:2px solid #FB1B1B;
+  border-bottom:2px solid #0075BE;
+  border-left:2px solid #0075BE;
   color:#222;
 }
 
 .maintenanceNameBar {
   text-align:center;
+  margin-bottom:15px;
 }
 
 .maintenanceNameBar p {
 padding:2px; 
 font-size:22px;
 border-bottom: 2px solid #222;
-margin-bottom:15px;
 max-width:50%;
   margin:0 auto;
 }
@@ -276,4 +298,56 @@ max-width:50%;
   font-size:18px;
   max-width:50%;
   margin:0 auto;
+}
+
+.MaintenanceMenu {
+  margin:25px auto;
+}
+
+.MaintenanceMenu button {
+  width:55%;
+  padding:2px;
+  font-size:16px;
+  background: #FB1B1B;
+  color: #eee;
+  border:none;
+  margin:10px auto;
+  border-radius:10px;
+  height:50px;
+}
+
+.MaintenanceMenu button:hover {
+  background:salmon;
+}
+
+button.ptsCost {
+  text-align:center;
+  display:inline-block;
+  width:25%;
+  border-radius: 50px;
+  background:#0075BE;
+  float:right;
+}
+
+button.ptsCost:hover {
+  background:#0075BE;
+}
+
+.battleButton {
+  
+}
+
+.battleButton button {
+  display:block;
+  background: #37796C;
+  color: #eee;
+  font-size:25px;
+  padding:10px;
+  border:none;
+  border-radius:5px;
+  margin:15px auto;
+}
+
+.battleButton button:hover {
+  background: #4DAD5B;
 }

@@ -4,7 +4,7 @@ const MaintenanceMove = ({pokemon}) => {
 
     return (
         <div class="maintenanceMove">
-        <p>{pokemon.ActiveMove.name}</p>
+        <p class={`${pokemon.ActiveMove.type}`}>{pokemon.ActiveMove.name}</p>
         </div>
     )
 }

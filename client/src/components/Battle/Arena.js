@@ -29,6 +29,13 @@ const Arena = () => {
         Damage : 80
     }
 
+    const thunderbolt = {
+        name : "Thunderbolt",
+        type : "Electric",
+        DamageType : "Special",
+        Damage : 80
+    }
+
     const quilava = {
         pokemonId : 159,
         name : "quilava",
@@ -46,7 +53,7 @@ const Arena = () => {
         pokemonId : 25,
         name : "pikachu",
         AvatarImage : "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/25.png",
-        ActiveMove : fire_punch,
+        ActiveMove : thunderbolt,
         level : 17,
         canEvolve : true,
         currentHp : 120,

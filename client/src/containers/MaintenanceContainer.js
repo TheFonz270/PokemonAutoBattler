@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import MaintenanceArea from '../components/Maintenance/MaintenanceArea';
+import BattleButton from '../components/Maintenance/BattleButton';
 
 const fire_punch = {
     name : "Fire Punch",
@@ -12,6 +13,13 @@ const iron_head = {
     name : "Iron Head",
     type : "Steel",
     DamageType : "Physical",
+    Damage : 80
+}
+
+const thunderbolt = {
+    name : "Thunderbolt",
+    type : "Electric",
+    DamageType : "Special",
     Damage : 80
 }
 
@@ -32,7 +40,7 @@ const pikachu = {
     pokemonId : 25,
     name : "pikachu",
     AvatarImage : "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/25.png",
-    ActiveMove : fire_punch,
+    ActiveMove : thunderbolt,
     level : 17,
     canEvolve : true,
     currentHp : 120,
@@ -60,10 +68,11 @@ const trainer = {
     pokeDollars : 10
 }
 
-const MaintenanceContainer = () => {
+const MaintenanceContainer = ({handleScreenState}) => {
     return (
         <>
         <MaintenanceArea trainer={trainer}/>
+        <BattleButton handleScreenState={handleScreenState}/>
         </>
     )
 }
