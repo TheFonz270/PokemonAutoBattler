@@ -1,23 +1,59 @@
 package com.codeclan.FinalProject.PokemonAutoBattler.models;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+@Entity
+@Table(name = "pokemons")
 public class Pokemon {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "pokemon_id")
     private int pokemonId;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "avatar_image")
     private String avatarImage;
+
+    @Column(name = "types")
     private ArrayList<String> types;
+
+    @Column(name = "move_pool")
     private ArrayList<String> movePool;
+
+    //might need to be changed to one-to-one
+    @OneToOne
+    @JoinColumn(name = "active_move_id")
     private Move activeMove;
+
+    @Column(name = "star_level")
     private StarLevel level;
+
+    @Column(name = "base_stats")
     private HashMap<String, Integer> baseStats;
+
+    @Column(name = "effective_stats", nullable = true)
     private HashMap<String, Integer> effectiveStats;
+
+    @Column(name = "can_evolve")
     private boolean canEvolve;
+
+    @Column(name = "isFainted")
     private boolean isFainted;
 
+    @ManyToOne
+    @JoinColumn(name = "trainer_id")
+    @JsonIgnoreProperties({"pokemons"})
     private Trainer trainer;
 
     private int currentHP;
@@ -53,9 +89,12 @@ public class Pokemon {
         this.effectiveStats = new HashMap<String, Integer>();
         this.isFainted = false;
         this.currentHP = 0;
-        this.trainer = trainer;
+        this.trainer = null;
 
 
+    }
+
+    public Pokemon() {
     }
 
     public int getPokemonId(){
@@ -300,5 +339,13 @@ public class Pokemon {
 
     public void addType(String type) {
         types.add(type);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

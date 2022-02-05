@@ -1,15 +1,30 @@
 package com.codeclan.FinalProject.PokemonAutoBattler.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "trainers")
 public class Trainer {
 
-    private ArrayList<Pokemon> pokemons;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    @JsonIgnoreProperties({"trainer"})
+    @JsonBackReference
+    @OneToMany(mappedBy = "trainer")
+    private List<Pokemon> pokemons;
+
+    @Column(name = "pokedollars")
     private int pokedollars;
 
+    @Column(name = "avatar")
     private String avatar;
 
     public Trainer(int pokedollars, String avatar){
@@ -18,7 +33,10 @@ public class Trainer {
         this.pokemons = new ArrayList<Pokemon>();
     }
 
-    public ArrayList<Pokemon> getPokemons() {
+    public Trainer() {
+    }
+
+    public List<Pokemon> getPokemons() {
         return pokemons;
     }
 
@@ -69,5 +87,13 @@ public class Trainer {
     }
 
     public void switchPokemon(){
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

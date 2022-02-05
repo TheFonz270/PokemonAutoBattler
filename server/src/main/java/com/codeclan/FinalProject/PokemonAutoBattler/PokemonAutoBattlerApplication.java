@@ -3,6 +3,7 @@ package com.codeclan.FinalProject.PokemonAutoBattler;
 import com.codeclan.FinalProject.PokemonAutoBattler.models.Move;
 import com.codeclan.FinalProject.PokemonAutoBattler.models.Pokemon;
 //import com.codeclan.FinalProject.PokemonAutoBattler.services.PokemonService;
+import com.codeclan.FinalProject.PokemonAutoBattler.services.PokemonService;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,7 +51,9 @@ public class PokemonAutoBattlerApplication {
 
 //		ArrayList<Pokemon> sixPokemon = pokemonService.getSixPokemon();
 //		for (Pokemon pokemon : sixPokemon) {
-//			System.out.println(pokemon.getName());
+//			System.out.println("name - " + pokemon.getName());
+//			System.out.println("types - " + pokemon.getTypes());
+//			System.out.println("can evolve? - " + pokemon.canEvolve());
 //		}
 
 	}
