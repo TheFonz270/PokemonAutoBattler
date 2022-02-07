@@ -272,6 +272,34 @@ public class PokemonService {
         return sixPokemon;
     }
 
+    public static Pokemon updatePokemon(Pokemon oldPokemon, Pokemon newPokemon) {
+        oldPokemon.setPokemonId(newPokemon.getPokemonId());
+        oldPokemon.setName(newPokemon.getName());
+        oldPokemon.setAvatarImage(newPokemon.getAvatarImage());
+        oldPokemon.setTypes(newPokemon.getTypes());
+        oldPokemon.setMovePool(newPokemon.getMovePool());
+        oldPokemon.setActiveMove(newPokemon.getActiveMove());
+        oldPokemon.setLevel(newPokemon.getLevel());
+        oldPokemon.setHp(newPokemon.getHP());
+        oldPokemon.setAtk(newPokemon.getAtk());
+        oldPokemon.setDef(newPokemon.getDef());
+        oldPokemon.setSpAtk(newPokemon.getSpAtk());
+        oldPokemon.setSpDef(newPokemon.getSpDef());
+        oldPokemon.setSpeed(newPokemon.getSpeed());
+        int hp = oldPokemon.getHP();
+        int atk = oldPokemon.getAtk();
+        int def = oldPokemon.getDef();
+        int spAtk = oldPokemon.getSpAtk();
+        int spDef = oldPokemon.getSpDef();
+        int speed = oldPokemon.getSpeed();
+        oldPokemon.addToBaseStats();
+        oldPokemon.calculateEffectiveStats();
+        oldPokemon.setCanEvolve(newPokemon.canEvolve());
+        oldPokemon.setCurrentHP(newPokemon.getCurrentHP());
+        return oldPokemon;
+    }
+
+
 
 
 

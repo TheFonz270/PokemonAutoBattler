@@ -32,7 +32,6 @@ public class Pokemon {
     @Column(name = "move_pool")
     private ArrayList<String> movePool;
 
-    //might need to be changed to one-to-one
     @OneToOne
     @JoinColumn(name = "active_move_id")
     private Move activeMove;
@@ -59,12 +58,18 @@ public class Pokemon {
     private Trainer trainer;
 
     private int currentHP;
-    int hp;
-    int atk;
-    int def;
-    int spAtk;
-    int spDef;
-    int speed;
+    @JsonIgnore
+    private int hp;
+    @JsonIgnore
+    private int atk;
+    @JsonIgnore
+    private int def;
+    @JsonIgnore
+    private int spAtk;
+    @JsonIgnore
+    private int spDef;
+    @JsonIgnore
+    private int speed;
 
 
     public Pokemon(int pokemonId, String name, String avatarImage, Move activeMove, int hp, int atk, int def, int spAtk, int spDef, int speed){
@@ -101,6 +106,10 @@ public class Pokemon {
 
     public int getPokemonId(){
         return pokemonId;
+    }
+
+    public void setPokemonId(int pokemonId) {
+        this.pokemonId = pokemonId;
     }
 
     public String getName() {
@@ -151,6 +160,7 @@ public class Pokemon {
         this.level = level;
     }
 
+    @JsonIgnore
     public int getIntLevel(){
         int calcLevel = level.level;
         return calcLevel;
@@ -164,15 +174,15 @@ public class Pokemon {
         this.baseStats = baseStats;
     }
 
-//    public HashMap<String, Integer> addStats(int hp, int atk, int def, int spatk, int spdef, int speed){
-//        baseStats.put("HP", hp);
-//        baseStats.put("Atk", atk);
-//        baseStats.put("Def", def);
-//        baseStats.put("SpAtk", spatk);
-//        baseStats.put("SpDef", spdef);
-//        baseStats.put("Speed", speed);
-//        return  baseStats;
-//    }
+    public HashMap<String, Integer> addToBaseStats(){
+        baseStats.put("HP", this.hp);
+        baseStats.put("Atk", this.atk);
+        baseStats.put("Def", this.def);
+        baseStats.put("SpAtk", this.spAtk);
+        baseStats.put("SpDef", this.spDef);
+        baseStats.put("Speed", this.speed);
+        return  baseStats;
+    }
 
     public HashMap<String, Integer> getEffectiveStats() {
         return effectiveStats;
@@ -282,52 +292,57 @@ public class Pokemon {
 
     }
 
-
+    @JsonIgnore
     public int getHP() {
          return baseStats.get("HP");
     }
-
+    @JsonIgnore
     public int getAtk() {
         return baseStats.get("Atk");
     }
 
+    @JsonIgnore
     public int getDef() {
         return baseStats.get("Def");
     }
+    @JsonIgnore
     public int getSpAtk() {
         return baseStats.get("SpAtk");
     }
+    @JsonIgnore
     public int getSpDef() {
         return baseStats.get("SpDef");
     }
+    @JsonIgnore
     public int getSpeed() {
         return baseStats.get("Speed");
     }
+    @JsonIgnore
     public int getLevelLevel() {
         return level.level;
     }
 
-
+    @JsonIgnore
     public Integer getEffectiveHP() {
         return effectiveStats.get("HP");
     }
-
+    @JsonIgnore
     public Integer getEffectiveAtk() {
         return effectiveStats.get("Atk");
     }
-
+    @JsonIgnore
     public Integer getEffectiveDef() {
         return effectiveStats.get("Def");
     }
-
+    @JsonIgnore
     public Integer getEffectiveSpAtk() {
         return effectiveStats.get("SpAtk");
     }
-
+    @JsonIgnore
     public Integer getEffectiveSpDef() {
         return effectiveStats.get("SpDef");
     }
-
+    @JsonIgnore
     public Integer getEffectiveSpeed() {
         return effectiveStats.get("Speed");
     }
@@ -360,5 +375,33 @@ public class Pokemon {
 
     public void setTrainer(Trainer trainer) {
         this.trainer = trainer;
+    }
+
+    public void setCurrentHP(int currentHP) {
+        this.currentHP = currentHP;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
+    public void setAtk(int atk) {
+        this.atk = atk;
+    }
+
+    public void setDef(int def) {
+        this.def = def;
+    }
+
+    public void setSpAtk(int spAtk) {
+        this.spAtk = spAtk;
+    }
+
+    public void setSpDef(int spDef) {
+        this.spDef = spDef;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
     }
 }
