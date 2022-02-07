@@ -130,17 +130,38 @@ const trainer = {
     pokeDollars : 10
 }
 
+const trainer2 = {
+  team : [squirtle, ralts, riolu],
+    avatar : "/img/VStrainers/Youngster.png",
+    pokeDollars : 10
+}
+
+
+
+
     const [ScreenState, setScreenState] = useState("teamGen"); 
+    const [SelectedPokemonState, setSelectedPokemonState] = useState([]);
+    const [trainerState, setTrainerState] = useState(null)
 
     const handleScreenState = (newState) => {
       setScreenState(newState)
     }
 
+    const handleTeamSubmit = () => {
+      trainerState.team = SelectedPokemonState;
+      handleScreenState("maintenance")
+    }
+
+    useEffect(()=>{
+      setTrainerState(trainer)}, [])
+
+    
+
   return (
     <main>
-      {ScreenState=="teamGen"?<TeamGeneratorContainer trainer={trainer} handleScreenState={handleScreenState}/>:null }
+      {ScreenState=="teamGen"?<TeamGeneratorContainer trainer={trainer} handleScreenState={handleScreenState} handleTeamSubmit={handleTeamSubmit} SelectedPokemonState={SelectedPokemonState} setSelectedPokemonState={setSelectedPokemonState} />:null }
       {ScreenState=="maintenance"?<MaintenanceContainer trainer={trainer} handleScreenState={handleScreenState}/>:null }
-      {ScreenState=="battle"?<BattleContainer trainer={trainer}/>:null }
+      {ScreenState=="battle"?<BattleContainer />:null }
     </main>
   );
 }

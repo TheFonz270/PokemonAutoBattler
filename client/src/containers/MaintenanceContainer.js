@@ -7,7 +7,7 @@ const MaintenanceContainer = ({trainer, handleScreenState}) => {
     return (
         <>
         <MaintenanceArea trainer={trainer}/>
-        <BattleButton handleScreenState={handleScreenState}/>
+        <BattleButton trainer={trainer} handleScreenState={handleScreenState}/>
         </>
     )
 }

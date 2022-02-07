@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import PokemonCard from './PokemonCard';
 
-const TeamGenArea = ({trainer}) => {
+const TeamGenArea = ({handleClick, trainer}) => {
 
     const pokemonCards = trainer.team.map((pokemon) =>{
 
-        return <PokemonCard pokemon={pokemon}/>
+        return <PokemonCard handleClick={handleClick} pokemon={pokemon}/>
         });
 
     return (
