@@ -1,6 +1,7 @@
 package com.codeclan.FinalProject.PokemonAutoBattler.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.http.converter.json.GsonBuilderUtils;
 
@@ -67,6 +68,7 @@ public class BattleScript {
         return script;
     }
 
+    @JsonIgnore
     public int getScriptSize(){
         return script.size();
     }
