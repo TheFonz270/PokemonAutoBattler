@@ -8,7 +8,7 @@ public class BattlePhase {
 
     private ArrayList<Trainer> trainers;
     private String theme;
-    private Trainer winningTrainer;
+
 
     private BattleScript battleScript;
 
@@ -222,8 +222,9 @@ public class BattlePhase {
         return false;
     }
 
-    public void setWinningTrainer(Trainer winningTrainer) {
-        this.winningTrainer = winningTrainer;
+    public Trainer setWinningTrainer(Trainer winningTrainer) {
+        Trainer winner = winningTrainer;
+        return winningTrainer;
     }
 
 
@@ -239,9 +240,6 @@ public class BattlePhase {
             playWholeTurn(userTrainer, aiTrainer, battleScript, turnScript);
         }
 
-        Trainer winningTrainer = checkWinner(userTrainer, aiTrainer, battleScript, turnScript);
-
-        System.out.println(winningTrainer);
         return battleScript;
     }
 
@@ -317,19 +315,20 @@ public class BattlePhase {
         }
     }
 
-    public Trainer checkWinner(Trainer player1, Trainer player2, BattleScript battleScript, TurnScript turnScript) {
+    public Boolean checkWinner(Trainer player1, Trainer player2, BattleScript battleScript, TurnScript turnScript) {
+
         if (setActivePokemon(player1) == null) {
             System.out.println("Player 2 wins!");
             turnScript.setP1OutOfMons(true);
-            setWinningTrainer(player2);
             battleEnd(battleScript);
+            return true;
         } else if (setActivePokemon(player2) == null) {
             System.out.println("Player 1 wins!");
             turnScript.setP2OutOfMons(true);
-            setWinningTrainer(player1);
             battleEnd(battleScript);
+            return false;
         }
-        return winningTrainer;
+        return null;
     }
 
 
