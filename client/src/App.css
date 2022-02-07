@@ -351,3 +351,16 @@ button.ptsCost:hover {
 .battleButton button:hover {
   background: #4DAD5B;
 }
+
+/* TEAM GEN MODE */
+
+.teamGenArea {
+  display: flex;
+  flex-wrap: wrap;
+  width:95%;
+}
+
+.pokemonCard {
+  width:30%;
+  margin: 15px 15px;
+}

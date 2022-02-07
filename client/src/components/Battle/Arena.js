@@ -221,6 +221,38 @@ const checkIfFaints = (trainers, turn) => {
     console.log("CheckIfFaints has run")
 }
 
+const SumonNewMons = (trainers, turn) => {
+    if (turn.didP2Faint == true) {
+        if (turn.playerFirst == true) {
+            setActivePokemon2State(findActive(trainers[1], T2FaintedCount))
+            console.log("Go " + findActive(trainers[1], T2FaintedCount).name + "!")
+            setPokemon2HP(100)
+            setPokemon2MAXHP(findActive(trainers[1], T2FaintedCount).currentHp);
+            
+        }
+        if (turn.playerFirst == false) {
+            setActivePokemon1State(findActive(trainers[0], T1FaintedCount))
+            setPokemon1MAXHP(findActive(trainers[0], T1FaintedCount).currentHp);
+            setPokemon1HP(100)
+        }
+        
+    }
+
+    if (turn.didP1Faint == true) {
+        if (turn.playerFirst == true) {
+            setActivePokemon1State(findActive(trainers[0], T1FaintedCount))
+            setPokemon1MAXHP(findActive(trainers[0], T1FaintedCount).currentHp);
+            setPokemon1HP(100)
+        }
+        if (turn.playerFirst == false) {
+            setActivePokemon2State(findActive(trainers[1], T2FaintedCount))
+            setPokemon2MAXHP(findActive(trainers[1], T2FaintedCount).currentHp);
+            setPokemon2HP(100)
+        }
+        
+    }
+}
+
 
 const handleDamageAnimation = (int) => {
     if (int == 1) {
@@ -329,35 +361,8 @@ const BattleTurn = (trainers, turn) => {
 
                             setTimeout(function () {
 
-                                if (turn.didP2Faint == true) {
-                                    if (turn.playerFirst == true) {
-                                        setActivePokemon2State(findActive(trainers[1], T2FaintedCount))
-                                        console.log("Go " + findActive(trainers[1], T2FaintedCount).name + "!")
-                                        setPokemon2HP(100)
-                                        setPokemon2MAXHP(findActive(trainers[1], T2FaintedCount).currentHp);
-                                        
-                                    }
-                                    if (turn.playerFirst == false) {
-                                        setActivePokemon1State(findActive(trainers[0], T1FaintedCount))
-                                        setPokemon1MAXHP(findActive(trainers[0], T1FaintedCount).currentHp);
-                                        setPokemon1HP(100)
-                                    }
-                                    
-                                }
-    
-                                if (turn.didP1Faint == true) {
-                                    if (turn.playerFirst == true) {
-                                        setActivePokemon1State(findActive(trainers[0], T1FaintedCount))
-                                        setPokemon1MAXHP(findActive(trainers[0], T1FaintedCount).currentHp);
-                                        setPokemon1HP(100)
-                                    }
-                                    if (turn.playerFirst == false) {
-                                        setActivePokemon2State(findActive(trainers[1], T2FaintedCount))
-                                        setPokemon2MAXHP(findActive(trainers[1], T2FaintedCount).currentHp);
-                                        setPokemon2HP(100)
-                                    }
-                                    
-                                }
+                                SumonNewMons(trainers, turn)
+
                                 setTimeout(function () {
 
                                     if (TurnCounter < BattleScript.script.length) {
@@ -367,30 +372,12 @@ const BattleTurn = (trainers, turn) => {
 
                             }, 2000);
                         
-                    }, 2000);
+                        }, 2000);
                 
-            }, 2000);
+                    }, 2000);
 
-        }, 2000);
+                }, 2000);
         
-
-        // console.log("BattleStarted")
-        // decideP1(turn, BattleScript)
-        // console.log({P1}, {P2})
-        // PokemonAttacks(P1, P2)
-        // handleDamage(P2, turn.P2CurrentHP)
-        // checkIfFaints()
-        // if (P2.isFainted == false) {
-        // PokemonAttacks(P2, P1)
-        // handleDamage(P1, turn.P1CurrentHP)
-        // }
-        // checkIfFaints()
-        // if (P2.isFainted == true) {
-        //     setActivePokemon2State(BattleScript.trainers[1].team.find(pokemon => pokemon.isFainted == false))
-        // }
-        // if (P1.isFainted == true) {
-        //     setActivePokemon1State(BattleScript.trainers[0].team.find(pokemon => pokemon.isFainted == false))
-        // }
         }, 2000);
     }
 }
