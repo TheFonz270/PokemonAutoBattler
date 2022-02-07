@@ -113,7 +113,7 @@ public class BattlePhaseTest {
 
     @Test
     public void canPlayWholeBattle(){
-        assertEquals(11, battlePhase.playWholeBattle(trainers).getScriptSize());
+        assertEquals(10, battlePhase.playWholeBattle(trainers).getScriptSize());
     }
 
 }
