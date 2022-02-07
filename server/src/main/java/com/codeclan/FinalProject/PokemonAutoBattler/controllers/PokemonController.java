@@ -67,6 +67,14 @@ public class PokemonController {
         return new ResponseEntity<>(pokemon, HttpStatus.OK);
     }
 
+    @PutMapping(value = "/pokemons/{id}/levelup")
+    public ResponseEntity<Pokemon> levelUpPokemon(@PathVariable Long id) throws JSONException {
+        Pokemon pokemon = pokemonRepository.findById(id).get();
+        pokemon.increaseLevel();
+        pokemonRepository.save(pokemon);
+        return new ResponseEntity<>(pokemon, HttpStatus.OK);
+    }
+
     @DeleteMapping(value = "/pokemons/{id}")
     public ResponseEntity<Long> deletePokemon(@PathVariable Long id){
         pokemonRepository.delete(pokemonRepository.findById(id).get());

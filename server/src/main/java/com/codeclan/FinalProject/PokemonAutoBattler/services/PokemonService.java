@@ -1,9 +1,6 @@
 package com.codeclan.FinalProject.PokemonAutoBattler.services;
 
-import com.codeclan.FinalProject.PokemonAutoBattler.models.DamageType;
-import com.codeclan.FinalProject.PokemonAutoBattler.models.Move;
-import com.codeclan.FinalProject.PokemonAutoBattler.models.Pokemon;
-import com.codeclan.FinalProject.PokemonAutoBattler.models.Types;
+import com.codeclan.FinalProject.PokemonAutoBattler.models.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -272,6 +269,32 @@ public class PokemonService {
         return sixPokemon;
     }
 
+    public static ArrayList<Pokemon> getThreePokemon() throws JSONException {
+
+        Random r = new Random();
+        ArrayList<Integer> excludedIDs = new ArrayList<>(Arrays.asList(132, 235, 202, 291, 290, 292));
+        ArrayList<Integer> randomIDs = new ArrayList<>();
+
+        for (int i = 0; i < 3; i++) {
+            int randomItem = r.nextInt( 807) + 1;
+            if (excludedIDs.contains(randomItem)){
+                i--;
+            } else {
+                randomIDs.add(randomItem);
+                excludedIDs.add(randomItem);
+            }
+        }
+
+        ArrayList<Pokemon> sixPokemon = new ArrayList<>();
+        for (int pokeId : randomIDs){
+            Pokemon newPokemon = getPokemonObject(pokeId);
+            sixPokemon.add(newPokemon);
+        }
+
+        return sixPokemon;
+    }
+
+
     public static Pokemon updatePokemon(Pokemon oldPokemon, Pokemon newPokemon) {
         oldPokemon.setPokemonId(newPokemon.getPokemonId());
         oldPokemon.setName(newPokemon.getName());
@@ -298,6 +321,28 @@ public class PokemonService {
         oldPokemon.setCurrentHP(newPokemon.getCurrentHP());
         return oldPokemon;
     }
+
+    public static Trainer makePlayerTrainer() throws JSONException {
+        Trainer playerTrainer = new Trainer(0, "avatar.url");
+        ArrayList<Pokemon> pokemons = getSixPokemon();
+        playerTrainer.setPokemons(pokemons);
+        return playerTrainer;
+    }
+
+    public static Trainer makeAITrainer() throws JSONException {
+        Trainer aiTrainer = new Trainer(0, "avatar.url");
+        ArrayList<Pokemon> pokemons = getThreePokemon();
+        aiTrainer.setPokemons(pokemons);
+        return aiTrainer;
+    }
+
+//    public static void setupTrainers() throws JSONException {
+//        makePlayerTrainer();
+//        makeAITrainer();
+//
+//    }
+
+
 
 
 

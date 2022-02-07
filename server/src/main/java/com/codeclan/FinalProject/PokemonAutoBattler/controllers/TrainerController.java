@@ -1,15 +1,22 @@
 package com.codeclan.FinalProject.PokemonAutoBattler.controllers;
 
+import com.codeclan.FinalProject.PokemonAutoBattler.models.Move;
 import com.codeclan.FinalProject.PokemonAutoBattler.models.Pokemon;
 import com.codeclan.FinalProject.PokemonAutoBattler.models.Trainer;
+import com.codeclan.FinalProject.PokemonAutoBattler.repositories.MoveRepository;
+import com.codeclan.FinalProject.PokemonAutoBattler.repositories.PokemonRepository;
 import com.codeclan.FinalProject.PokemonAutoBattler.repositories.TrainerRepository;
+import com.codeclan.FinalProject.PokemonAutoBattler.services.PokemonService;
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +25,14 @@ public class TrainerController {
 
     @Autowired
     TrainerRepository trainerRepository;
+
+    @Autowired
+    PokemonRepository pokemonRepository;
+
+    @Autowired
+    MoveRepository moveRepository;
+
+    static PokemonService pokemonService;
 
     @GetMapping(value = "/trainers")
     public ResponseEntity<List<Trainer>> getAllTrainers(){
@@ -28,5 +43,38 @@ public class TrainerController {
     public ResponseEntity<Optional<Trainer>> getTrainer(@PathVariable Long id){
         return new ResponseEntity<>(trainerRepository.findById(id), HttpStatus.OK);
     }
+
+    @PostMapping(value = "/trainers")
+    public ResponseEntity<ArrayList<Trainer>> postPokemon() throws JSONException {
+        ArrayList<Trainer> trainers = new ArrayList<>();
+        Trainer playerTrainer = pokemonService.makePlayerTrainer();
+        Trainer aiTrainer = pokemonService.makeAITrainer();
+        List<Pokemon> playerPokemons = playerTrainer.getPokemons();
+        List<Pokemon> aiPokemons = aiTrainer.getPokemons();
+        for (Pokemon pokemon : playerPokemons){
+            Move move = pokemon.getActiveMove();
+            moveRepository.save(move);
+            pokemonRepository.save(pokemon);
+        }
+        for (Pokemon pokemon : aiPokemons){
+            Move move = pokemon.getActiveMove();
+            moveRepository.save(move);
+            pokemonRepository.save(pokemon);
+        }
+        trainerRepository.save(playerTrainer);
+        trainerRepository.save(aiTrainer);
+        for (Pokemon pokemon : playerPokemons){
+            pokemon.setTrainer(playerTrainer);
+            pokemonRepository.save(pokemon);
+        }
+        for (Pokemon pokemon : aiPokemons){
+            pokemon.setTrainer(aiTrainer);
+            pokemonRepository.save(pokemon);
+        }
+        trainers.add(playerTrainer);
+        trainers.add(aiTrainer);
+        return new ResponseEntity<>(trainers, HttpStatus.CREATED);
+    }
+
 
 }
