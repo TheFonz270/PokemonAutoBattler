@@ -121,13 +121,13 @@ const Arena = () => {
         }, {
             playerFirst :true,
             firstDamageDealt : 20,
-            P2CurrentHP: false,
-            didP2Faint :true,
-            secondDamageDealt : false,
-            P1CurrentHP: 102,
-            didP1Faint : false,
-            didP2NewMon :true,
-            didP1NewMon : false,
+            P2CurrentHP: 57,
+            didP2Faint :false,
+            secondDamageDealt : 102,
+            P1CurrentHP: 0,
+            didP1Faint : true,
+            didP2NewMon : false,
+            didP1NewMon : true,
             P1OutOfMons : false,
             P2OutOfMons : 0
         }, {
