@@ -1,26 +1,59 @@
 package com.codeclan.FinalProject.PokemonAutoBattler.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+@Entity
+@Table(name = "battle_phases")
 public class BattlePhase {
 
-    private ArrayList<Trainer> trainers;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @JsonIgnoreProperties({"battlePhase"})
+    @OneToMany(mappedBy = "battlePhase")
+    private List<Trainer> trainers;
+
+    @Column(name = "theme")
     private String theme;
 
-
+    @OneToOne
+    @JoinColumn(name = "battle_script_id")
     private BattleScript battleScript;
 
 
     public BattlePhase(String theme, ArrayList<Trainer> trainers) {
         this.theme = theme;
-        this.trainers = new ArrayList<>();
+        this.trainers = trainers;
         this.battleScript = new BattleScript(trainers);
     }
 
+    public BattlePhase() {
+    }
 
-    public ArrayList<Trainer> getTrainers() {
+    public Long getId() {
+        return id;
+    }
+
+    public BattleScript getBattleScript() {
+        return battleScript;
+    }
+
+    public void setBattleScript(BattleScript battleScript) {
+        this.battleScript = battleScript;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public List<Trainer> getTrainers() {
         return trainers;
     }
 
@@ -36,6 +69,7 @@ public class BattlePhase {
         this.theme = theme;
     }
 
+    @JsonIgnore
     public int getTrainersSize() {
         return trainers.size();
     }
@@ -333,7 +367,7 @@ public class BattlePhase {
 
 
     public void battleEnd(BattleScript battleScript){
-        ArrayList<TurnScript> script = battleScript.getScript();
+        List<TurnScript> script = battleScript.getScript();
         for (TurnScript turnScript : script){
             System.out.println(
                     "turnScript " +

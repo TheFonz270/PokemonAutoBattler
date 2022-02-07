@@ -29,10 +29,24 @@ public class Trainer {
     @Column(name = "avatar")
     private String avatar;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "battle_phase_id")
+    @JsonIgnoreProperties({"trainers"})
+    @JsonBackReference
+    private BattlePhase battlePhase;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "battle_script_id")
+    @JsonIgnoreProperties({"trainers"})
+    @JsonBackReference
+    private BattleScript battleScript;
+
     public Trainer(int pokedollars, String avatar){
         this.pokedollars = pokedollars;
         this.avatar = avatar;
         this.pokemons = new ArrayList<Pokemon>();
+        this.battlePhase = null;
+        this.battleScript = null;
     }
 
     public Trainer() {
@@ -99,5 +113,21 @@ public class Trainer {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public BattlePhase getBattlePhase() {
+        return battlePhase;
+    }
+
+    public void setBattlePhase(BattlePhase battlePhase) {
+        this.battlePhase = battlePhase;
+    }
+
+    public BattleScript getBattleScript() {
+        return battleScript;
+    }
+
+    public void setBattleScript(BattleScript battleScript) {
+        this.battleScript = battleScript;
     }
 }

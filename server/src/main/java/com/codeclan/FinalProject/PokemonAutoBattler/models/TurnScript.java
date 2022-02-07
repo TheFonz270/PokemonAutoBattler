@@ -1,31 +1,57 @@
 package com.codeclan.FinalProject.PokemonAutoBattler.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "turn_scripts")
 public class TurnScript {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    @Column(name = "player_first")
     private boolean playerFirst;
 
+    @Column(name = "first_damage_dealt")
     private int firstDamageDealt;
 
+    @Column(name = "p2_current_hp")
     private int P2CurrentHP;
 
+    @Column(name = "did_p2_faint")
     private boolean didP2Faint;
 
+    @Column(name = "second_damage_dealt")
     private int secondDamageDealt;
 
+    @Column(name = "p1_current_hp")
     private int P1CurrentHP;
 
+    @Column(name = "did_p1_faint")
     private boolean didP1Faint;
 
+    @Column(name = "did_p2_new_mon")
     private boolean didP2NewMon;
 
+    @Column(name = "did_p1_new_mon")
     private boolean didP1NewMon;
 
+    @Column(name = "p1_out_of_mons")
     private boolean P1OutOfMons;
 
+    @Column(name = "p2_out_of_mons")
     private boolean P2OutOfMons;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "battle_script_id")
+    @JsonIgnoreProperties({"script"})
+    @JsonBackReference
+    private BattleScript battleScript;
 
 //    private Pokemon p1activePokemon;
 //
@@ -51,7 +77,20 @@ public class TurnScript {
         this.didP1NewMon = false;
         this.P1OutOfMons = false;
         this.P2OutOfMons = false;
+        this.battleScript = null;
     }
+
+    public TurnScript() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
 
     public boolean getPlayerFirst() {
         return playerFirst;
@@ -139,6 +178,14 @@ public class TurnScript {
 
     public void setP2OutOfMons(boolean p2OutOfMons) {
         P2OutOfMons = p2OutOfMons;
+    }
+
+    public BattleScript getBattleScript() {
+        return battleScript;
+    }
+
+    public void setBattleScript(BattleScript battleScript) {
+        this.battleScript = battleScript;
     }
 
     //Moved to BattlePhase

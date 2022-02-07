@@ -228,6 +228,7 @@ public class Pokemon {
         this.currentHP = getEffectiveHP();
     }
 
+    @JsonIgnore
     public int getMovePoolSize() {
         return movePool.size();
     }
@@ -331,6 +332,7 @@ public class Pokemon {
         return effectiveStats.get("Speed");
     }
 
+    @JsonIgnore
     public double getStab(){
         if (getTypes().contains(activeMove.getType())){
             return 1.5;
