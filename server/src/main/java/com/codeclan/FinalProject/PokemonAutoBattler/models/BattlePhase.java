@@ -110,7 +110,8 @@ public class BattlePhase {
     public boolean playerFirst(Trainer userTrainer, Trainer aiTrainer, TurnScript turnScript) {
         Pokemon userActivePokemon = setActivePokemon(userTrainer);
         Pokemon aiActivePokemon = setActivePokemon(aiTrainer);
-        setActivePokemon(aiTrainer);
+        System.out.println("user pokemon: " + userActivePokemon.getName() );
+        System.out.println("ai pokemon: " + aiActivePokemon.getName() );
         if (userActivePokemon.getEffectiveSpeed() >= aiActivePokemon.getEffectiveSpeed()) {
             turnScript.setPlayerFirst(true);
             return true;
@@ -222,13 +223,9 @@ public class BattlePhase {
         return false;
     }
 
-    public void setWinningTrainer(Trainer winningTrainer) {
-        this.winningTrainer = winningTrainer;
+    public Trainer setWinningTrainer(Trainer winningTrainer) {
+        return winningTrainer;
     }
-
-
-
-
 
     public BattleScript playWholeBattle(ArrayList<Trainer> trainers){
         Trainer userTrainer = trainers.get(0);
@@ -236,7 +233,7 @@ public class BattlePhase {
         TurnScript turnScript = new TurnScript(true, 0, 0, false, 0, 0, false, false, false, false, false);
         BattleScript battleScript = new BattleScript(trainers);
         while(checkWinner(userTrainer, aiTrainer, battleScript, turnScript) == null){
-            playWholeTurn(userTrainer, aiTrainer, battleScript, turnScript);
+            playWholeTurn(userTrainer, aiTrainer, battleScript);
         }
 
         Trainer winningTrainer = checkWinner(userTrainer, aiTrainer, battleScript, turnScript);
@@ -245,95 +242,102 @@ public class BattlePhase {
         return battleScript;
     }
 
-    public void playWholeTurn(Trainer userTrainer, Trainer aiTrainer, BattleScript battleScript,TurnScript turnScript) {
-        Trainer player1 = setP1(userTrainer, aiTrainer, turnScript);
-        Trainer player2 = setP2(userTrainer, aiTrainer, turnScript);
+    public void playWholeTurn(Trainer userTrainer, Trainer aiTrainer, BattleScript battleScript) {
+        TurnScript turnScriptAlpha = new TurnScript(true, 0, 0, false, 0, 0, false, false, false, false, false);
+
+        Trainer player1 = setP1(userTrainer, aiTrainer, turnScriptAlpha);
+        Trainer player2 = setP2(userTrainer, aiTrainer, turnScriptAlpha);
 
         Pokemon player1ActivePokemon = setP1ActivePokemon(player1);
         Pokemon player2ActivePokemon = setP2ActivePokemon(player2);
 
         System.out.println("Turn Set up - Player 1 active pokemon: " + player1ActivePokemon.getName() + "'s currentHP: " + player1ActivePokemon.getCurrentHP() + "/" + player1ActivePokemon.getEffectiveHP() + ", Player 2's " + player2ActivePokemon.getName() + "'s currentHP: " + player2ActivePokemon.getCurrentHP() + "/" + player2ActivePokemon.getEffectiveHP()) ;
 
-        playTurnP1(player1, player2, player1ActivePokemon, player2ActivePokemon, battleScript, turnScript);
+        playTurnP1(userTrainer, aiTrainer,player1, player2, player1ActivePokemon, player2ActivePokemon, battleScript, turnScriptAlpha);
         }
 
 
-    public boolean playTurnP1(Trainer player1, Trainer player2, Pokemon player1ActivePokemon, Pokemon player2ActivePokemon, BattleScript battleScript, TurnScript turnScript2){
-        TurnScript turnScript1 = new TurnScript(true, 0, 0, false, 0, 0, false, false, false, false, false);
-        getCurrentHPP1(player1ActivePokemon, turnScript1);
-        getCurrentHPP1(player1ActivePokemon, turnScript1);
+    public boolean playTurnP1(Trainer userTrainer, Trainer aiTrainer, Trainer player1, Trainer player2, Pokemon player1ActivePokemon, Pokemon player2ActivePokemon, BattleScript battleScript, TurnScript turnScriptAlpha){
+        getCurrentHPP1(player1ActivePokemon, turnScriptAlpha);
+        getCurrentHPP2(player2ActivePokemon, turnScriptAlpha);
         System.out.println("playturnP1 "+ "player 1's " + player1ActivePokemon.getName() + " current HP: " + player1ActivePokemon.getCurrentHP() + ", player 2's " + player2ActivePokemon.getName() + " Current HP:" + player2ActivePokemon.getCurrentHP());
-        p1dealDamage(player1ActivePokemon, player2ActivePokemon, turnScript1);
+        p1dealDamage(player1ActivePokemon, player2ActivePokemon, turnScriptAlpha);
         System.out.println("playturnP1 "+ player1ActivePokemon.getName() + " used " + player1ActivePokemon.getActiveMove().getName() +  " on " + player2ActivePokemon.getName() + "it did " + p1FindDamage(player1ActivePokemon, player2ActivePokemon) + "damage");
         System.out.println("playturnP1 "+ "player 1's " + player1ActivePokemon.getName() + " current HP: " + player1ActivePokemon.getCurrentHP() + ", player 2's " + player2ActivePokemon.getName() + " Current HP:" + player2ActivePokemon.getCurrentHP());
-        getCurrentHPP2(player2ActivePokemon, turnScript1);
+        getCurrentHPP2(player2ActivePokemon, turnScriptAlpha);
         checkDidP2Faint(player2ActivePokemon);
         if (checkDidP2Faint(player2ActivePokemon)){
             System.out.println("playturnP1 "+ "player 1's " + player1ActivePokemon.getName() + " current HP: " + player1ActivePokemon.getCurrentHP() + ", player 2's " + player2ActivePokemon.getName() + " Current HP:" + player2ActivePokemon.getCurrentHP());
             System.out.println("playturnP1 "+ "Player 2's pokemon fainted!");
-            if (checkWinner(player1, player2, battleScript, turnScript1) == null){
-                turnScript1.setDidP2NewMon(true);
-                battleScript.addTurnScript(turnScript1);
-                playWholeTurn(player1, player2, battleScript, turnScript2);
+            if (checkWinner(player1, player2, battleScript, turnScriptAlpha) == null){
+                turnScriptAlpha.setDidP2NewMon(true);
+                battleScript.addTurnScript(turnScriptAlpha);
+                playWholeTurn(userTrainer, aiTrainer, battleScript);
             } else {
-                turnScript1.setDidP2NewMon(false);
+                turnScriptAlpha.setDidP2NewMon(false);
             }
             System.out.println("----------------------");
-            battleScript.addTurnScript(turnScript1);
             return true;
         } else {
             System.out.println("playturnP1 "+ "player 1's " + player1ActivePokemon.getName() + " current HP: " + player1ActivePokemon.getCurrentHP() + ", player 2's " + player2ActivePokemon.getName() + " Current HP:" + player2ActivePokemon.getCurrentHP());
             System.out.println("end of playturnp1!");
-            playTurnP2(player1, player2, player1ActivePokemon, player2ActivePokemon, battleScript, turnScript1);
+            playTurnP2(userTrainer, aiTrainer, player1, player2, player1ActivePokemon, player2ActivePokemon, battleScript, turnScriptAlpha);
             return false;
         }
     }
 
-    public boolean playTurnP2(Trainer player1, Trainer player2, Pokemon player1ActivePokemon, Pokemon player2ActivePokemon, BattleScript battleScript, TurnScript turnScript){
-        System.out.println("playturnP1 "+ "player 1's " + player1ActivePokemon.getName() + " current HP: " + player1ActivePokemon.getCurrentHP() + ", player 2's " + player2ActivePokemon.getName() + " Current HP:" + player2ActivePokemon.getCurrentHP());
-        p2dealDamage(player1ActivePokemon, player2ActivePokemon, turnScript);
-        System.out.println("playturnP1 "+ player2ActivePokemon.getName() + " used " + player2ActivePokemon.getActiveMove().getName() +  " on " + player1ActivePokemon.getName() + "it did " + p2FindDamage(player1ActivePokemon, player2ActivePokemon) + " damage");
-        System.out.println("playturnP1 "+ "player 1's " + player1ActivePokemon.getName() + " current HP: " + player1ActivePokemon.getCurrentHP() + ", player 2's " + player2ActivePokemon.getName() + " Current HP:" + player2ActivePokemon.getCurrentHP());
-        getCurrentHPP1(player1ActivePokemon, turnScript);
+    public boolean playTurnP2(Trainer userTrainer, Trainer aiTrainer, Trainer player1, Trainer player2, Pokemon player1ActivePokemon, Pokemon player2ActivePokemon, BattleScript battleScript, TurnScript turnScriptAlpha){
+        System.out.println("playturnP2 "+ "player 1's " + player1ActivePokemon.getName() + " current HP: " + player1ActivePokemon.getCurrentHP() + ", player 2's " + player2ActivePokemon.getName() + " Current HP:" + player2ActivePokemon.getCurrentHP());
+        p2dealDamage(player1ActivePokemon, player2ActivePokemon, turnScriptAlpha);
+        System.out.println("playturnP2 "+ player2ActivePokemon.getName() + " used " + player2ActivePokemon.getActiveMove().getName() +  " on " + player1ActivePokemon.getName() + "it did " + p2FindDamage(player1ActivePokemon, player2ActivePokemon) + " damage");
+        System.out.println("playturnP2 "+ "player 1's " + player1ActivePokemon.getName() + " current HP: " + player1ActivePokemon.getCurrentHP() + ", player 2's " + player2ActivePokemon.getName() + " Current HP:" + player2ActivePokemon.getCurrentHP());
+        getCurrentHPP1(player1ActivePokemon, turnScriptAlpha);
         checkDidP1Faint(player1ActivePokemon);
         if (checkDidP1Faint(player1ActivePokemon)){
-            System.out.println("playturnP1 "+ "player 1's " + player1ActivePokemon.getName() + " current HP: " + player1ActivePokemon.getCurrentHP() + ", player 2's " + player2ActivePokemon.getName() + " Current HP:" + player2ActivePokemon.getCurrentHP());
+            System.out.println("playturnP2 "+ "player 1's " + player1ActivePokemon.getName() + " current HP: " + player1ActivePokemon.getCurrentHP() + ", player 2's " + player2ActivePokemon.getName() + " Current HP:" + player2ActivePokemon.getCurrentHP());
             System.out.println("playturnP2 "+"Player 1's pokemon fainted!");
-            if (checkWinner(player1, player2, battleScript, turnScript) == null){
-                turnScript.setDidP1NewMon(true);
+            if (checkWinner(player1, player2, battleScript, turnScriptAlpha) == null){
+                turnScriptAlpha.setDidP1NewMon(true);
+                battleScript.addTurnScript(turnScriptAlpha);
+                System.out.println("end of turn!  -----------------------");
+                playWholeTurn(userTrainer, aiTrainer, battleScript);
+
             } else {
-                turnScript.setDidP1NewMon(false);
+                turnScriptAlpha.setDidP1NewMon(false);
             }
-            System.out.println(turnScript + "-----------------------------");
-            battleScript.addTurnScript(turnScript);
+            System.out.println(turnScriptAlpha + "-----------------------------");
             return true;
         } else {
-            System.out.println("playturnP1 "+ "player 1's " + player1ActivePokemon.getName() + "current HP: " + player1ActivePokemon.getCurrentHP() + ", player 2's " + player2ActivePokemon.getName() + " Current HP:" + player2ActivePokemon.getCurrentHP());
+            System.out.println("playturnP2 "+ "player 1's " + player1ActivePokemon.getName() + "current HP: " + player1ActivePokemon.getCurrentHP() + ", player 2's " + player2ActivePokemon.getName() + " Current HP:" + player2ActivePokemon.getCurrentHP());
             System.out.println("End of playturnp2------------------!");
-
-            playTurnP1(player1, player2, player1ActivePokemon, player2ActivePokemon, battleScript, turnScript);
-            battleScript.addTurnScript(turnScript);
+            battleScript.addTurnScript(turnScriptAlpha);
+            playWholeTurn(userTrainer, aiTrainer, battleScript);
             return false;
         }
     }
 
-    public Trainer checkWinner(Trainer player1, Trainer player2, BattleScript battleScript, TurnScript turnScript) {
-        if (setActivePokemon(player1) == null) {
+    public Trainer checkWinner(Trainer userTrainer, Trainer aiTrainer, BattleScript battleScript, TurnScript turnScript) {
+        if (setActivePokemon(userTrainer) == null) {
             System.out.println("Player 2 wins!");
             turnScript.setP1OutOfMons(true);
-            setWinningTrainer(player2);
-            battleEnd(battleScript);
-        } else if (setActivePokemon(player2) == null) {
+            System.out.println("P1 out of mons set to true!");
+            battleScript.addTurnScript(turnScript);
+            printBattleScript(battleScript);
+            return aiTrainer;
+        } else if (setActivePokemon(aiTrainer) == null) {
             System.out.println("Player 1 wins!");
             turnScript.setP2OutOfMons(true);
-            setWinningTrainer(player1);
-            battleEnd(battleScript);
+            System.out.println("P2 out of mons set to true!");
+            setWinningTrainer(userTrainer);
+            battleScript.addTurnScript(turnScript);
+            printBattleScript(battleScript);
+            return userTrainer;
         }
-        return winningTrainer;
+        return null;
     }
 
 
-    public void battleEnd(BattleScript battleScript){
+    public void printBattleScript(BattleScript battleScript){
         ArrayList<TurnScript> script = battleScript.getScript();
         for (TurnScript turnScript : script){
             System.out.println(
@@ -345,7 +349,7 @@ public class BattlePhase {
                             ", P1CurrentHP " + turnScript.getP1CurrentHP() +
                             ", didP2NewMon " + turnScript.getDidP2NewMon() +
                             ", didP1NewMon " + turnScript.getDidP1NewMon() +
-                            ", P1OutOfMons " + turnScript.getP1OutOfMons() +
+                            ", didP1Faint " + turnScript.getDidP1Faint() +
                             ", didP2Faint " + turnScript.getDidP2Faint()+
                             ", P2OutOfMons " + turnScript.getP2OutOfMons()+
                             ", P1OutOfMons " + turnScript.getP1OutOfMons()
