@@ -2,15 +2,21 @@ package com.codeclan.FinalProject.PokemonAutoBattler.models;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class BattlePhase {
 
     private ArrayList<Trainer> trainers;
     private String theme;
+    private Trainer winningTrainer;
 
-    public BattlePhase(String theme) {
+    private BattleScript battleScript;
+
+
+    public BattlePhase(String theme, ArrayList<Trainer> trainers) {
         this.theme = theme;
         this.trainers = new ArrayList<>();
+        this.battleScript = new BattleScript(trainers);
     }
 
 
@@ -101,196 +107,256 @@ public class BattlePhase {
         return 1;
     }
 
-//    public double effectivenessLookup(Pokemon attackingPokemon, Pokemon defendingPokemon){
-//        int effectiveness = 0;
-//
-//        Types attackingType = attackingPokemon.getActiveMove().getType();
-//        ArrayList<Types> defendingTypes = defendingPokemon.getTypes();
-//
-//
-//        return effectiveness;
-//    }
+    public boolean playerFirst(Trainer userTrainer, Trainer aiTrainer, TurnScript turnScript) {
+        Pokemon userActivePokemon = setActivePokemon(userTrainer);
+        Pokemon aiActivePokemon = setActivePokemon(aiTrainer);
+        setActivePokemon(aiTrainer);
+        if (userActivePokemon.getEffectiveSpeed() >= aiActivePokemon.getEffectiveSpeed()) {
+            turnScript.setPlayerFirst(true);
+            return true;
+        } else {
+            turnScript.setPlayerFirst(false);
+            return false;
+        }
+    }
 
-//    public HashMap<Types, ArrayList<ArrayList<Types>>> effectivness() {
-//
-//        HashMap<Types, ArrayList<ArrayList<Types>>> effectivnessChart = new HashMap<>();
-//
-//        ArrayList<ArrayList<Types>> SeffResImm = new ArrayList<>();
-//        ArrayList<Types> seff = new ArrayList<>();
-//        ArrayList<Types> res = new ArrayList<>();
-//        res.add(Types.STEEL);
-//        res.add(Types.ROCK);
-//        ArrayList<Types> imm = new ArrayList<>();
-//        imm.add(Types.GHOST);
-//        SeffResImm.add(seff);
-//        SeffResImm.add(res);
-//        SeffResImm.add(imm);
-//        effectivnessChart.put(Types.NORMAL, SeffResImm);
-//
-//        ArrayList<ArrayList<Types>> SeffResImm = new ArrayList<>();
-//        ArrayList<Types> seff = new ArrayList<>();
-//        seff.add(Types.GRASS);
-//        seff.add(Types.STEEL);
-//        seff.add(Types.ICE);
-//        seff.add(Types.BUG);
-//        ArrayList<Types> res = new ArrayList<>();
-//        res.add(Types.FIRE);
-//        res.add(Types.WATER);
-//        res.add(Types.ROCK);
-//        res.add(Types.DRAGON);
-//        ArrayList<Types> imm = new ArrayList<>();
-//        SeffResImm.add(seff);
-//        SeffResImm.add(res);
-//        SeffResImm.add(imm);
-//        effectivnessChart.put(Types.FIRE, SeffResImm);
-//
-//        ArrayList<ArrayList<Types>> WaterSeffResImm = new ArrayList<>();
-//        ArrayList<Types> WaterSeff = new ArrayList<>();
-//        WaterSeff.add(Types.FIRE);
-//        WaterSeff.add(Types.GROUND);
-//        WaterSeff.add(Types.ROCK);
-//        ArrayList<Types> WaterRes = new ArrayList<>();
-//        WaterRes.add(Types.GRASS);
-//        WaterRes.add(Types.WATER);
-//        WaterRes.add(Types.DRAGON);
-//        ArrayList<Types> WaterImm = new ArrayList<>();
-//        WaterSeffResImm.add(WaterSeff);
-//        WaterSeffResImm.add(WaterRes);
-//        WaterSeffResImm.add(WaterImm);
-//        effectivnessChart.put(Types.WATER, WaterSeffResImm);
-//
-//        ArrayList<ArrayList<Types>> ElectricSeffResImm = new ArrayList<>();
-//        ArrayList<Types> ElectricSeff = new ArrayList<>();
-//        ElectricSeff.add(Types.WATER);
-//        ElectricSeff.add(Types.FLYING);
-//        ArrayList<Types> ElectricRes = new ArrayList<>();
-//        ElectricRes.add(Types.ELECTRIC);
-//        ElectricRes.add(Types.GRASS);
-//        ElectricRes.add(Types.DRAGON);
-//        ArrayList<Types> ElectricImm = new ArrayList<>();
-//        ElectricImm.add(Types.GROUND);
-//        ElectricSeffResImm.add(ElectricSeff);
-//        ElectricSeffResImm.add(ElectricRes);
-//        ElectricSeffResImm.add(ElectricImm);
-//        effectivnessChart.put(Types.ELECTRIC, ElectricSeffResImm);
-//
-//
-////
-//        ArrayList<ArrayList<Types>> GrassSeffResImm = new ArrayList<>();
-//        ArrayList<Types> GrassSeff = new ArrayList<>();
-//        GrassSeff.add(Types.WATER);
-//        GrassSeff.add(Types.GROUND);
-//        GrassSeff.add(Types.ROCK);
-//        ArrayList<Types> GrassRes = new ArrayList<>();
-//        GrassRes.add(Types.FIRE);
-//        GrassRes.add(Types.GRASS);
-//        GrassRes.add(Types.DRAGON);
-//        GrassRes.add(Types.POISON);
-//        GrassRes.add(Types.BUG);
-//        GrassRes.add(Types.STEEL);
-//        GrassRes.add(Types.FLYING);
-//        ArrayList<Types> GrassImm = new ArrayList<>();
-//        GrassSeffResImm.add(GrassSeff);
-//        GrassSeffResImm.add(GrassRes);
-//        GrassSeffResImm.add(GrassImm);
-//        effectivnessChart.put(Types.GRASS, GrassSeffResImm);
-//
-//
-//        ArrayList<ArrayList<Types>> IceSeffResImm = new ArrayList<>();
-//        ArrayList<Types> IceSeff = new ArrayList<>();
-//        IceSeff.add(Types.GRASS);
-//        IceSeff.add(Types.GROUND);
-//        IceSeff.add(Types.FLYING);
-//        IceSeff.add(Types.DRAGON);
-//        ArrayList<Types> IceRes = new ArrayList<>();
-//        IceRes.add(Types.FIRE);
-//        IceRes.add(Types.WATER);
-//        IceRes.add(Types.ICE);
-//        IceRes.add(Types.STEEL);
-//        ArrayList<Types> IceImm = new ArrayList<>();
-//        IceSeffResImm.add(IceSeff);
-//        IceSeffResImm.add(IceRes);
-//        IceSeffResImm.add(IceImm);
-//        effectivnessChart.put(Types.ICE, IceSeffResImm);
-//
-//
-//        ArrayList<ArrayList<Types>> FightingSeffResImm = new ArrayList<>();
-//        ArrayList<Types> FightingSeff = new ArrayList<>();
-//        FightingSeff.add(Types.NORMAL);
-//        FightingSeff.add(Types.ICE);
-//        FightingSeff.add(Types.ROCK);
-//        FightingSeff.add(Types.DARK);
-//        FightingSeff.add(Types.STEEL);
-//        ArrayList<Types> FightingRes = new ArrayList<>();
-//        FightingRes.add(Types.POISON);
-//        FightingRes.add(Types.PSYCHIC);
-//        FightingRes.add(Types.FLYING);
-//        FightingRes.add(Types.FAIRY);
-//        FightingRes.add(Types.BUG);
-//        ArrayList<Types> FightingImm = new ArrayList<>();
-//        FightingImm.add(Types.GHOST);
-//        FightingSeffResImm.add(FightingSeff);
-//        FightingSeffResImm.add(FightingRes);
-//        FightingSeffResImm.add(FightingImm);
-//        effectivnessChart.put(Types.FIGHTING, FightingSeffResImm);
-//
-//        ArrayList<ArrayList<Types>> PoisonSeffResImm = new ArrayList<>();
-//        ArrayList<Types> PoisonSeff = new ArrayList<>();
-//        PoisonSeff.add(Types.GRASS);
-//        PoisonSeff.add(Types.FAIRY);
-//        ArrayList<Types> PoisonRes = new ArrayList<>();
-//        PoisonRes.add(Types.POISON);
-//        PoisonRes.add(Types.GROUND);
-//        PoisonRes.add(Types.ROCK);
-//        PoisonRes.add(Types.GHOST);
-//        ArrayList<Types> PoisonImm = new ArrayList<>();
-//        PoisonImm.add(Types.STEEL);
-//        FightingSeffResImm.add(PoisonSeff);
-//        FightingSeffResImm.add(PoisonRes);
-//        FightingSeffResImm.add(PoisonImm);
-//        effectivnessChart.put(Types.POISON, PoisonSeffResImm);
-//
-//        ArrayList<ArrayList<Types>> GroundSeffResImm = new ArrayList<>();
-//        ArrayList<Types> GroundSeff = new ArrayList<>();
-//        GroundSeff.add(Types.FIRE);
-//        GroundSeff.add(Types.ELECTRIC);
-//        GroundSeff.add(Types.POISON);
-//        GroundSeff.add(Types.ROCK);
-//        GroundSeff.add(Types.STEEL);
-//        ArrayList<Types> GroundRes = new ArrayList<>();
-//        GroundRes.add(Types.GRASS);
-//        GroundRes.add(Types.BUG);
-//        ArrayList<Types> GroundImm = new ArrayList<>();
-//        GroundImm.add(Types.FLYING);
-//        GroundSeffResImm.add(GroundSeff);
-//        GroundSeffResImm.add(GroundRes);
-//        GroundSeffResImm.add(GroundImm);
-//        effectivnessChart.put(Types.GROUND, GroundSeffResImm);
-//
-//        ArrayList<ArrayList<Types>> FlyingSeffResImm = new ArrayList<>();
-//        ArrayList<Types> FlyingSeff = new ArrayList<>();
-//        FlyingSeff.add(Types.GRASS);
-//        FlyingSeff.add(Types.FIGHTING);
-//        FlyingSeff.add(Types.BUG);
-//        ArrayList<Types> FLyingRes = new ArrayList<>();
-//        FLyingRes.add(Types.ELECTRIC);
-//        FLyingRes.add(Types.ROCK);
-//        FLyingRes.add(Types.STEEL);
-//        ArrayList<Types> FlyingImm = new ArrayList<>();
-//        FlyingSeffResImm.add(FlyingSeff);
-//        FlyingSeffResImm.add(FLyingRes);
-//        FlyingSeffResImm.add(FlyingImm);
-//        effectivnessChart.put(Types.FLYING, FlyingSeffResImm);
-//
-//
-//        return effectivnessChart;
-//    }
+    public Trainer setP1(Trainer userTrainer, Trainer aiTrainer, TurnScript turnScript) {
+        if (playerFirst(userTrainer, aiTrainer, turnScript)) {
+            Trainer p1 = userTrainer;
+            return p1;
+        } else {
+            Trainer p1 = aiTrainer;
+            return p1;
+        }
+    }
+
+    public Trainer setP2(Trainer userTrainer, Trainer aiTrainer, TurnScript turnScript) {
+        if (playerFirst(userTrainer, aiTrainer, turnScript)) {
+            Trainer p2 = aiTrainer;
+            return p2;
+        } else {
+            Trainer p2 = userTrainer;
+            return p2;
+        }
+    }
+
+    public Pokemon setActivePokemon(Trainer trainer){
+        Pokemon activePokemon;
+        List<Pokemon> pokemons = trainer.getPokemons();
+        activePokemon = pokemons.stream().filter(pokemon -> pokemon.getIsFainted() == false).findFirst().orElse(null);
+        return activePokemon;
+    }
+
+    public Pokemon setP1ActivePokemon(Trainer trainer){
+        Pokemon p1ActivePokemon = setActivePokemon(trainer);
+        System.out.println("Player 1, new active pokemon: " + p1ActivePokemon.getName() + "'s currentHP: " + p1ActivePokemon.getCurrentHP() + "/" + p1ActivePokemon.getEffectiveHP()) ;
+
+        return p1ActivePokemon;
+    }
+
+    public Pokemon setP2ActivePokemon(Trainer trainer){
+        Pokemon p2ActivePokemon = setActivePokemon(trainer);
+        System.out.println("Player 2, new active pokemon: " + p2ActivePokemon.getName() + "'s currentHP: " + p2ActivePokemon.getCurrentHP() + "/" + p2ActivePokemon.getEffectiveHP()) ;
+
+
+        return p2ActivePokemon;
+    }
 
     public void pokemonFaints(Pokemon pokemon){
         pokemon.faint();
     }
 
-    public void battleEnd(){
+    public int p1dealDamage(Pokemon p1activePokemon, Pokemon p2activePokemon, TurnScript turnScript) {
+        int damage = (int) BattlePhase.damageCalculation(p1activePokemon, p2activePokemon);
+        p2activePokemon.takeDamage(damage);
+        turnScript.setFirstDamageDealt(damage);
+        if (p2activePokemon.getIsFainted()){
+            turnScript.setDidP2Faint(true);
+        };
+        return damage;
+    }
+
+    public int p2dealDamage(Pokemon p1activePokemon, Pokemon p2activePokemon, TurnScript turnScript) {
+        int damage = (int) BattlePhase.damageCalculation(p2activePokemon, p1activePokemon);
+        p1activePokemon.takeDamage(damage);
+        turnScript.setSecondDamageDealt(damage);
+        if (p1activePokemon.getIsFainted()){
+            turnScript.setDidP1Faint(true);
+        };
+        return damage;
+    }
+
+    public int p1FindDamage(Pokemon p1activePokemon, Pokemon p2activePokemon){
+        int damage = (int) BattlePhase.damageCalculation(p1activePokemon, p2activePokemon);
+        return damage;
+    }
+
+    public int p2FindDamage(Pokemon p1activePokemon, Pokemon p2activePokemon){
+        int damage = (int) BattlePhase.damageCalculation(p2activePokemon, p1activePokemon);
+        return damage;
+    }
+
+    public boolean checkDidP1Faint(Pokemon p1activePokemon){
+        if (p1activePokemon.getIsFainted() == true){
+            return true;
+        }
+        return false;
+    }
+
+    public int getCurrentHPP1(Pokemon p1activePokemon, TurnScript turnScript){
+        int p1CurrentHP = p1activePokemon.getCurrentHP();
+        turnScript.setP1CurrentHP(p1CurrentHP);
+        return p1CurrentHP;
+    }
+
+    public int getCurrentHPP2(Pokemon p2activePokemon, TurnScript turnScript){
+        int p2CurrentHP = p2activePokemon.getCurrentHP();
+        turnScript.setP2CurrentHP(p2CurrentHP);
+        return p2CurrentHP;
+    }
+
+    public boolean checkDidP2Faint(Pokemon p2activePokemon){
+        if (p2activePokemon.getIsFainted() == true){
+            return true;
+        }
+        return false;
+    }
+
+    public void setWinningTrainer(Trainer winningTrainer) {
+        this.winningTrainer = winningTrainer;
+    }
+
+
+
+
+
+    public BattleScript playWholeBattle(ArrayList<Trainer> trainers){
+        Trainer userTrainer = trainers.get(0);
+        Trainer aiTrainer = trainers.get(1);
+        TurnScript turnScript = new TurnScript(true, 0, 0, false, 0, 0, false, false, false, false, false);
+        BattleScript battleScript = new BattleScript(trainers);
+        while(checkWinner(userTrainer, aiTrainer, battleScript, turnScript) == null){
+            playWholeTurn(userTrainer, aiTrainer, battleScript, turnScript);
+        }
+
+        Trainer winningTrainer = checkWinner(userTrainer, aiTrainer, battleScript, turnScript);
+
+        System.out.println(winningTrainer);
+        return battleScript;
+    }
+
+    public void playWholeTurn(Trainer userTrainer, Trainer aiTrainer, BattleScript battleScript,TurnScript turnScript) {
+        Trainer player1 = setP1(userTrainer, aiTrainer, turnScript);
+        Trainer player2 = setP2(userTrainer, aiTrainer, turnScript);
+
+        Pokemon player1ActivePokemon = setP1ActivePokemon(player1);
+        Pokemon player2ActivePokemon = setP2ActivePokemon(player2);
+
+        System.out.println("Turn Set up - Player 1 active pokemon: " + player1ActivePokemon.getName() + "'s currentHP: " + player1ActivePokemon.getCurrentHP() + "/" + player1ActivePokemon.getEffectiveHP() + ", Player 2's " + player2ActivePokemon.getName() + "'s currentHP: " + player2ActivePokemon.getCurrentHP() + "/" + player2ActivePokemon.getEffectiveHP()) ;
+
+        playTurnP1(player1, player2, player1ActivePokemon, player2ActivePokemon, battleScript, turnScript);
+        }
+
+
+    public boolean playTurnP1(Trainer player1, Trainer player2, Pokemon player1ActivePokemon, Pokemon player2ActivePokemon, BattleScript battleScript, TurnScript turnScript2){
+        TurnScript turnScript1 = new TurnScript(true, 0, 0, false, 0, 0, false, false, false, false, false);
+        getCurrentHPP1(player1ActivePokemon, turnScript1);
+        getCurrentHPP1(player1ActivePokemon, turnScript1);
+        System.out.println("playturnP1 "+ "player 1's " + player1ActivePokemon.getName() + " current HP: " + player1ActivePokemon.getCurrentHP() + ", player 2's " + player2ActivePokemon.getName() + " Current HP:" + player2ActivePokemon.getCurrentHP());
+        p1dealDamage(player1ActivePokemon, player2ActivePokemon, turnScript1);
+        System.out.println("playturnP1 "+ player1ActivePokemon.getName() + " used " + player1ActivePokemon.getActiveMove().getName() +  " on " + player2ActivePokemon.getName() + "it did " + p1FindDamage(player1ActivePokemon, player2ActivePokemon) + "damage");
+        System.out.println("playturnP1 "+ "player 1's " + player1ActivePokemon.getName() + " current HP: " + player1ActivePokemon.getCurrentHP() + ", player 2's " + player2ActivePokemon.getName() + " Current HP:" + player2ActivePokemon.getCurrentHP());
+        getCurrentHPP2(player2ActivePokemon, turnScript1);
+        checkDidP2Faint(player2ActivePokemon);
+        if (checkDidP2Faint(player2ActivePokemon)){
+            System.out.println("playturnP1 "+ "player 1's " + player1ActivePokemon.getName() + " current HP: " + player1ActivePokemon.getCurrentHP() + ", player 2's " + player2ActivePokemon.getName() + " Current HP:" + player2ActivePokemon.getCurrentHP());
+            System.out.println("playturnP1 "+ "Player 2's pokemon fainted!");
+            if (checkWinner(player1, player2, battleScript, turnScript1) == null){
+                turnScript1.setDidP2NewMon(true);
+                battleScript.addTurnScript(turnScript1);
+                playWholeTurn(player1, player2, battleScript, turnScript2);
+            } else {
+                turnScript1.setDidP2NewMon(false);
+            }
+            System.out.println("----------------------");
+            battleScript.addTurnScript(turnScript1);
+            return true;
+        } else {
+            System.out.println("playturnP1 "+ "player 1's " + player1ActivePokemon.getName() + " current HP: " + player1ActivePokemon.getCurrentHP() + ", player 2's " + player2ActivePokemon.getName() + " Current HP:" + player2ActivePokemon.getCurrentHP());
+            System.out.println("end of playturnp1!");
+            playTurnP2(player1, player2, player1ActivePokemon, player2ActivePokemon, battleScript, turnScript1);
+            return false;
+        }
+    }
+
+    public boolean playTurnP2(Trainer player1, Trainer player2, Pokemon player1ActivePokemon, Pokemon player2ActivePokemon, BattleScript battleScript, TurnScript turnScript){
+        System.out.println("playturnP1 "+ "player 1's " + player1ActivePokemon.getName() + " current HP: " + player1ActivePokemon.getCurrentHP() + ", player 2's " + player2ActivePokemon.getName() + " Current HP:" + player2ActivePokemon.getCurrentHP());
+        p2dealDamage(player1ActivePokemon, player2ActivePokemon, turnScript);
+        System.out.println("playturnP1 "+ player2ActivePokemon.getName() + " used " + player2ActivePokemon.getActiveMove().getName() +  " on " + player1ActivePokemon.getName() + "it did " + p2FindDamage(player1ActivePokemon, player2ActivePokemon) + " damage");
+        System.out.println("playturnP1 "+ "player 1's " + player1ActivePokemon.getName() + " current HP: " + player1ActivePokemon.getCurrentHP() + ", player 2's " + player2ActivePokemon.getName() + " Current HP:" + player2ActivePokemon.getCurrentHP());
+        getCurrentHPP1(player1ActivePokemon, turnScript);
+        checkDidP1Faint(player1ActivePokemon);
+        if (checkDidP1Faint(player1ActivePokemon)){
+            System.out.println("playturnP1 "+ "player 1's " + player1ActivePokemon.getName() + " current HP: " + player1ActivePokemon.getCurrentHP() + ", player 2's " + player2ActivePokemon.getName() + " Current HP:" + player2ActivePokemon.getCurrentHP());
+            System.out.println("playturnP2 "+"Player 1's pokemon fainted!");
+            if (checkWinner(player1, player2, battleScript, turnScript) == null){
+                turnScript.setDidP1NewMon(true);
+            } else {
+                turnScript.setDidP1NewMon(false);
+            }
+            System.out.println(turnScript + "-----------------------------");
+            battleScript.addTurnScript(turnScript);
+            return true;
+        } else {
+            System.out.println("playturnP1 "+ "player 1's " + player1ActivePokemon.getName() + "current HP: " + player1ActivePokemon.getCurrentHP() + ", player 2's " + player2ActivePokemon.getName() + " Current HP:" + player2ActivePokemon.getCurrentHP());
+            System.out.println("End of playturnp2------------------!");
+
+            playTurnP1(player1, player2, player1ActivePokemon, player2ActivePokemon, battleScript, turnScript);
+            battleScript.addTurnScript(turnScript);
+            return false;
+        }
+    }
+
+    public Trainer checkWinner(Trainer player1, Trainer player2, BattleScript battleScript, TurnScript turnScript) {
+        if (setActivePokemon(player1) == null) {
+            System.out.println("Player 2 wins!");
+            turnScript.setP1OutOfMons(true);
+            setWinningTrainer(player2);
+            battleEnd(battleScript);
+        } else if (setActivePokemon(player2) == null) {
+            System.out.println("Player 1 wins!");
+            turnScript.setP2OutOfMons(true);
+            setWinningTrainer(player1);
+            battleEnd(battleScript);
+        }
+        return winningTrainer;
+    }
+
+
+    public void battleEnd(BattleScript battleScript){
+        ArrayList<TurnScript> script = battleScript.getScript();
+        for (TurnScript turnScript : script){
+            System.out.println(
+                    "turnScript " +
+                    "playerFirst " + turnScript.getPlayerFirst() +
+                    ", firstDamageDealt " + turnScript.getFirstDamageDealt() +
+                            ", P2CurrentHP " + turnScript.getP2CurrentHP() +
+                            ", secondDamageDealt " + turnScript.getSecondDamageDealt() +
+                            ", P1CurrentHP " + turnScript.getP1CurrentHP() +
+                            ", didP2NewMon " + turnScript.getDidP2NewMon() +
+                            ", didP1NewMon " + turnScript.getDidP1NewMon() +
+                            ", P1OutOfMons " + turnScript.getP1OutOfMons() +
+                            ", didP2Faint " + turnScript.getDidP2Faint()+
+                            ", P2OutOfMons " + turnScript.getP2OutOfMons()+
+                            ", P1OutOfMons " + turnScript.getP1OutOfMons()
+
+            );
+
+        }
+
+
+
+
 
     }
 
