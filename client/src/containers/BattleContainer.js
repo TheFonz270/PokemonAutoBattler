@@ -64,7 +64,7 @@ const pikachu = {
     name : "pikachu",
     AvatarImage : "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/25.png",
     ActiveMove : thunderbolt,
-    level : 17,
+    level : 34,
     canEvolve : true,
     currentHp : 120,
     types : ["Electric"],
@@ -123,7 +123,7 @@ const riolu = {
 }
 
 const trainer = {
-    team : [quilava, pikachu, eevee, squirtle, ralts, riolu],
+    team : [quilava, pikachu, eevee],
     avatar : "/img/PokemonTrainer.png",
     pokeDollars : 10
 }
@@ -163,7 +163,7 @@ const BattleScript = {
         }, {
             playerFirst :true,
             firstDamageDealt : 23,
-            P2CurrentHP: 64,
+            P2CurrentHP: 34,
             didP2Faint : false,
             secondDamageDealt : 20,
             P1CurrentHP: 82,
@@ -178,15 +178,28 @@ const BattleScript = {
 
 
     const [BattleScriptState, setBattleScriptState] = useState(null)
+    const [Trainer1State, setTrainer1] = useState(null)
+    const [Trainer2State, setTrainer2] = useState(null)
 
 
     useEffect(()=>{
-        setBattleScriptState(BattleScript)}, [])
+        setBattleScriptState(BattleScript)
+        setTrainer1(BattleScript.trainers[0])
+        setTrainer2(BattleScript.trainers[1])
+    }, [])
+
+    if (Trainer1State == null) {
+        return (
+            <>
+            "Loading..."
+            </>
+        )
+        } 
 
 
     return (
         <>
-        < Arena BattleScript={BattleScript}/>
+        < Arena BattleScript={BattleScriptState} setBattleScriptState={setBattleScriptState} Trainer1={Trainer1State} setTrainer1={setTrainer1} Trainer2={Trainer2State} setTrainer2={setTrainer2}/>
         </>
     )
 }

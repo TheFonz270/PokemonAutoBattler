@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import TrainerArea from './TrainerArea';
 import TrainerArea2 from './TrainerArea2';
 
-const Arena = ({BattleScript}) => {
+const Arena = ({BattleScript, setBattleScriptState, Trainer1, setTrainer1, Trainer2, setTrainer2}) => {
     const [Pokemon1State, setPokemon1State] = useState("normal");           //CSS class for sprite
     const [ActivePokemon1State, setActivePokemon1State] = useState(null);   //Left Active Pokemon
     const [Pokemon1MAXHP, setPokemon1MAXHP] = useState(100);               //Left Pokemon Max Hp
@@ -24,25 +24,25 @@ const PokemonAttacks = (attacker, defender) => {
 
 const handleDamage1 = (trainers, turn) => {
     if (turn.playerFirst == true) {
-        findActive(trainers[1], T2FaintedCount).currentHp = turn.P2CurrentHP
-        setActivePokemon2State(findActive(trainers[1], T2FaintedCount))
+        findActive(Trainer2, T2FaintedCount).currentHp = turn.P2CurrentHP
+        setActivePokemon2State(findActive(Trainer2, T2FaintedCount))
     }
     if (turn.playerFirst == false) {
-        findActive(trainers[0], T1FaintedCount).currentHp = turn.P2CurrentHP
-        setActivePokemon1State(findActive(trainers[0], T1FaintedCount))
+        findActive(Trainer1, T1FaintedCount).currentHp = turn.P2CurrentHP
+        setActivePokemon1State(findActive(Trainer1, T1FaintedCount))
     }
     checkHPs(trainers, turn);
 }
 
 const handleDamage2 = (trainers, turn) => {
     if (turn.playerFirst == true) {
-        findActive(trainers[0], T1FaintedCount).currentHp = turn.P1CurrentHP
-        setActivePokemon1State(findActive(trainers[0], T1FaintedCount))
+        findActive(Trainer1, T1FaintedCount).currentHp = turn.P1CurrentHP
+        setActivePokemon1State(findActive(Trainer1, T1FaintedCount))
         
     }
     if (turn.playerFirst == false) {
-        findActive(trainers[1], T2FaintedCount).currentHp = turn.P1CurrentHP
-        setActivePokemon2State(findActive(trainers[1], T2FaintedCount))
+        findActive(Trainer2, T2FaintedCount).currentHp = turn.P1CurrentHP
+        setActivePokemon2State(findActive(Trainer2, T2FaintedCount))
     }
     checkHPs(trainers, turn);
 }
@@ -50,24 +50,24 @@ const handleDamage2 = (trainers, turn) => {
 
 
 const checkHPs = (trainers, turn) => {
-        setPokemon1HP((findActive(trainers[0], T1FaintedCount).currentHp/Pokemon1MAXHP) * 100)
-        setPokemon2HP((findActive(trainers[1], T2FaintedCount).currentHp/Pokemon2MAXHP) * 100)
+        setPokemon1HP((findActive(Trainer1, T1FaintedCount).currentHp/Pokemon1MAXHP) * 100)
+        setPokemon2HP((findActive(Trainer2, T2FaintedCount).currentHp/Pokemon2MAXHP) * 100)
     console.log("Check HP has run")
     
 }
 
 const checkIfFaints = (trainers, turn) => {
-    if (findActive(trainers[0], T1FaintedCount).currentHp == 0) {
+    if (findActive(Trainer1, T1FaintedCount).currentHp == 0) {
         console.log(`${ActivePokemon1State.name} has no HP!`)
-        findActive(trainers[0], T1FaintedCount).isFainted = true
+        findActive(Trainer1, T1FaintedCount).isFainted = true
         setT1FaintedCount(+1)
         
     }
-    if (findActive(trainers[1], T2FaintedCount).currentHp == 0) {
+    if (findActive(Trainer2, T2FaintedCount).currentHp == 0) {
         console.log(`${ActivePokemon2State.name} has no HP!`)
-        findActive(trainers[1], T2FaintedCount).isFainted = true
+        findActive(Trainer2, T2FaintedCount).isFainted = true
         setT2FaintedCount(+1)
-        setActivePokemon2State(findActive(trainers[1], T2FaintedCount))
+        setActivePokemon2State(findActive(Trainer2, T2FaintedCount))
     }
     console.log("CheckIfFaints has run")
 }
@@ -75,15 +75,15 @@ const checkIfFaints = (trainers, turn) => {
 const SumonNewMons = (trainers, turn) => {
     if (turn.didP2Faint == true) {
         if (turn.playerFirst == true) {
-            setActivePokemon2State(findActive(trainers[1], T2FaintedCount))
-            console.log("Go " + findActive(trainers[1], T2FaintedCount).name + "!")
+            setActivePokemon2State(findActive(Trainer2, T2FaintedCount))
+            console.log("Go " + findActive(Trainer2, T2FaintedCount).name + "!")
             setPokemon2HP(100)
-            setPokemon2MAXHP(findActive(trainers[1], T2FaintedCount).currentHp);
+            setPokemon2MAXHP(findActive(Trainer2, T2FaintedCount).currentHp);
             
         }
         if (turn.playerFirst == false) {
-            setActivePokemon1State(findActive(trainers[0], T1FaintedCount))
-            setPokemon1MAXHP(findActive(trainers[0], T1FaintedCount).currentHp);
+            setActivePokemon1State(findActive(Trainer1, T1FaintedCount))
+            setPokemon1MAXHP(findActive(Trainer1, T1FaintedCount).currentHp);
             setPokemon1HP(100)
         }
         
@@ -91,13 +91,13 @@ const SumonNewMons = (trainers, turn) => {
 
     if (turn.didP1Faint == true) {
         if (turn.playerFirst == true) {
-            setActivePokemon1State(findActive(trainers[0], T1FaintedCount))
-            setPokemon1MAXHP(findActive(trainers[0], T1FaintedCount).currentHp);
+            setActivePokemon1State(findActive(Trainer1, T1FaintedCount))
+            setPokemon1MAXHP(findActive(Trainer1, T1FaintedCount).currentHp);
             setPokemon1HP(100)
         }
         if (turn.playerFirst == false) {
-            setActivePokemon2State(findActive(trainers[1], T2FaintedCount))
-            setPokemon2MAXHP(findActive(trainers[1], T2FaintedCount).currentHp);
+            setActivePokemon2State(findActive(Trainer2, T2FaintedCount))
+            setPokemon2MAXHP(findActive(Trainer2, T2FaintedCount).currentHp);
             setPokemon2HP(100)
         }
         
@@ -137,19 +137,18 @@ const handleSummonAnimation = () => {
 
 
     useEffect(()=>{
-        BattleSetup(BattleScript.trainers)}, [])
+        BattleSetup()
+    }, [])
+
     
-        
+    
 
-        let ActiveFirst = null;
-        let ActiveSecond = null;
-
-const BattleSetup = (trainers) => {
+const BattleSetup = () => {
     // music player
-    setPokemon1MAXHP(findActive(trainers[0], T1FaintedCount).currentHp);
-    setPokemon2MAXHP(findActive(trainers[0], T1FaintedCount).currentHp);
-    setActivePokemon1State(findActive(trainers[0], T1FaintedCount))
-    setActivePokemon2State(findActive(trainers[1], T2FaintedCount))
+    setPokemon1MAXHP(findActive(Trainer1, T1FaintedCount).currentHp);
+    setPokemon2MAXHP(findActive(Trainer2, T2FaintedCount).currentHp);
+    setActivePokemon1State(findActive(Trainer1, T1FaintedCount))
+    setActivePokemon2State(findActive(Trainer2, T2FaintedCount))
     
     setTimeout(() => {
         setTurnCounter(1)
@@ -184,7 +183,7 @@ const BattleTurn = (trainers, turn) => {
                 
                     setTimeout(function () {
 
-                        if (turn.playerFirst==true && findActive(trainers[1], T2FaintedCount).isFainted == false || turn.playerFirst==false && findActive(trainers[0], T1FaintedCount).isFainted == false) {
+                        if (turn.playerFirst==true && findActive(Trainer2, T2FaintedCount).isFainted == false || turn.playerFirst==false && findActive(Trainer1, T1FaintedCount).isFainted == false) {
 
                             handleDamage2(trainers, turn)
                             handleDamageAnimation(1)
@@ -238,13 +237,13 @@ if (TurnCounter < 1) {
     return (
         <div id="Arena">
             <TrainerArea 
-                trainer={BattleScript.trainers[0]}
+                trainer={Trainer1}
                 PokemonState = {Pokemon1State} 
                 PokemonHP={Pokemon1HP}
                 activePokemon = {ActivePokemon1State}
                 />
             <TrainerArea2
-                trainer={BattleScript.trainers[1]}
+                trainer={Trainer2}
                 PokemonState = {Pokemon2State} 
                 PokemonHP={Pokemon2HP}
                 activePokemon = {ActivePokemon2State}

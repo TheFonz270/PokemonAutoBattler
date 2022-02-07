@@ -142,14 +142,21 @@ const trainer2 = {
     const [ScreenState, setScreenState] = useState("teamGen"); 
     const [SelectedPokemonState, setSelectedPokemonState] = useState([]);
     const [trainerState, setTrainerState] = useState(null)
+    const [teamSelectErrorState, setTeamSelectErrorState] = useState(false)
 
     const handleScreenState = (newState) => {
       setScreenState(newState)
     }
 
     const handleTeamSubmit = () => {
+      if (SelectedPokemonState.length == 3) {
       trainerState.team = SelectedPokemonState;
       handleScreenState("maintenance")
+      } 
+      else {
+        console.log("Error please select three Pokemon")
+        setTeamSelectErrorState(true)
+      }
     }
 
     useEffect(()=>{
@@ -159,8 +166,8 @@ const trainer2 = {
 
   return (
     <main>
-      {ScreenState=="teamGen"?<TeamGeneratorContainer trainer={trainer} handleScreenState={handleScreenState} handleTeamSubmit={handleTeamSubmit} SelectedPokemonState={SelectedPokemonState} setSelectedPokemonState={setSelectedPokemonState} />:null }
-      {ScreenState=="maintenance"?<MaintenanceContainer trainer={trainer} handleScreenState={handleScreenState}/>:null }
+      {ScreenState=="teamGen"?<TeamGeneratorContainer trainer={trainer} handleScreenState={handleScreenState} handleTeamSubmit={handleTeamSubmit} SelectedPokemonState={SelectedPokemonState} setSelectedPokemonState={setSelectedPokemonState} teamSelectErrorState={teamSelectErrorState}/>:null }
+      {ScreenState=="maintenance"?<MaintenanceContainer trainer={trainerState} handleScreenState={handleScreenState}/>:null }
       {ScreenState=="battle"?<BattleContainer />:null }
     </main>
   );
