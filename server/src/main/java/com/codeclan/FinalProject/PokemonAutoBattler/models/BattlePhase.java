@@ -370,7 +370,7 @@ public class BattlePhase {
 
 
     public void printBattleScript(BattleScript battleScript){
-        ArrayList<TurnScript> script = battleScript.getScript();
+        List<TurnScript> script = battleScript.getScript();
         for (TurnScript turnScript : script){
             System.out.println(
                     "turnScript " +
