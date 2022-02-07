@@ -7,7 +7,7 @@ const Move = ({activePokemon}) => {
 // console.log(activePokemon.ActiveMove.name)
 
     return (
-        <div class="moveName">
+        <div className={`${activePokemon.ActiveMove.type} moveName`} >
         {activePokemon.ActiveMove.name}
         </div>
     )

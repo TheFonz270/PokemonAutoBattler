@@ -1,19 +1,18 @@
 import React, {useState, useEffect} from 'react';
-import ActivePokemon from './ActivePokemon';
 
-const PokemonSprite = ({activePokemon, Pokemon1State}) => {
+const MaintenancePokemonSprite = ({pokemon}) => {
 
 // console.log(activePokemon.AvatarImage)
-const star = activePokemon.level
+const star = pokemon.level
 
     return (
         <div className="pokemonSprite">
         {star>16?<img src={process.env.PUBLIC_URL + `/img/star.png`} class="star"></img>:null }
         {star>33?<img src={process.env.PUBLIC_URL + `/img/star.png`} class="star"></img>:null }
         {star>49?<img src={process.env.PUBLIC_URL + `/img/star.png`} class="star"></img>:null }
-        <img className={Pokemon1State} src={activePokemon.AvatarImage}></img>
+        <img className="MaintenanceSprite" src={pokemon.AvatarImage}></img>
         </div>
     )
 }
 
-export default PokemonSprite;
+export default MaintenancePokemonSprite;

@@ -29,6 +29,13 @@ const Arena = () => {
         Damage : 80
     }
 
+    const thunderbolt = {
+        name : "Thunderbolt",
+        type : "Electric",
+        DamageType : "Special",
+        Damage : 80
+    }
+
     const quilava = {
         pokemonId : 159,
         name : "quilava",
@@ -46,7 +53,7 @@ const Arena = () => {
         pokemonId : 25,
         name : "pikachu",
         AvatarImage : "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/25.png",
-        ActiveMove : fire_punch,
+        ActiveMove : thunderbolt,
         level : 17,
         canEvolve : true,
         currentHp : 120,
@@ -100,40 +107,40 @@ const Arena = () => {
     const BattleScript = {
         trainers : [trainer1, trainer2],
         script : [{
-            playerFirst : 1,
+            playerFirst :true,
             firstDamageDealt : 23,
             P2CurrentHP: 77,
-            didP2Faint : 0,
+            didP2Faint : false,
             secondDamageDealt : 18,
             P1CurrentHP: 102,
-            didP1Faint : 0,
-            didP2NewMon : 0,
-            didP1NewMon : 0,
-            P1OutOfMons : 0,
+            didP1Faint : false,
+            didP2NewMon : false,
+            didP1NewMon : false,
+            P1OutOfMons : false,
             P2OutOfMons : 0
         }, {
-            playerFirst : 1,
+            playerFirst :true,
             firstDamageDealt : 20,
-            P2CurrentHP: 0,
-            didP2Faint : 1,
-            secondDamageDealt : 0,
-            P1CurrentHP: 102,
-            didP1Faint : 0,
-            didP2NewMon : 1,
-            didP1NewMon : 0,
-            P1OutOfMons : 0,
+            P2CurrentHP: 57,
+            didP2Faint :false,
+            secondDamageDealt : 102,
+            P1CurrentHP: 0,
+            didP1Faint : true,
+            didP2NewMon : false,
+            didP1NewMon : true,
+            P1OutOfMons : false,
             P2OutOfMons : 0
         }, {
-            playerFirst : 1,
+            playerFirst :true,
             firstDamageDealt : 23,
             P2CurrentHP: 64,
-            didP2Faint : 0,
+            didP2Faint : false,
             secondDamageDealt : 20,
             P1CurrentHP: 82,
-            didP1Faint : 0,
-            didP2NewMon : 0,
-            didP1NewMon : 0,
-            P1OutOfMons : 0,
+            didP1Faint : false,
+            didP2NewMon : false,
+            didP1NewMon : false,
+            P1OutOfMons : false,
             P2OutOfMons : 0
     }
         ]
