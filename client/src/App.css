@@ -53,6 +53,8 @@ main {
 
 .pokemonSprite {
   position:relative;
+  width:100%;
+  display:block;
 }
 
 .pokemonSprite img {
@@ -250,6 +252,10 @@ main {
   animation: fainting 1s;
  }
 
+ .hidden {
+   display:none;
+ }
+
  @keyframes fainting {
   0% {transform: scale(1)}; 
   50%, 75% {transform: scale(0.4)}
@@ -262,7 +268,7 @@ main {
   100% {transform: scale(1)}
 }
 .fainted {
-  display:none;
+  visibility:hidden;
 }
 
 .summoned {
@@ -378,7 +384,7 @@ button.ptsCost:hover {
   background: #37796C;
 }
 
-.battleButton button:hover {
+.battleButton button:hover, .maintenanceButton button:hover {
   background: #4DAD5B;
 }
 

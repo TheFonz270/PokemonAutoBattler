@@ -172,7 +172,19 @@ const BattleScript = {
             didP1NewMon : false,
             P1OutOfMons : false,
             P2OutOfMons : false
-      }
+        }, {
+            playerFirst :true,
+            firstDamageDealt : 23,
+            P2CurrentHP: 0,
+            didP2Faint : true,
+            secondDamageDealt : 20,
+            P1CurrentHP: 82,
+            didP1Faint : false,
+            didP2NewMon : true,
+            didP1NewMon : false,
+            P1OutOfMons : false,
+            P2OutOfMons : false
+  }
         ]
       }
 

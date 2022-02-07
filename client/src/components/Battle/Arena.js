@@ -16,20 +16,17 @@ const Arena = ({BattleScript, setBattleScriptState, Trainer1, setTrainer1, Train
     const [T2FaintedCount, setT2FaintedCount] = useState(0);
 
 
-    
-const PokemonAttacks = (attacker, defender) => {
-    /* Pokemon 2 flashes*/
-    handleDamageAnimation(defender)
-}
 
 const handleDamage1 = (trainers, turn) => {
     if (turn.playerFirst == true) {
         findActive(Trainer2, T2FaintedCount).currentHp = turn.P2CurrentHP
         setActivePokemon2State(findActive(Trainer2, T2FaintedCount))
+        handleDamageAnimation(2)
     }
     if (turn.playerFirst == false) {
         findActive(Trainer1, T1FaintedCount).currentHp = turn.P2CurrentHP
         setActivePokemon1State(findActive(Trainer1, T1FaintedCount))
+        handleDamageAnimation(1)
     }
     checkHPs(trainers, turn);
 }
@@ -38,11 +35,13 @@ const handleDamage2 = (trainers, turn) => {
     if (turn.playerFirst == true) {
         findActive(Trainer1, T1FaintedCount).currentHp = turn.P1CurrentHP
         setActivePokemon1State(findActive(Trainer1, T1FaintedCount))
+        handleDamageAnimation(1)
         
     }
     if (turn.playerFirst == false) {
         findActive(Trainer2, T2FaintedCount).currentHp = turn.P1CurrentHP
         setActivePokemon2State(findActive(Trainer2, T2FaintedCount))
+        handleDamageAnimation(2)
     }
     checkHPs(trainers, turn);
 }
@@ -60,12 +59,15 @@ const checkIfFaints = (trainers, turn) => {
     if (findActive(Trainer1, T1FaintedCount).currentHp == 0) {
         console.log(`${ActivePokemon1State.name} has no HP!`)
         findActive(Trainer1, T1FaintedCount).isFainted = true
+        handleFaintAnimation(1)
         setT1FaintedCount(+1)
+        setActivePokemon1State(findActive(Trainer1, T1FaintedCount))
         
     }
     if (findActive(Trainer2, T2FaintedCount).currentHp == 0) {
         console.log(`${ActivePokemon2State.name} has no HP!`)
         findActive(Trainer2, T2FaintedCount).isFainted = true
+        handleFaintAnimation(2)
         setT2FaintedCount(+1)
         setActivePokemon2State(findActive(Trainer2, T2FaintedCount))
     }
@@ -77,12 +79,15 @@ const SumonNewMons = (trainers, turn) => {
         if (turn.playerFirst == true) {
             setActivePokemon2State(findActive(Trainer2, T2FaintedCount))
             console.log("Go " + findActive(Trainer2, T2FaintedCount).name + "!")
-            setPokemon2HP(100)
+            handleSummonAnimation(2)
             setPokemon2MAXHP(findActive(Trainer2, T2FaintedCount).currentHp);
+            setPokemon2HP(100)
             
         }
         if (turn.playerFirst == false) {
             setActivePokemon1State(findActive(Trainer1, T1FaintedCount))
+            console.log("Go " + findActive(Trainer2, T2FaintedCount).name + "!")
+            handleSummonAnimation(1)
             setPokemon1MAXHP(findActive(Trainer1, T1FaintedCount).currentHp);
             setPokemon1HP(100)
         }
@@ -92,11 +97,15 @@ const SumonNewMons = (trainers, turn) => {
     if (turn.didP1Faint == true) {
         if (turn.playerFirst == true) {
             setActivePokemon1State(findActive(Trainer1, T1FaintedCount))
+            console.log("Go " + findActive(Trainer1, T2FaintedCount).name + "!")
+            handleSummonAnimation(1)
             setPokemon1MAXHP(findActive(Trainer1, T1FaintedCount).currentHp);
             setPokemon1HP(100)
         }
         if (turn.playerFirst == false) {
             setActivePokemon2State(findActive(Trainer2, T2FaintedCount))
+            console.log("Go " + findActive(Trainer2, T2FaintedCount).name + "!")
+            handleSummonAnimation(2)
             setPokemon2MAXHP(findActive(Trainer2, T2FaintedCount).currentHp);
             setPokemon2HP(100)
         }
@@ -121,18 +130,35 @@ const handleDamageAnimation = (int) => {
     
 }
 
-const handleFaintAnimation = () => {
-    setPokemon1State("fainting")
-    setTimeout(() => {
-        setPokemon1State("normal")
-      }, 1000);
+const handleFaintAnimation = (int) => {
+    
+    if (int == 1) {
+        setPokemon1State("fainting")
+        setTimeout(() => {
+            setPokemon1State("hidden")
+        }, 1000);
+    }
+    if (int == 2) {
+        setPokemon2State("fainting")
+        setTimeout(() => {
+            setPokemon2State("hidden")
+        }, 1000);
+    }
 }
 
-const handleSummonAnimation = () => {
-    setPokemon1State("summoned")
-    setTimeout(() => {
-        setPokemon1State("normal")
-      }, 1000);
+const handleSummonAnimation = (int) => {
+    if (int == 1) {
+        setPokemon1State("summoned")
+        setTimeout(() => {
+            setPokemon1State("normal")
+        }, 1000);
+    }
+    if (int == 2) {
+        setPokemon2State("summoned")
+        setTimeout(() => {
+            setPokemon2State("normal")
+        }, 1000);
+    }
 }
 
 
