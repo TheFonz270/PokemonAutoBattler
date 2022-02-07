@@ -37,11 +37,11 @@ public class BattlePhaseTest {
         fire_punch = new Move("Fire Punch", "fire", DamageType.PHYSICAL, 75);
         water_pulse = new Move("Water Pulse", "water", DamageType.SPECIAL, 60);
 
-        quilava = new Pokemon(159,"Quilava", "quilava.png", fire_punch, 58,64,58,80,65,90);
+        quilava = new Pokemon(159,"QuilavaAI", "quilava.png", fire_punch, 58,64,58,80,65,90);
         honedge = new Pokemon(657, "Honedge", "honedge.png", water_pulse, 45, 80, 100,35, 37,28);
         swinub = new Pokemon(159,"Swinub", "quilava.png", fire_punch, 58,64,58,80,65,90);
-        raichu = new Pokemon(657, "Raichu", "honedge.png", water_pulse, 45, 80, 100,35, 37,28);
-        gyarados = new Pokemon(159,"Gyarados", "quilava.png", fire_punch, 58,64,58,80,65,90);
+        raichu = new Pokemon(657, "RaichuAI", "honedge.png", water_pulse, 45, 80, 100,35, 37,28);
+        gyarados = new Pokemon(159,"GyaradosAI", "quilava.png", fire_punch, 58,64,58,80,65,90);
         kangaskhan = new Pokemon(657, "Kangaskhan", "honedge.png", water_pulse, 45, 80, 100,35, 37,28);
 
         red = new Trainer(3000, "red.png");
@@ -113,8 +113,7 @@ public class BattlePhaseTest {
 
     @Test
     public void canPlayWholeBattle(){
-
-        assertEquals(10, battlePhase.playWholeBattle(trainers).getScriptSize());
+        assertEquals(11, battlePhase.playWholeBattle(trainers).getScriptSize());
     }
 
 }
