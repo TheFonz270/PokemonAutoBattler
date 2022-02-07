@@ -337,7 +337,7 @@ button.ptsCost:hover {
   
 }
 
-.battleButton button {
+.battleButton button, .maintenanceButton button {
   display:block;
   background: #37796C;
   color: #eee;
@@ -351,3 +351,38 @@ button.ptsCost:hover {
 .battleButton button:hover {
   background: #4DAD5B;
 }
+
+/* TEAM GEN MODE */
+
+.teamGenArea {
+  display: flex;
+  flex-wrap: wrap;
+  width:95%;
+  margin:0 auto;
+  justify-content: space-around;
+}
+
+.pokemonCard {
+  width:25%;
+  margin: 15px;
+  background:#eee;
+  border-top:2px solid #FB1B1B;
+  border-right:2px solid #FB1B1B;
+  border-bottom:2px solid #0075BE;
+  border-left:2px solid #0075BE;
+  padding:15px;
+}
+
+.pokemonCard:hover {
+  background:#ccc;
+}
+
+.CardNameBar p{
+  padding:2px; 
+  font-size:22px;
+  border-bottom: 2px solid #222;
+  margin:0 auto;
+  color:#222;
+  margin-bottom:10px;
+}
+

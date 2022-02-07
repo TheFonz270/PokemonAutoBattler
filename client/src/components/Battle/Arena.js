@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import TrainerArea from './TrainerArea';
 import TrainerArea2 from './TrainerArea2';
 
-const Arena = () => {
+const Arena = ({BattleScript}) => {
     const [Pokemon1State, setPokemon1State] = useState("normal");           //CSS class for sprite
     const [ActivePokemon1State, setActivePokemon1State] = useState(null);   //Left Active Pokemon
     const [Pokemon1MAXHP, setPokemon1MAXHP] = useState(100);               //Left Pokemon Max Hp
@@ -15,155 +15,6 @@ const Arena = () => {
     const [T1FaintedCount, setT1FaintedCount] = useState(0);
     const [T2FaintedCount, setT2FaintedCount] = useState(0);
 
-    const fire_punch = {
-        name : "Fire Punch",
-        type : "Fire",
-        DamageType : "Physical",
-        Damage : 75
-    }
-
-    const iron_head = {
-        name : "Iron Head",
-        type : "Steel",
-        DamageType : "Physical",
-        Damage : 80
-    }
-
-    const thunderbolt = {
-        name : "Thunderbolt",
-        type : "Electric",
-        DamageType : "Special",
-        Damage : 80
-    }
-
-    const quilava = {
-        pokemonId : 159,
-        name : "quilava",
-        AvatarImage : "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/156.png",
-        ActiveMove : fire_punch,
-        level : 17,
-        canEvolve : true,
-        currentHp : 120,
-        types : ["Fire"],
-        isFainted : false
-
-    }
-
-    const pikachu = {
-        pokemonId : 25,
-        name : "pikachu",
-        AvatarImage : "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/25.png",
-        ActiveMove : thunderbolt,
-        level : 17,
-        canEvolve : true,
-        currentHp : 120,
-        types : ["Electric"],
-        isFainted : false
-
-    }
-
-
-
-    const honedge = {
-        pokemonId : 679,
-        name : "honedge",
-        AvatarImage : "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/679.png",
-        ActiveMove : iron_head,
-        level : 17,
-        canEvolve : true,
-        currentHp : 100,
-        types : ["Ghost", "Steel"],
-        isFainted : false
-
-    }
-
-    const eevee = {
-        pokemonId : 133,
-        name : "eevee",
-        AvatarImage : "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/133.png",
-        ActiveMove : iron_head,
-        level : 17,
-        canEvolve : true,
-        currentHp : 90,
-        types : ["Normal"],
-        isFainted : false
-
-    }
-
-
-
-    const trainer1 = {
-        team : [quilava, pikachu],
-        avatar : "/img/PokemonTrainer.png",
-        pokeDollars : 10
-    }
-
-    const trainer2 = {
-        team : [honedge, eevee],
-        avatar : "/img/VStrainers/Youngster.png",
-        pokeDollars : 10
-    }
-
-    const BattleScript = {
-        trainers : [trainer1, trainer2],
-        script : [{
-            playerFirst :true,
-            firstDamageDealt : 23,
-            P2CurrentHP: 77,
-            didP2Faint : false,
-            secondDamageDealt : 18,
-            P1CurrentHP: 102,
-            didP1Faint : false,
-            didP2NewMon : false,
-            didP1NewMon : false,
-            P1OutOfMons : false,
-            P2OutOfMons : 0
-        }, {
-            playerFirst :true,
-            firstDamageDealt : 20,
-            P2CurrentHP: 57,
-            didP2Faint :false,
-            secondDamageDealt : 102,
-            P1CurrentHP: 0,
-            didP1Faint : true,
-            didP2NewMon : false,
-            didP1NewMon : true,
-            P1OutOfMons : false,
-            P2OutOfMons : 0
-        }, {
-            playerFirst :true,
-            firstDamageDealt : 23,
-            P2CurrentHP: 64,
-            didP2Faint : false,
-            secondDamageDealt : 20,
-            P1CurrentHP: 82,
-            didP1Faint : false,
-            didP2NewMon : false,
-            didP1NewMon : false,
-            P1OutOfMons : false,
-            P2OutOfMons : 0
-    }
-        ]
-}
-
-
-
-
-
-
-
-
-// const decideP1 = (turn, trainers) => {
-//     if (turn.playerFirst == 1) {
-//         ActiveFirst = ActivePokemon1State;
-//         ActiveSecond = ActivePokemon2State;
-//     } else if (turn.playerFirst == 0) 
-//     {
-//         ActiveFirst = ActivePokemon2State;
-//         ActiveSecond = ActivePokemon1State;
-//     };
-    
-// }
 
     
 const PokemonAttacks = (attacker, defender) => {
@@ -221,6 +72,38 @@ const checkIfFaints = (trainers, turn) => {
     console.log("CheckIfFaints has run")
 }
 
+const SumonNewMons = (trainers, turn) => {
+    if (turn.didP2Faint == true) {
+        if (turn.playerFirst == true) {
+            setActivePokemon2State(findActive(trainers[1], T2FaintedCount))
+            console.log("Go " + findActive(trainers[1], T2FaintedCount).name + "!")
+            setPokemon2HP(100)
+            setPokemon2MAXHP(findActive(trainers[1], T2FaintedCount).currentHp);
+            
+        }
+        if (turn.playerFirst == false) {
+            setActivePokemon1State(findActive(trainers[0], T1FaintedCount))
+            setPokemon1MAXHP(findActive(trainers[0], T1FaintedCount).currentHp);
+            setPokemon1HP(100)
+        }
+        
+    }
+
+    if (turn.didP1Faint == true) {
+        if (turn.playerFirst == true) {
+            setActivePokemon1State(findActive(trainers[0], T1FaintedCount))
+            setPokemon1MAXHP(findActive(trainers[0], T1FaintedCount).currentHp);
+            setPokemon1HP(100)
+        }
+        if (turn.playerFirst == false) {
+            setActivePokemon2State(findActive(trainers[1], T2FaintedCount))
+            setPokemon2MAXHP(findActive(trainers[1], T2FaintedCount).currentHp);
+            setPokemon2HP(100)
+        }
+        
+    }
+}
+
 
 const handleDamageAnimation = (int) => {
     if (int == 1) {
@@ -252,13 +135,6 @@ const handleSummonAnimation = () => {
       }, 1000);
 }
 
-// const handlePokemon1HP = (int) => {
-//     setPokemon1HP(int);
-// }
-
-// const handlePokemon2HP = (int) => {
-//     setPokemon2HP(int);
-// }
 
     useEffect(()=>{
         BattleSetup(BattleScript.trainers)}, [])
@@ -288,14 +164,6 @@ const findActive = (trainer, FaintedCount) => {
         BattleTurn(BattleScript.trainers, BattleScript.script[TurnCounter-1])
     }, [TurnCounter])
 
-
-    // useEffect(()=>{
-        
-    // }, [ActivePokemon1State])
-
-    // useEffect(()=>{
-        
-    // }, [ActivePokemon2State])
 
 
 const BattleTurn = (trainers, turn) => {
@@ -329,68 +197,25 @@ const BattleTurn = (trainers, turn) => {
 
                             setTimeout(function () {
 
-                                if (turn.didP2Faint == true) {
-                                    if (turn.playerFirst == true) {
-                                        setActivePokemon2State(findActive(trainers[1], T2FaintedCount))
-                                        console.log("Go " + findActive(trainers[1], T2FaintedCount).name + "!")
-                                        setPokemon2HP(100)
-                                        setPokemon2MAXHP(findActive(trainers[1], T2FaintedCount).currentHp);
-                                        
-                                    }
-                                    if (turn.playerFirst == false) {
-                                        setActivePokemon1State(findActive(trainers[0], T1FaintedCount))
-                                        setPokemon1MAXHP(findActive(trainers[0], T1FaintedCount).currentHp);
-                                        setPokemon1HP(100)
-                                    }
-                                    
-                                }
-    
-                                if (turn.didP1Faint == true) {
-                                    if (turn.playerFirst == true) {
-                                        setActivePokemon1State(findActive(trainers[0], T1FaintedCount))
-                                        setPokemon1MAXHP(findActive(trainers[0], T1FaintedCount).currentHp);
-                                        setPokemon1HP(100)
-                                    }
-                                    if (turn.playerFirst == false) {
-                                        setActivePokemon2State(findActive(trainers[1], T2FaintedCount))
-                                        setPokemon2MAXHP(findActive(trainers[1], T2FaintedCount).currentHp);
-                                        setPokemon2HP(100)
-                                    }
-                                    
-                                }
+                                SumonNewMons(trainers, turn)
+
                                 setTimeout(function () {
 
                                     if (TurnCounter < BattleScript.script.length) {
                                         setTurnCounter(TurnCounter + 1)
                                     }
+                                    
                                 }, 2000);
 
                             }, 2000);
                         
-                    }, 2000);
+                        }, 2000);
                 
-            }, 2000);
+                    }, 2000);
 
-        }, 2000);
+                }, 2000);
         
 
-        // console.log("BattleStarted")
-        // decideP1(turn, BattleScript)
-        // console.log({P1}, {P2})
-        // PokemonAttacks(P1, P2)
-        // handleDamage(P2, turn.P2CurrentHP)
-        // checkIfFaints()
-        // if (P2.isFainted == false) {
-        // PokemonAttacks(P2, P1)
-        // handleDamage(P1, turn.P1CurrentHP)
-        // }
-        // checkIfFaints()
-        // if (P2.isFainted == true) {
-        //     setActivePokemon2State(BattleScript.trainers[1].team.find(pokemon => pokemon.isFainted == false))
-        // }
-        // if (P1.isFainted == true) {
-        //     setActivePokemon1State(BattleScript.trainers[0].team.find(pokemon => pokemon.isFainted == false))
-        // }
         }, 2000);
     }
 }
