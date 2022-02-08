@@ -127,7 +127,7 @@ const riolu = {
 const trainer = {
     team : [quilava, pikachu, eevee, squirtle, ralts, riolu],
     avatar : "/img/PokemonTrainer.png",
-    pokeDollars : 10
+    pokeDollars : 30
 }
 
 const trainer2 = {
