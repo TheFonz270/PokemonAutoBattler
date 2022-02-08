@@ -269,7 +269,6 @@ public class BattlePhase {
         while(checkWinner(userTrainer, aiTrainer, battleScript, turnScript) == null){
             playWholeTurn(userTrainer, aiTrainer, battleScript);
         }
-
         return battleScript;
     }
 
@@ -360,12 +359,12 @@ public class BattlePhase {
             System.out.println("Player 1 wins!");
             turnScript.setP2OutOfMons(true);
             System.out.println("P2 out of mons set to true!");
-            setWinningTrainer(userTrainer);
+//            setWinningTrainer(userTrainer);
             battleScript.addTurnScript(turnScript);
             printBattleScript(battleScript);
             return userTrainer;
-        }
-        return null;
+        } else{
+        return null;}
     }
 
 
@@ -387,16 +386,18 @@ public class BattlePhase {
                             ", P1OutOfMons " + turnScript.getP1OutOfMons()
 
             );
-
         }
-
-
-
-
-
     }
 
     public void makeBattleScript(){
 
     }
+
+//    public int getTypeEffectiveness(Pokemon attackingPokemon, Pokemon defendingPokemon) {
+//        effectivenessChart
+//
+//        }
+//
+//        return 1;
+//    }
 }

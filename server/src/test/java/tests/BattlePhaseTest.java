@@ -5,10 +5,12 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BattlePhaseTest {
+    static EffectivenessChart effectivenessChart;
     static Move fire_punch;
 
     static Move water_pulse;
@@ -73,6 +75,8 @@ public class BattlePhaseTest {
         trainers.add(blue);
         battleScript = new BattleScript(trainers);
         battlePhase = new BattlePhase("VS Champion Blue", trainers);
+        effectivenessChart = new EffectivenessChart();
+
 
     }
 
@@ -115,5 +119,35 @@ public class BattlePhaseTest {
     public void canPlayWholeBattle(){
         assertEquals(10, battlePhase.playWholeBattle(trainers).getScriptSize());
     }
+
+//    @Test
+//    public void canGetTypeEffectiveness(){
+//        assertEquals(2, battlePhase.getTypeEffectiveness(quilava, honedge));
+//    }
+
+    @Test
+    public void canGetChart(){
+        System.out.println(effectivenessChart.constructor());
+
+    }
+
+    @Test
+    public void canGetTypeMap(){
+//        assertEquals("steel", effectivenessChart.getTypeMap("steel"));
+    }
+
+    @Test public void canGetEffectivenessValue(){
+        assertEquals(2.0, effectivenessChart.getEffectivenessValue("steel", "fairy"));
+        assertEquals(0.5, effectivenessChart.getEffectivenessValue("dragon", "steel"));
+    }
+
+    @Test
+    public void geteffectivenessMultiplier(){
+        assertEquals(2.0, effectivenessChart.effectivenessMultiplier(quilava, honedge) );
+    }
+
+
+
+
 
 }
