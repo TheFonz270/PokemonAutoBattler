@@ -128,6 +128,7 @@ public class BattlePhaseTest {
     @Test
     public void canGetChart(){
         System.out.println(effectivenessChart.constructor());
+
     }
 
     @Test
