@@ -3,11 +3,11 @@ import TrainerArea from './TrainerArea';
 import TrainerArea2 from './TrainerArea2';
 
 const Arena = ({BattleScript, setBattleScriptState, Trainer1, setTrainer1, Trainer2, setTrainer2}) => {
-    const [Pokemon1State, setPokemon1State] = useState("normal");           //CSS class for sprite
+    const [Pokemon1State, setPokemon1State] = useState("idle");           //CSS class for sprite
     const [ActivePokemon1State, setActivePokemon1State] = useState(null);   //Left Active Pokemon
     const [Pokemon1MAXHP, setPokemon1MAXHP] = useState(100);               //Left Pokemon Max Hp
     const [Pokemon1HP, setPokemon1HP] = useState(100);                      //Left Pokemon current HP percentage
-    const [Pokemon2State, setPokemon2State] = useState("normal");
+    const [Pokemon2State, setPokemon2State] = useState("idle");
     const [ActivePokemon2State, setActivePokemon2State] = useState(null);
     const [Pokemon2MAXHP, setPokemon2MAXHP] = useState(100);
     const [Pokemon2HP, setPokemon2HP] = useState(100);
@@ -118,13 +118,13 @@ const handleDamageAnimation = (int) => {
     if (int == 1) {
     setPokemon1State("damaged")
     setTimeout(() => {
-        setPokemon1State("normal")
+        setPokemon1State("idle")
       }, 1000);
     }
     if (int == 2) {
     setPokemon2State("damaged")
     setTimeout(() => {
-        setPokemon2State("normal")
+        setPokemon2State("idle")
       }, 1000);
     }
     
@@ -150,13 +150,13 @@ const handleSummonAnimation = (int) => {
     if (int == 1) {
         setPokemon1State("summoned")
         setTimeout(() => {
-            setPokemon1State("normal")
+            setPokemon1State("idle")
         }, 1000);
     }
     if (int == 2) {
         setPokemon2State("summoned")
         setTimeout(() => {
-            setPokemon2State("normal")
+            setPokemon2State("idle")
         }, 1000);
     }
 }

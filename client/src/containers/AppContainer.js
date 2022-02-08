@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import BattleContainer from './BattleContainer';
 import MaintenanceContainer from './MaintenanceContainer';
 import TeamGeneratorContainer from './TeamGeneratorContainer';
-import postTrainers from '../services/battleService';
+// import postTrainers from '../services/battleService';
 
 
 function AppContainer() {
@@ -138,11 +138,10 @@ const trainer2 = {
 }
 
 
-
-
     const [ScreenState, setScreenState] = useState("teamGen"); 
     const [SelectedPokemonState, setSelectedPokemonState] = useState([]);
     const [trainerState, setTrainerState] = useState(null);
+    const [trainer2State, setTrainer2State] = useState(null);
     const [teamSelectErrorState, setTeamSelectErrorState] = useState(false);
     const [importState, setImportState] = useState(null);
 
@@ -152,7 +151,7 @@ const trainer2 = {
 
     const handleTeamSubmit = () => {
       if (SelectedPokemonState.length == 3) {
-      trainerState.team = SelectedPokemonState;
+      trainerState.pokemons = SelectedPokemonState;
       handleScreenState("maintenance")
       } 
       else {
@@ -164,16 +163,31 @@ const trainer2 = {
     const baseURL = 'http://localhost:8080/'
 
       
+    const postTrainers = () => {
+      // POST request using fetch with async/await
+      
+      // this.setState({ postId: data.id });
+  }
 
     useEffect( () => {
-      // setImportState(postTrainers())
-      setTrainerState(trainer)
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+        };
+        const response = fetch(baseURL + "trainers", requestOptions)
+        .then(response => response.json())
+        .then(data => {console.log(data)
+          setImportState(data)
+          setTrainerState(data[0])
+          setTrainer2State(data[1])
+        })
+        
     }, [])
 
 
 
 
-      if (trainerState == null) {
+      if (!trainerState) {
         return (
             <>
             "Loading..."

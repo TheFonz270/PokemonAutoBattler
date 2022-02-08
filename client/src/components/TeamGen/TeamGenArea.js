@@ -3,7 +3,7 @@ import PokemonCard from './PokemonCard';
 
 const TeamGenArea = ({handleClick, trainer}) => {
 
-    const pokemonCards = trainer.team.map((pokemon) =>{
+    const pokemonCards = trainer.pokemons.map((pokemon) =>{
 
         return <PokemonCard handleClick={handleClick} pokemon={pokemon}/>
         });
