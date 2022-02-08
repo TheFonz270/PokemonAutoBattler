@@ -11,10 +11,7 @@ import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +71,19 @@ public class TrainerController {
         trainers.add(playerTrainer);
         trainers.add(aiTrainer);
         return new ResponseEntity<>(trainers, HttpStatus.CREATED);
+    }
+
+    @PutMapping(value = "/trainers/{id}")
+    public ResponseEntity<Trainer> updateTrainerPokemon(@PathVariable Long id, @RequestBody List<Long> Ids) throws JSONException {
+        Trainer trainer = trainerRepository.findById(id).get();
+        List<Pokemon> pokemons = trainer.getPokemons();
+        for (Pokemon pokemon : pokemons){
+            if (!Ids.contains(pokemon.getId())){
+                pokemonRepository.delete(pokemon);
+                moveRepository.delete(pokemon.getActiveMove());
+            }
+        }
+        return new ResponseEntity<>(trainer, HttpStatus.OK);
     }
 
 
