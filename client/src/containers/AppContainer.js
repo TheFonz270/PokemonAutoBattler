@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import BattleContainer from './BattleContainer';
 import MaintenanceContainer from './MaintenanceContainer';
 import TeamGeneratorContainer from './TeamGeneratorContainer';
+import postTrainers from '../services/battleService';
 
 
 function AppContainer() {
@@ -141,8 +142,9 @@ const trainer2 = {
 
     const [ScreenState, setScreenState] = useState("teamGen"); 
     const [SelectedPokemonState, setSelectedPokemonState] = useState([]);
-    const [trainerState, setTrainerState] = useState(null)
-    const [teamSelectErrorState, setTeamSelectErrorState] = useState(false)
+    const [trainerState, setTrainerState] = useState(null);
+    const [teamSelectErrorState, setTeamSelectErrorState] = useState(false);
+    const [importState, setImportState] = useState(null);
 
     const handleScreenState = (newState) => {
       setScreenState(newState)
@@ -159,9 +161,16 @@ const trainer2 = {
       }
     }
 
-    useEffect(()=>{
+    const baseURL = 'http://localhost:8080/'
+
+      
+
+    useEffect( () => {
+      // setImportState(postTrainers())
       setTrainerState(trainer)
     }, [])
+
+
 
 
       if (trainerState == null) {
