@@ -53,6 +53,8 @@ main {
 
 .pokemonSprite {
   position:relative;
+  width:100%;
+  display:block;
 }
 
 .pokemonSprite img {
@@ -64,6 +66,20 @@ main {
 .pokemonSprite > .star {
   position : absolute;
   top:0px;
+  width:32px;
+}
+
+.pokemonSprite > .star2 {
+  position : absolute;
+  top:0px;
+  left:35px;
+  width:32px;
+}
+
+.pokemonSprite > .star3 {
+  position : absolute;
+  top:0px;
+  left:70px;
   width:32px;
 }
 
@@ -93,7 +109,7 @@ main {
 }
 
 
-.trainerArea2 .pokemonSprite img {
+.trainerArea1 .pokemonSprite img {
     transform: scaleX(-1);
 }
 
@@ -236,6 +252,10 @@ main {
   animation: fainting 1s;
  }
 
+ .hidden {
+   display:none;
+ }
+
  @keyframes fainting {
   0% {transform: scale(1)}; 
   50%, 75% {transform: scale(0.4)}
@@ -248,7 +268,7 @@ main {
   100% {transform: scale(1)}
 }
 .fainted {
-  display:none;
+  visibility:hidden;
 }
 
 .summoned {
@@ -337,18 +357,34 @@ button.ptsCost:hover {
   
 }
 
-.battleButton button, .maintenanceButton button {
+.MaintenanceFooter {
+  display:flex;
+  justify-content: space-around;
+  margin:15px auto;
+}
+
+.PtsBank {
+  background: salmon;
+}
+
+.battleButton button, .maintenanceButton button, .PtsBank {
   display:block;
-  background: #37796C;
   color: #eee;
   font-size:25px;
   padding:10px;
   border:none;
   border-radius:5px;
-  margin:15px auto;
 }
 
-.battleButton button:hover {
+.maintenanceButton button {
+  margin:0px auto;
+}
+
+.battleButton button, .maintenanceButton button {
+  background: #37796C;
+}
+
+.battleButton button:hover, .maintenanceButton button:hover {
   background: #4DAD5B;
 }
 
@@ -359,18 +395,19 @@ button.ptsCost:hover {
   flex-wrap: wrap;
   width:95%;
   margin:0 auto;
-  justify-content: space-around;
+  justify-content: space-evenly;
 }
 
 .pokemonCard {
   width:25%;
+  max-width:275px;
   margin: 15px;
   background:#eee;
   border-top:2px solid #FB1B1B;
   border-right:2px solid #FB1B1B;
   border-bottom:2px solid #0075BE;
   border-left:2px solid #0075BE;
-  padding:15px;
+  padding:0 15px;
 }
 
 .pokemonCard:hover {
@@ -386,3 +423,14 @@ button.ptsCost:hover {
   margin-bottom:10px;
 }
 
+.TeamSelectError p {
+  text-align:center;
+  display:block;
+  padding:3px;
+  color:red;
+  text-decoration:underline;
+}
+
+.teamGenArea .selected {
+  background:#ccc;
+}

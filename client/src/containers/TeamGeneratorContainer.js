@@ -1,13 +1,17 @@
 import React, {useState, useEffect} from 'react';
 import TeamGenArea from '../components/TeamGen/TeamGenArea';
 import ConfirmTeamButton from '../components/TeamGen/ConfirmTeamButton';
+import TeamSelectError from '../components/TeamGen/TeamSelectError';
 
-const TeamGeneratorContainer = ({trainer, handleScreenState, handleTeamSubmit, SelectedPokemonState, setSelectedPokemonState}) => { 
+const TeamGeneratorContainer = ({trainer, handleScreenState, handleTeamSubmit, SelectedPokemonState, setSelectedPokemonState, teamSelectErrorState}) => { 
     
 
     const handleClick = (pokemon) => {
-        if (SelectedPokemonState.includes(pokemon)) {
-        setSelectedPokemonState(SelectedPokemonState.slice(SelectedPokemonState.indexOf(pokemon, 1)))
+        console.log("SelectedPokemonState : " + SelectedPokemonState)
+        if (SelectedPokemonState.some(p => p.pokemonId == pokemon.pokemonId)) {
+            console.log("duplicate")
+            const newSelected = SelectedPokemonState.filter(p => p.pokemonId !== pokemon.pokemonId)
+            setSelectedPokemonState(newSelected)
         }
         else {
         setSelectedPokemonState([...SelectedPokemonState,pokemon])
@@ -18,6 +22,7 @@ const TeamGeneratorContainer = ({trainer, handleScreenState, handleTeamSubmit, S
     return (
         <>
         < TeamGenArea handleClick={handleClick} trainer={trainer}/>
+        {teamSelectErrorState==true?< TeamSelectError /> :null}
         < ConfirmTeamButton SelectedPokemonState={SelectedPokemonState} handleTeamSubmit={handleTeamSubmit} handleScreenState={handleScreenState}/>
         </>
     )
