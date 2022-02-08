@@ -160,14 +160,22 @@ const trainer2 = {
     }
 
     useEffect(()=>{
-      setTrainerState(trainer)}, [])
+      setTrainerState(trainer)
+    }, [])
 
-    
+
+      if (trainerState == null) {
+        return (
+            <>
+            "Loading..."
+            </>
+        )
+        } 
 
   return (
     <main>
-      {ScreenState=="teamGen"?<TeamGeneratorContainer trainer={trainer} handleScreenState={handleScreenState} handleTeamSubmit={handleTeamSubmit} SelectedPokemonState={SelectedPokemonState} setSelectedPokemonState={setSelectedPokemonState} teamSelectErrorState={teamSelectErrorState}/>:null }
-      {ScreenState=="maintenance"?<MaintenanceContainer trainer={trainerState} handleScreenState={handleScreenState}/>:null }
+      {ScreenState=="teamGen"?<TeamGeneratorContainer trainer={trainerState} handleScreenState={handleScreenState} handleTeamSubmit={handleTeamSubmit} SelectedPokemonState={SelectedPokemonState} setSelectedPokemonState={setSelectedPokemonState} teamSelectErrorState={teamSelectErrorState}/>:null }
+      {ScreenState=="maintenance"?<MaintenanceContainer trainer={trainerState} setTrainerState={setTrainerState} handleScreenState={handleScreenState}/>:null }
       {ScreenState=="battle"?<BattleContainer />:null }
     </main>
   );
