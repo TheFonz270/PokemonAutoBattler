@@ -45,7 +45,7 @@ public class TrainerController {
     }
 
     @PostMapping(value = "/trainers")
-    public ResponseEntity<ArrayList<Trainer>> postPokemon() throws JSONException {
+    public ResponseEntity<ArrayList<Trainer>> postTrainers() throws JSONException {
         ArrayList<Trainer> trainers = new ArrayList<>();
         Trainer playerTrainer = pokemonService.makePlayerTrainer();
         Trainer aiTrainer = pokemonService.makeAITrainer();
