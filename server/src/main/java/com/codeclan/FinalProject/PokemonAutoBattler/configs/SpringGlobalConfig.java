@@ -10,14 +10,13 @@ public class SpringGlobalConfig implements WebMvcConfigurer {
     private static final String CORS_BASE_PATTERN = "/**";
     private static final String ALLOWED_ORIGINS = "*";
     private static final String ALLOWED_HEADERS = "*";
-    private static final String ALLOWED_METHODS = "*";
+//    private static final String ALLOWED_METHODS = "*";
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping(CORS_BASE_PATTERN)
                 .allowedOrigins(ALLOWED_ORIGINS)
                 .allowedHeaders(ALLOWED_HEADERS)
-                .allowedMethods(ALLOWED_METHODS)
-        ;
+                .allowedMethods("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS");
     }
 }
