@@ -3,12 +3,12 @@ import React, {useState, useEffect} from 'react';
 const PtsBank = ({trainer}) => {
 
     useEffect(()=>{
-        console.log(trainer.pokeDollars)
+        console.log(trainer.pokedollars)
     }, [trainer])
 
     return (
         <div class="PtsBank">
-            Poke$: {trainer.pokeDollars}
+            Poke$: {trainer.pokedollars}
         </div>
     )
 }

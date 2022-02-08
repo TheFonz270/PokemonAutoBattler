@@ -4,7 +4,7 @@ const RandomiseMove = ({trainer, pokemon, handleRandomiseMove}) => {
 
     return (
         <div class="randomiseMove">
-            <button onClick={handleRandomiseMove}>Randomise Move</button> <button className={`${trainer.pokeDollars<2? "ptsCost red" : "ptsCost"}`}>2 pts</button>
+            <button onClick={handleRandomiseMove}>Randomise Move</button> <button className={`${trainer.pokedollars<2? "ptsCost red" : "ptsCost"}`}>2 pts</button>
         </div>
     )
 }

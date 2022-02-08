@@ -10,7 +10,7 @@ const star = pokemon.level
         {star>16?<img src={process.env.PUBLIC_URL + `/img/star.png`} class="star"></img>:null }
         {star>33?<img src={process.env.PUBLIC_URL + `/img/star.png`} class="star"></img>:null }
         {star>49?<img src={process.env.PUBLIC_URL + `/img/star.png`} class="star"></img>:null }
-        <img className="CardSprite" src={pokemon.AvatarImage}></img>
+        <img className="CardSprite" src={pokemon.avatarImage}></img>
         </div>
     )
 }

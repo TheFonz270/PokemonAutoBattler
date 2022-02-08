@@ -10,9 +10,9 @@ const MaintenanceContainer = ({trainer, setTrainerState, handleScreenState}) => 
     const [CantAfford, setCantAfford] = useState("blue"); 
 
     const handleRandomisePokemon = () => {
-        if (trainer.pokeDollars >= 5) {
+        if (trainer.pokedollars >= 5) {
             let newTrainer = {...trainer};                 
-                newTrainer.pokeDollars -= 5;                                         
+                newTrainer.pokedollars -= 5;                                         
             setTrainerState(newTrainer)
         }
         else {
@@ -21,9 +21,9 @@ const MaintenanceContainer = ({trainer, setTrainerState, handleScreenState}) => 
     }
 
     const handleRandomiseMove = () => {
-        if (trainer.pokeDollars >= 2) {
+        if (trainer.pokedollars >= 2) {
             let newTrainer = {...trainer};                 
-                newTrainer.pokeDollars -= 2;                                         
+                newTrainer.pokedollars -= 2;                                         
             setTrainerState(newTrainer)
         }
         else {
@@ -32,9 +32,9 @@ const MaintenanceContainer = ({trainer, setTrainerState, handleScreenState}) => 
     }
 
     const handleLevelUp = () => {
-        if (trainer.pokeDollars >= 10) {
+        if (trainer.pokedollars >= 10) {
             let newTrainer = {...trainer};                 
-                newTrainer.pokeDollars -= 10;                                         
+                newTrainer.pokedollars -= 10;                                         
             setTrainerState(newTrainer)
         }
         else {
