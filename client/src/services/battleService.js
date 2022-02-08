@@ -1,4 +1,4 @@
-// const baseURL = 'http://localhost:8080/'
+const baseURL = 'http://localhost:8080/'
 
 
 // const postTrainers = () => {
@@ -9,4 +9,35 @@
 //     .then(res => res.json())
 // }
 
-// export default postTrainers;
+export const RandomisePokemonRequest = (id) => {
+    const requestOptions = {
+        method: 'UPDATE',
+        headers: { 'Content-Type': 'application/json' }
+    };
+    const response = fetch(baseURL + `/pokemons/${id}`, requestOptions)
+    .then(response => response.json())
+    .then(data => {console.log(data)})
+}
+
+
+export const RandomiseMoveRequest = (id) => {
+    const requestOptions = {
+        method: 'UPDATE',
+        headers: { 'Content-Type': 'application/json' }
+    };
+    const response = fetch(baseURL + `/pokemons/${id}/move`, requestOptions)
+    .then(response => response.json())
+    .then(data => {console.log(data)})
+}
+
+
+
+export const LevelUpRequest = (id) => {
+    const requestOptions = {
+        method: 'UPDATE',
+        headers: { 'Content-Type': 'application/json' }
+    };
+    const response = fetch(baseURL + `/pokemons/${id}/levelup`, requestOptions)
+    .then(response => response.json())
+    .then(data => {console.log(data)})
+}

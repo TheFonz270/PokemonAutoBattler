@@ -17,6 +17,7 @@ public class SpringGlobalConfig implements WebMvcConfigurer {
         registry.addMapping(CORS_BASE_PATTERN)
                 .allowedOrigins(ALLOWED_ORIGINS)
                 .allowedHeaders(ALLOWED_HEADERS)
-                .allowedMethods(ALLOWED_METHODS);
+                .allowedMethods(ALLOWED_METHODS)
+        ;
     }
 }
