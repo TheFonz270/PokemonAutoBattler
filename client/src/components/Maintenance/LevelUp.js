@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
 
-const LevelUp = ({trainer, pokemon}) => {
+const LevelUp = ({trainer, pokemon, handleLevelUp}) => {
 
     return (
         <div class="LevelUp">
-            <button>Level Up!</button> <button class="ptsCost">10 pts</button>
+            <button onClick={handleLevelUp}>Level Up!</button> <button className={`${trainer.pokeDollars<10? "ptsCost red" : "ptsCost"}`}>10 pts</button>
         </div>
     )
 }

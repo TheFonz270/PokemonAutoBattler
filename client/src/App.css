@@ -388,6 +388,10 @@ button.ptsCost:hover {
   background: #4DAD5B;
 }
 
+.MaintenanceMenu > .randomisePokemon > .red, .MaintenanceMenu > .randomiseMove > .red, .MaintenanceMenu > .LevelUp > .red {
+  background:red !important;
+}
+
 /* TEAM GEN MODE */
 
 .teamGenArea {

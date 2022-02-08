@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
 
-const RandomiseMove = ({trainer, pokemon}) => {
+const RandomiseMove = ({trainer, pokemon, handleRandomiseMove}) => {
 
     return (
         <div class="randomiseMove">
-            <button>Randomise Move</button> <button class="ptsCost">2 pts</button>
+            <button onClick={handleRandomiseMove}>Randomise Move</button> <button className={`${trainer.pokeDollars<2? "ptsCost red" : "ptsCost"}`}>2 pts</button>
         </div>
     )
 }

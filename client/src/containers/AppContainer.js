@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import BattleContainer from './BattleContainer';
 import MaintenanceContainer from './MaintenanceContainer';
 import TeamGeneratorContainer from './TeamGeneratorContainer';
+import postTrainers from '../services/battleService';
 
 
 function AppContainer() {
@@ -141,8 +142,9 @@ const trainer2 = {
 
     const [ScreenState, setScreenState] = useState("teamGen"); 
     const [SelectedPokemonState, setSelectedPokemonState] = useState([]);
-    const [trainerState, setTrainerState] = useState(null)
-    const [teamSelectErrorState, setTeamSelectErrorState] = useState(false)
+    const [trainerState, setTrainerState] = useState(null);
+    const [teamSelectErrorState, setTeamSelectErrorState] = useState(false);
+    const [importState, setImportState] = useState(null);
 
     const handleScreenState = (newState) => {
       setScreenState(newState)
@@ -159,15 +161,30 @@ const trainer2 = {
       }
     }
 
-    useEffect(()=>{
-      setTrainerState(trainer)}, [])
+    const baseURL = 'http://localhost:8080/'
 
-    
+      
+
+    useEffect( () => {
+      // setImportState(postTrainers())
+      setTrainerState(trainer)
+    }, [])
+
+
+
+
+      if (trainerState == null) {
+        return (
+            <>
+            "Loading..."
+            </>
+        )
+        } 
 
   return (
     <main>
-      {ScreenState=="teamGen"?<TeamGeneratorContainer trainer={trainer} handleScreenState={handleScreenState} handleTeamSubmit={handleTeamSubmit} SelectedPokemonState={SelectedPokemonState} setSelectedPokemonState={setSelectedPokemonState} teamSelectErrorState={teamSelectErrorState}/>:null }
-      {ScreenState=="maintenance"?<MaintenanceContainer trainer={trainerState} handleScreenState={handleScreenState}/>:null }
+      {ScreenState=="teamGen"?<TeamGeneratorContainer trainer={trainerState} handleScreenState={handleScreenState} handleTeamSubmit={handleTeamSubmit} SelectedPokemonState={SelectedPokemonState} setSelectedPokemonState={setSelectedPokemonState} teamSelectErrorState={teamSelectErrorState}/>:null }
+      {ScreenState=="maintenance"?<MaintenanceContainer trainer={trainerState} setTrainerState={setTrainerState} handleScreenState={handleScreenState}/>:null }
       {ScreenState=="battle"?<BattleContainer />:null }
     </main>
   );
