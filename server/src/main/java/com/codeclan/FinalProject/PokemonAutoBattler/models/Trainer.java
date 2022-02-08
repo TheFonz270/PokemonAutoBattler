@@ -3,6 +3,7 @@ package com.codeclan.FinalProject.PokemonAutoBattler.models;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.lang.reflect.Array;
@@ -18,7 +19,7 @@ public class Trainer {
     private Long id;
 
     @JsonIgnoreProperties({"trainer"})
-//    @JsonBackReference
+    @JsonManagedReference(value = "trainer-pokemon")
     @OneToMany(mappedBy = "trainer")
 //
     private List<Pokemon> pokemons;
@@ -32,7 +33,7 @@ public class Trainer {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "battle_phase_id")
     @JsonIgnoreProperties({"trainers"})
-    @JsonBackReference
+    @JsonBackReference(value = "trainer-battlePhase")
     private BattlePhase battlePhase;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -323,24 +323,26 @@ public class PokemonService {
     }
 
     public static Trainer makePlayerTrainer() throws JSONException {
-        Trainer playerTrainer = new Trainer(0, "avatar.url");
+        Trainer playerTrainer = new Trainer(30, "/img/PokemonTrainer.png");
         ArrayList<Pokemon> pokemons = getSixPokemon();
         playerTrainer.setPokemons(pokemons);
         return playerTrainer;
     }
 
     public static Trainer makeAITrainer() throws JSONException {
-        Trainer aiTrainer = new Trainer(0, "avatar.url");
+        Trainer aiTrainer = new Trainer(30, "/img/VStrainers/Youngster.png");
         ArrayList<Pokemon> pokemons = getThreePokemon();
         aiTrainer.setPokemons(pokemons);
         return aiTrainer;
     }
 
-//    public static void setupTrainers() throws JSONException {
-//        makePlayerTrainer();
-//        makeAITrainer();
-//
+//    public static BattlePhase makeBattlePhase(ArrayList<Trainer> trainers) throws JSONException {
+//        BattlePhase battlePhase = new BattlePhase("theme", trainers);
+//        battlePhase.playWholeBattle(trainers);
+//        return battlePhase;
 //    }
+
+
 
 
 

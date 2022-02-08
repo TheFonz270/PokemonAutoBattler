@@ -54,7 +54,7 @@ public class Pokemon {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "trainer_id")
     @JsonIgnoreProperties({"pokemons"})
-    @JsonBackReference
+    @JsonBackReference(value = "trainer-pokemon")
     private Trainer trainer;
 
     private int currentHP;
