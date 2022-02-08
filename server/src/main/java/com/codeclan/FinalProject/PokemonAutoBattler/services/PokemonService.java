@@ -336,11 +336,13 @@ public class PokemonService {
         return aiTrainer;
     }
 
-//    public static void setupTrainers() throws JSONException {
-//        makePlayerTrainer();
-//        makeAITrainer();
-//
+//    public static BattlePhase makeBattlePhase(ArrayList<Trainer> trainers) throws JSONException {
+//        BattlePhase battlePhase = new BattlePhase("theme", trainers);
+//        battlePhase.playWholeBattle(trainers);
+//        return battlePhase;
 //    }
+
+
 
 
 
