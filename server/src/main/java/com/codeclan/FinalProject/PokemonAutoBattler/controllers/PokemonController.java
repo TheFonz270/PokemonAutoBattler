@@ -71,6 +71,7 @@ public class PokemonController {
     public ResponseEntity<Pokemon> levelUpPokemon(@PathVariable Long id) throws JSONException {
         Pokemon pokemon = pokemonRepository.findById(id).get();
         pokemon.increaseLevel();
+        pokemon.calculateEffectiveStats();
         pokemonRepository.save(pokemon);
         return new ResponseEntity<>(pokemon, HttpStatus.OK);
     }
