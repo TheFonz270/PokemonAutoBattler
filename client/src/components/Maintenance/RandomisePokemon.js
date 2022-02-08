@@ -7,6 +7,7 @@ const RandomisePokemon = ({trainer, pokemon}) => {
     const handleRandomisePokemon = () => {
         if (trainer.pokeDollars >=5) {
             trainer.pokeDollars -= 5;
+
         }
         else {
             setCantAfford("red")
