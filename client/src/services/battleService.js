@@ -29,8 +29,6 @@ export const randomiseMoveRequest = (id) => {
     .then(response => response.json())
 }
 
-
-
 export const levelUpRequest = (id) => {
     const requestOptions = {
         method: 'PUT',
@@ -49,3 +47,13 @@ export const teamSubmition = (id, selectedTeam) => {
     return fetch(baseURL + `trainers/${id}`, requestOptions)
     .then(response => response.json())
 }
+
+// export const battleSubmition = (id) => {
+//     const requestOptions = {
+//         method: 'POST',
+//         // body: JSON.stringify(selectedTeam),
+//         headers: { 'Content-Type': 'application/json' }
+//     };
+//     return fetch(baseURL + `battles/${id}`, requestOptions)
+//     .then(response => response.json())
+// }

@@ -17,7 +17,7 @@ const TrainerArea = ({trainer, PokemonState, PokemonHP, activePokemon}) => {
     //     handlePokemon1HP(10)      
     // }
 
-    // const activePokemon = trainer.team.find(pokemon => pokemon.isFainted == false);
+    // const activePokemon = trainer.pokemons.find(pokemon => pokemon.isFainted == false);
    
 
     return (

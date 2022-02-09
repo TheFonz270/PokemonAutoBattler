@@ -5,7 +5,7 @@ import Bench from './Bench'
 
 const TrainerArea2 = ({trainer, PokemonState, PokemonHP, activePokemon}) => {
 
-    // const activePokemon = trainer.team.find(pokemon => pokemon.isFainted == false);
+    // const activePokemon = trainer.pokemons.find(pokemon => pokemon.isFainted == false);
 
     return (
         <div class="trainerArea trainerArea2">

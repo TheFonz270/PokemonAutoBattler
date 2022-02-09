@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react';
 
-const BattleButton = ({trainer, handleScreenState}) => {
+const BattleButton = ({trainer, handleBattleSubmit}) => {
 
     const handleclick = () => {
-        handleScreenState("battle")
+        handleBattleSubmit(trainer.id)
     }
 
     return (

@@ -3,6 +3,7 @@ import BattleContainer from './BattleContainer';
 import MaintenanceContainer from './MaintenanceContainer';
 import TeamGeneratorContainer from './TeamGeneratorContainer';
 import { teamSubmition } from '../services/battleService';
+// import { battleSubmition } from '../services/battleService'
 // import postTrainers from '../services/battleService';
 
 
@@ -146,6 +147,8 @@ function AppContainer() {
     const [teamSelectErrorState, setTeamSelectErrorState] = useState(false);
     const [importState, setImportState] = useState(null);
 
+    const [BattleScriptState, setBattleScriptState] = useState(null)
+
     const handleScreenState = (newState) => {
       setScreenState(newState)
     }
@@ -175,6 +178,20 @@ function AppContainer() {
       
       // this.setState({ postId: data.id });
   }
+      const handleBattleSubmit = (id) => {
+        const requestOptions = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' }
+      };
+      const response = fetch(baseURL + `battles/${id}`, requestOptions)
+      .then(response => response.json())
+      .then(data => {console.log(data)
+        setBattleScriptState(data.battleScript)
+        setTrainerState(data.trainers[0])
+        setTrainer2State(data.trainers[1])
+      })
+        handleScreenState("battle")
+      }
 
     useEffect( () => {
         const requestOptions = {
@@ -206,8 +223,8 @@ function AppContainer() {
   return (
     <main>
       {ScreenState=="teamGen"?<TeamGeneratorContainer trainer={trainerState} handleScreenState={handleScreenState} handleTeamSubmit={handleTeamSubmit} SelectedPokemonState={SelectedPokemonState} setSelectedPokemonState={setSelectedPokemonState} teamSelectErrorState={teamSelectErrorState}/>:null }
-      {ScreenState=="maintenance"?<MaintenanceContainer trainer={trainerState} setTrainerState={setTrainerState} handleScreenState={handleScreenState}/>:null }
-      {ScreenState=="battle"?<BattleContainer />:null }
+      {ScreenState=="maintenance"?<MaintenanceContainer trainer={trainerState} setTrainerState={setTrainerState} handleBattleSubmit={handleBattleSubmit}/>:null }
+      {ScreenState=="battle"?<BattleContainer BattleScriptState={BattleScriptState} setBattleScriptState={setBattleScriptState} trainer={trainerState} setTrainer={setTrainerState} trainer2={trainer2State} setTrainer2={setTrainer2State} />:null }
     </main>
   );
 }
