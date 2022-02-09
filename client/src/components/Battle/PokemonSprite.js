@@ -11,7 +11,7 @@ const star = activePokemon.level
         {star>16?<img src={process.env.PUBLIC_URL + `/img/star.png`} class="star"></img>:null }
         {star>33?<img src={process.env.PUBLIC_URL + `/img/star.png`} class="star2"></img>:null }
         {star>49?<img src={process.env.PUBLIC_URL + `/img/star.png`} class="star3"></img>:null }
-        <img className={`${PokemonState}`} src={activePokemon.AvatarImage}></img>
+        <img className={`${PokemonState}`} src={activePokemon.avatarImage}></img>
         </div>
     )
 }
