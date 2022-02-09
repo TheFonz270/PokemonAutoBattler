@@ -207,8 +207,8 @@ const BattleContainer = ({BattleScriptState, setBattleScriptState, trainer, setT
 
     return (
         <>
-        < Arena BattleScript={BattleScriptState} setBattleScriptState={setBattleScriptState} trainer={trainer} setTrainer={setTrainer} Trainer2={trainer2} setTrainer2={setTrainer2}/>
-        <MusicPlayer/>
+        < Arena BattleScript={BattleScriptState} setBattleScriptState={setBattleScriptState} trainer={trainer} setTrainer={setTrainer} trainer2={trainer2} setTrainer2={setTrainer2}/>
+        {/* <MusicPlayer/> */}
         </>
     )
 }
