@@ -153,7 +153,12 @@ function AppContainer() {
     const handleTeamSubmit = () => {
       if (SelectedPokemonState.length == 3) {
       trainerState.pokemons = SelectedPokemonState;
-      teamSubmition(trainerState.id, SelectedPokemonState)
+
+      const selectedIds = SelectedPokemonState.map(function (pokemon) {
+        return pokemon.id;
+      });
+
+      teamSubmition(trainerState.id, selectedIds)
       handleScreenState("maintenance")
       } 
       else {

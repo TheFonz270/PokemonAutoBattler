@@ -43,7 +43,7 @@ export const levelUpRequest = (id) => {
 export const teamSubmition = (id, selectedTeam) => {
     const requestOptions = {
         method: 'PUT',
-        body: selectedTeam,
+        body: JSON.stringify(selectedTeam),
         headers: { 'Content-Type': 'application/json' }
     };
     return fetch(baseURL + `trainers/${id}`, requestOptions)
