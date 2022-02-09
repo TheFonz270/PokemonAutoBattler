@@ -50,12 +50,7 @@ public class BattlePhaseTest {
         red = new Trainer(3000, "red.png");
         blue = new Trainer(5000, "blue.png");
 
-        blue.addPokemon(quilava);
-        red.addPokemon(swinub);
-        blue.addPokemon(gyarados);
-        red.addPokemon(honedge);
-        blue.addPokemon(raichu);
-        red.addPokemon(kangaskhan);
+
         quilava.calculateEffectiveStats();
         honedge.calculateEffectiveStats();
         swinub.calculateEffectiveStats();
@@ -71,6 +66,12 @@ public class BattlePhaseTest {
         honedge.addType("ghost");
         raichu.addType("electric");
         kangaskhan.addType("normal");
+        red.addPokemon(quilava);
+        blue.addPokemon(swinub);
+        red.addPokemon(gyarados);
+        blue.addPokemon(honedge);
+        red.addPokemon(raichu);
+        blue.addPokemon(kangaskhan);
         trainers = new ArrayList<Trainer>();
         trainers.add(red);
         trainers.add(blue);
@@ -108,37 +109,29 @@ public class BattlePhaseTest {
 
     @Test
     public void canDamageCalculation(){
-        assertEquals(27, battlePhase.damageCalculation(quilava, honedge));
+        assertEquals(46, battlePhase.damageCalculation(quilava, honedge));
     }
 
     @Test
     public void canDamageCalculation2(){
-        assertEquals(13, battlePhase.damageCalculation(honedge, quilava));
+        assertEquals(25, battlePhase.damageCalculation(honedge, quilava));
     }
 
     @Test
     public void canPlayWholeBattle(){
-//        assertEquals(10, battlePhase.playWholeBattle(trainers).getScriptSize());
-        List<TurnScript> scripts = battlePhase.playWholeBattle(trainers).getScript();
-        for (TurnScript script : scripts){
-            System.out.println(script);
-        }
-    }
 
-//    @Test
-//    public void canGetTypeEffectiveness(){
-//        assertEquals(2, battlePhase.getTypeEffectiveness(quilava, honedge));
-//    }
+//        List<TurnScript> scripts = battlePhase.playWholeBattle(trainers).getScript();
+//        for (TurnScript script : scripts){
+//            System.out.println(script + " " + script.getP2OutOfMons() + script.getP1OutOfMons());
+//        }
+
+        assertEquals(4, battlePhase.playWholeBattle(trainers).getScriptSize());
+    }
 
     @Test
     public void canGetChart(){
         System.out.println(effectivenessChart.constructor());
 
-    }
-
-    @Test
-    public void canGetTypeMap(){
-//        assertEquals("steel", effectivenessChart.getTypeMap("steel"));
     }
 
     @Test public void canGetEffectivenessValue(){
@@ -150,9 +143,4 @@ public class BattlePhaseTest {
     public void geteffectivenessMultiplier(){
         assertEquals(2.0, effectivenessChart.effectivenessMultiplier(quilava, honedge) );
     }
-
-
-
-
-
 }
