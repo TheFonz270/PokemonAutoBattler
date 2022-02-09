@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react';
+import React, {Component, useState, useEffect} from 'react';
 import Arena from '../components/Battle/Arena';
-
+import MusicPlayer from '../components/Battle/MusicPlayer';
 
 const BattleContainer = ({BattleScriptState, setBattleScriptState, trainer, setTrainer, trainer2, setTrainer2}) => {
 
@@ -208,6 +208,7 @@ const BattleContainer = ({BattleScriptState, setBattleScriptState, trainer, setT
     return (
         <>
         < Arena BattleScript={BattleScriptState} setBattleScriptState={setBattleScriptState} trainer={trainer} setTrainer={setTrainer} Trainer2={trainer2} setTrainer2={setTrainer2}/>
+        <MusicPlayer/>
         </>
     )
 }
