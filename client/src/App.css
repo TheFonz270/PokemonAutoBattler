@@ -54,6 +54,8 @@ main {
 .pokemonSprite {
   position:relative;
   width:100%;
+  min-width:200px;
+  min-height:200px;
   display:block;
 }
 
@@ -280,10 +282,13 @@ main {
 
 .MaintenanceArea {
   display:flex;
+  margin:15px auto;
+  width:1080px;
 }
 
 .pokemonWindow {
   width : 30%;
+  max-width:320px;
   margin:0 2%;
   padding:10px;
   background: #eee;
@@ -360,8 +365,9 @@ button.ptsCost:hover {
 
 .MaintenanceFooter {
   display:flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   margin:15px auto;
+  max-width: 1080px;
 }
 
 .PtsBank {
@@ -401,6 +407,7 @@ button.ptsCost:hover {
   width:95%;
   margin:0 auto;
   justify-content: space-evenly;
+  max-width: 1080px;
 }
 
 .pokemonCard {
