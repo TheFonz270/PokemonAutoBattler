@@ -1,5 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React, {Component, useState, useEffect} from 'react';
 import Arena from '../components/Battle/Arena';
+import MusicPlayer from '../components/Battle/MusicPlayer';
+
 
 
 const BattleContainer = () => {
@@ -189,16 +191,22 @@ const BattleScript = {
       }
 
 
+
+
     const [BattleScriptState, setBattleScriptState] = useState(null)
     const [Trainer1State, setTrainer1] = useState(null)
     const [Trainer2State, setTrainer2] = useState(null)
+
 
 
     useEffect(()=>{
         setBattleScriptState(BattleScript)
         setTrainer1(BattleScript.trainers[0])
         setTrainer2(BattleScript.trainers[1])
+
     }, [])
+
+
 
     if (Trainer1State == null) {
         return (
@@ -211,7 +219,9 @@ const BattleScript = {
 
     return (
         <>
-        < Arena BattleScript={BattleScriptState} setBattleScriptState={setBattleScriptState} Trainer1={Trainer1State} setTrainer1={setTrainer1} Trainer2={Trainer2State} setTrainer2={setTrainer2}/>
+
+        < Arena BattleScript={BattleScriptState} setBattleScriptState={setBattleScriptState} Trainer1={Trainer1State} setTrainer1={setTrainer1} Trainer2={Trainer2State} setTrainer2={setTrainer2} />
+<MusicPlayer/>
         </>
     )
 }

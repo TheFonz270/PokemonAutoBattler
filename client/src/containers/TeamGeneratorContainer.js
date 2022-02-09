@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react';
 import TeamGenArea from '../components/TeamGen/TeamGenArea';
 import ConfirmTeamButton from '../components/TeamGen/ConfirmTeamButton';
 import TeamSelectError from '../components/TeamGen/TeamSelectError';
+import song from '../assets/music/battle_trainer_battle.mp3'
+
 
 const TeamGeneratorContainer = ({trainer, handleScreenState, handleTeamSubmit, SelectedPokemonState, setSelectedPokemonState, teamSelectErrorState}) => { 
     
