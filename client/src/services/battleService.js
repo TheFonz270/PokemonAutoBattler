@@ -39,3 +39,13 @@ export const levelUpRequest = (id) => {
     return fetch(baseURL + `pokemons/${id}/levelup`, requestOptions)
     .then(response => response.json())
 }
+
+export const teamSubmition = (id, selectedTeam) => {
+    const requestOptions = {
+        method: 'PUT',
+        body: selectedTeam,
+        headers: { 'Content-Type': 'application/json' }
+    };
+    return fetch(baseURL + `trainers/${id}`, requestOptions)
+    .then(response => response.json())
+}

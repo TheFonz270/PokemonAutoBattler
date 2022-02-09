@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import BattleContainer from './BattleContainer';
 import MaintenanceContainer from './MaintenanceContainer';
 import TeamGeneratorContainer from './TeamGeneratorContainer';
+import { teamSubmition } from '../services/battleService';
 // import postTrainers from '../services/battleService';
 
 
@@ -152,6 +153,7 @@ function AppContainer() {
     const handleTeamSubmit = () => {
       if (SelectedPokemonState.length == 3) {
       trainerState.pokemons = SelectedPokemonState;
+      teamSubmition(trainerState.id, SelectedPokemonState)
       handleScreenState("maintenance")
       } 
       else {
@@ -189,9 +191,10 @@ function AppContainer() {
 
       if (!trainerState) {
         return (
-            <>
-            "Loading..."
-            </>
+          <div class="wrapper">
+            <div class="pokeball">
+            </div>
+          </div>
         )
         } 
 
