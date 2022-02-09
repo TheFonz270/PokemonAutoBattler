@@ -9,35 +9,33 @@ const baseURL = 'http://localhost:8080/'
 //     .then(res => res.json())
 // }
 
-export const RandomisePokemonRequest = (id) => {
+export const randomisePokemonRequest = (id) => {
     const requestOptions = {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' }
     };
-    const response = fetch(baseURL + `pokemons/${id}`, requestOptions)
+    return fetch(baseURL + `pokemons/${id}`, requestOptions)
     .then(response => response.json())
-    .then(data => {console.log(data)})
+    }    
+
+
+
+export const randomiseMoveRequest = (id) => {
+    const requestOptions = {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' }
+    };
+    return fetch(baseURL + `pokemons/${id}/move`, requestOptions)
+    .then(response => response.json())
 }
 
 
-export const RandomiseMoveRequest = (id) => {
+
+export const levelUpRequest = (id) => {
     const requestOptions = {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' }
     };
-    const response = fetch(baseURL + `pokemons/${id}/move`, requestOptions)
+    return fetch(baseURL + `pokemons/${id}/levelup`, requestOptions)
     .then(response => response.json())
-    .then(data => {console.log(data)})
-}
-
-
-
-export const LevelUpRequest = (id) => {
-    const requestOptions = {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' }
-    };
-    const response = fetch(baseURL + `pokemons/${id}/levelup`, requestOptions)
-    .then(response => response.json())
-    .then(data => {console.log(data)})
 }
