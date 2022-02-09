@@ -182,11 +182,11 @@ const BattleSetup = () => {
 }
 
 const findActive = (trainer, FaintedCount) => {
-    return trainer.team[FaintedCount]
+    return trainer.pokemons[FaintedCount]
 }
 
     useEffect(()=>{
-        BattleTurn(BattleScript.trainers, BattleScript.script[TurnCounter-1])
+        BattleTurn([Trainer1, Trainer2], BattleScript.script[TurnCounter-1])
     }, [TurnCounter])
 
 
@@ -252,12 +252,10 @@ const BattleTurn = (trainers, turn) => {
 
 if (TurnCounter < 1) {
     return (
-        <>
         <div class="wrapper">
             <div class="pokeball">
             </div>
         </div>
-        </>
     )
     } 
 

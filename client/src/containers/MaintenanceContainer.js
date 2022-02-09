@@ -9,7 +9,7 @@ import { levelUpRequest } from '../services/battleService';
 
 
 
-const MaintenanceContainer = ({trainer, setTrainerState, handleScreenState}) => {
+const MaintenanceContainer = ({trainer, setTrainerState, handleBattleSubmit}) => {
 
     const [CantAfford, setCantAfford] = useState("blue"); 
 
@@ -82,7 +82,7 @@ const MaintenanceContainer = ({trainer, setTrainerState, handleScreenState}) => 
         <MaintenanceArea trainer={trainer} handleRandomisePokemon={handleRandomisePokemon} handleRandomiseMove={handleRandomiseMove} handleLevelUp={handleLevelUp} CantAfford={CantAfford}/>
         <div class="MaintenanceFooter">
         <PtsBank trainer={trainer}/>
-        <BattleButton trainer={trainer} handleScreenState={handleScreenState}/>
+        <BattleButton trainer={trainer} handleBattleSubmit={handleBattleSubmit}/>
         </div>
         </>
     )
