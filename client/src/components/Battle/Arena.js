@@ -253,7 +253,10 @@ const BattleTurn = (trainers, turn) => {
 if (TurnCounter < 1) {
     return (
         <>
-        "Loading..."
+        <div class="wrapper">
+            <div class="pokeball">
+            </div>
+        </div>
         </>
     )
     } 

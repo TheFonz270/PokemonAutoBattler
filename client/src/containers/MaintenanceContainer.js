@@ -3,9 +3,9 @@ import MaintenanceArea from '../components/Maintenance/MaintenanceArea';
 import BattleButton from '../components/Maintenance/BattleButton';
 import PtsBank from '../components/Maintenance/PtsBank';
 import RandomisePokemon from '../components/Maintenance/RandomisePokemon';
-import { RandomisePokemonRequest } from '../services/battleService';
-import { RandomiseMoveRequest } from '../services/battleService';
-import { LevelUpRequest } from '../services/battleService';
+import { randomisePokemonRequest } from '../services/battleService';
+import { randomiseMoveRequest } from '../services/battleService';
+import { levelUpRequest } from '../services/battleService';
 
 
 
@@ -15,11 +15,16 @@ const MaintenanceContainer = ({trainer, setTrainerState, handleScreenState}) => 
 
     const handleRandomisePokemon = (id) => {
         if (trainer.pokedollars >= 5) {
-            let newTrainer = {...trainer};                 
-                newTrainer.pokedollars -= 5;                                         
-            setTrainerState(newTrainer)
+            // pokemon(id) = data
+            let newTrainer = {...trainer};
+            newTrainer.pokedollars -= 5;
+            let found = newTrainer.pokemons.find(element => element.id == id)
 
-            RandomisePokemonRequest(id)         
+            randomisePokemonRequest(id)
+            .then((pokemon) => {
+                    newTrainer.pokemons.splice(newTrainer.pokemons.indexOf(found), 1, pokemon)
+                    setTrainerState(newTrainer)
+            })                                 
         }
         
         else {
@@ -30,10 +35,15 @@ const MaintenanceContainer = ({trainer, setTrainerState, handleScreenState}) => 
     const handleRandomiseMove = (id) => {
         if (trainer.pokedollars >= 2) {
             let newTrainer = {...trainer};                 
-                newTrainer.pokedollars -= 2;                                         
-            setTrainerState(newTrainer)
+            newTrainer.pokedollars -= 2; 
+            let found = newTrainer.pokemons.find(element => element.id == id)
 
-            RandomiseMoveRequest(id)  
+            randomiseMoveRequest(id)
+            .then((pokemon) => {
+                    console.log("MOVE: ", pokemon.activeMove)
+                    newTrainer.pokemons[newTrainer.pokemons.indexOf(found)].activeMove = pokemon.activeMove
+                    setTrainerState(newTrainer)
+                }) 
         }
         else {
             setCantAfford("red")
@@ -43,10 +53,16 @@ const MaintenanceContainer = ({trainer, setTrainerState, handleScreenState}) => 
     const handleLevelUp = (id) => {
         if (trainer.pokedollars >= 10) {
             let newTrainer = {...trainer};                 
-                newTrainer.pokedollars -= 10;                                         
-            setTrainerState(newTrainer)
+            newTrainer.pokedollars -= 10;    
+            let found = newTrainer.pokemons.find(element => element.id == id)                                     
 
-            LevelUpRequest(id)
+            levelUpRequest(id)
+            .then((pokemon) => {
+                console.log("LEVEL: ", pokemon)
+                newTrainer.pokemons[newTrainer.pokemons.indexOf(found)].level = pokemon.level
+                setTrainerState(newTrainer)
+            })
+
         }
         else {
             setCantAfford("red")
