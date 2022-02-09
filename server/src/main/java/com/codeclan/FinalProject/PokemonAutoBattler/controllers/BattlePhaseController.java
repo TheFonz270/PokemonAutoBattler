@@ -10,10 +10,7 @@ import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -45,11 +42,11 @@ public class BattlePhaseController {
         return new ResponseEntity<>(battlePhaseRepository.findById(id), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/battles")
-    public ResponseEntity<BattlePhase> postBattlePhase() throws JSONException {
+    @PostMapping(value = "/battles/{idt}")
+    public ResponseEntity<BattlePhase> postBattlePhase(@PathVariable Long idt) throws JSONException {
         ArrayList<Trainer> trainers = new ArrayList<>();
-        trainers.add(trainerRepository.findById(1L).get());
-        trainers.add(trainerRepository.findById(2L).get());
+        trainers.add(trainerRepository.findById(idt).get());
+        trainers.add(trainerRepository.findById(idt + 1).get());
         BattlePhase battlePhase = new BattlePhase("theme", trainers);
         BattleScript battleScript = battlePhase.playWholeBattle(trainers);
         battlePhase.setBattleScript(battleScript);

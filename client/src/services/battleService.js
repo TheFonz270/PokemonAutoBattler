@@ -11,10 +11,10 @@ const baseURL = 'http://localhost:8080/'
 
 export const RandomisePokemonRequest = (id) => {
     const requestOptions = {
-        method: 'UPDATE',
+        method: 'PUT',
         headers: { 'Content-Type': 'application/json' }
     };
-    const response = fetch(baseURL + `/pokemons/${id}`, requestOptions)
+    const response = fetch(baseURL + `pokemons/${id}`, requestOptions)
     .then(response => response.json())
     .then(data => {console.log(data)})
 }
@@ -22,10 +22,10 @@ export const RandomisePokemonRequest = (id) => {
 
 export const RandomiseMoveRequest = (id) => {
     const requestOptions = {
-        method: 'UPDATE',
+        method: 'PUT',
         headers: { 'Content-Type': 'application/json' }
     };
-    const response = fetch(baseURL + `/pokemons/${id}/move`, requestOptions)
+    const response = fetch(baseURL + `pokemons/${id}/move`, requestOptions)
     .then(response => response.json())
     .then(data => {console.log(data)})
 }
@@ -34,10 +34,10 @@ export const RandomiseMoveRequest = (id) => {
 
 export const LevelUpRequest = (id) => {
     const requestOptions = {
-        method: 'UPDATE',
+        method: 'PUT',
         headers: { 'Content-Type': 'application/json' }
     };
-    const response = fetch(baseURL + `/pokemons/${id}/levelup`, requestOptions)
+    const response = fetch(baseURL + `pokemons/${id}/levelup`, requestOptions)
     .then(response => response.json())
     .then(data => {console.log(data)})
 }
