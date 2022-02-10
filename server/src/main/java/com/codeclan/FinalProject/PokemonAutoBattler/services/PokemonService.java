@@ -247,7 +247,7 @@ public class PokemonService {
     public static ArrayList<Pokemon> getSixPokemon() throws JSONException {
 
         Random r = new Random();
-		ArrayList<Integer> excludedIDs = new ArrayList<>(Arrays.asList(132, 235, 202, 291, 290, 292));
+		ArrayList<Integer> excludedIDs = new ArrayList<>(Arrays.asList(132, 235, 202, 291, 290, 292, 718));
 		ArrayList<Integer> randomIDs = new ArrayList<>();
 
 		for (int i = 0; i < 6; i++) {
@@ -272,7 +272,7 @@ public class PokemonService {
     public static ArrayList<Pokemon> getThreePokemon() throws JSONException {
 
         Random r = new Random();
-        ArrayList<Integer> excludedIDs = new ArrayList<>(Arrays.asList(132, 235, 202, 291, 290, 292));
+        ArrayList<Integer> excludedIDs = new ArrayList<>(Arrays.asList(132, 235, 202, 291, 290, 292, 718));
         ArrayList<Integer> randomIDs = new ArrayList<>();
 
         for (int i = 0; i < 3; i++) {

@@ -86,5 +86,4 @@ public class TrainerController {
         return new ResponseEntity<>(trainer, HttpStatus.OK);
     }
 
-
 }
