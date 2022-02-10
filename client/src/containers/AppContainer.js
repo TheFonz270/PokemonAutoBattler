@@ -10,10 +10,8 @@ import { teamSubmition } from '../services/battleService';
 
 function AppContainer() {
 
-
-
-
     const [ScreenState, setScreenState] = useState("teamGen"); 
+    const [AudioState, setAudioState] = useState(false); 
     const [SelectedPokemonState, setSelectedPokemonState] = useState([]);
     const [trainerState, setTrainerState] = useState(null);
     const [trainer2State, setTrainer2State] = useState(null);
@@ -60,11 +58,36 @@ function AppContainer() {
       .then(response => response.json())
       .then(data => {console.log(data)
         setBattleScriptState(data.battleScript)
-        setTrainerState(data.trainers[0])
-        setTrainer2State(data.trainers[1])
+        setTrainerState(data.battleScript.trainers[0])
+        setTrainer2State(data.battleScript.trainers[1])
       })
         handleScreenState("battle")
       }
+
+      const track1 = {
+        audio: new Audio(process.env.PUBLIC_URL + `/music/trainerBattle.mp3`),
+        isPlaying: false,
+      };
+
+      const play1 = () => {
+
+        let isPlaying = track1.isPlaying;
+        track1.audio.play();
+        
+    
+        track1.isPlaying = !false;
+      };
+
+      const pause1 = () => {
+
+        let isPlaying = track1.isPlaying;
+        track1.audio.pause();
+    
+        track1.isPlaying = !isPlaying;
+      };
+
+
+
 
     useEffect( () => {
         const requestOptions = {
@@ -98,7 +121,7 @@ function AppContainer() {
     <main>
       {ScreenState=="teamGen"?<TeamGeneratorContainer trainer={trainerState} handleScreenState={handleScreenState} handleTeamSubmit={handleTeamSubmit} SelectedPokemonState={SelectedPokemonState} setSelectedPokemonState={setSelectedPokemonState} teamSelectErrorState={teamSelectErrorState}/>:null }
       {ScreenState=="maintenance"?<MaintenanceContainer trainer={trainerState} setTrainerState={setTrainerState} handleBattleSubmit={handleBattleSubmit}/>:null }
-      {ScreenState=="battle"?<BattleContainer BattleScriptState={BattleScriptState} setBattleScriptState={setBattleScriptState} trainer={trainerState} setTrainer={setTrainerState} trainer2={trainer2State} setTrainer2={setTrainer2State} />:null }
+      {ScreenState=="battle"?<BattleContainer BattleScriptState={BattleScriptState} setBattleScriptState={setBattleScriptState} trainer={trainerState} setTrainer={setTrainerState} trainer2={trainer2State} setTrainer2={setTrainer2State} track1={track1} play1={play1} pause1={pause1} />:null }
     </main>
   );
 }
