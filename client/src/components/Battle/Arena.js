@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import TrainerArea from './TrainerArea';
 import TrainerArea2 from './TrainerArea2';
 
-const Arena = ({BattleScript, setBattleScriptState, trainer, setTrainer, trainer2, setTrainer2}) => {
+const Arena = ({BattleScript, setBattleScriptState, trainer, setTrainer, trainer2, setTrainer2, track1, play1, pause1}) => {
     const [Pokemon1State, setPokemon1State] = useState("idle");           //CSS class for sprite
     const [ActivePokemon1State, setActivePokemon1State] = useState(null);   //Left Active Pokemon
     const [Pokemon1MAXHP, setPokemon1MAXHP] = useState(100);               //Left Pokemon Max Hp
@@ -19,94 +19,103 @@ const Arena = ({BattleScript, setBattleScriptState, trainer, setTrainer, trainer
 
 const handleDamage1 = (trainers, turn) => {
     if (turn.playerFirst == true) {
-        findActive(trainer2, T2FaintedCount).currentHp = turn.P2CurrentHP
-        setActivePokemon2State(findActive(trainer2, T2FaintedCount))
+        setPokemon2HP((turn.P2currentHP/ActivePokemon2State.effectiveStats.HP) * 100)
+        // setActivePokemon2State(findActive(trainer2, T2FaintedCount))
         handleDamageAnimation(2)
+        checkHPs2(turn)
     }
     if (turn.playerFirst == false) {
-        findActive(trainer, T1FaintedCount).currentHp = turn.P2CurrentHP
-        setActivePokemon1State(findActive(trainer, T1FaintedCount))
+        setPokemon1HP((turn.P1currentHP/ActivePokemon1State.effectiveStats.HP) * 100)
+        // setActivePokemon1State(findActive(trainer, T1FaintedCount))
         handleDamageAnimation(1)
+        checkHPs2(turn);
     }
-    checkHPs(trainers, turn);
-}
-
-const handleDamage2 = (trainers, turn) => {
-    if (turn.playerFirst == true) {
-        findActive(trainer, T1FaintedCount).currentHp = turn.P1CurrentHP
-        setActivePokemon1State(findActive(trainer, T1FaintedCount))
-        handleDamageAnimation(1)
-        
-    }
-    if (turn.playerFirst == false) {
-        findActive(trainer2, T2FaintedCount).currentHp = turn.P1CurrentHP
-        setActivePokemon2State(findActive(trainer2, T2FaintedCount))
-        handleDamageAnimation(2)
-    }
-    checkHPs(trainers, turn);
-}
-
-
-
-const checkHPs = (trainers, turn) => {
-        setPokemon1HP((findActive(trainer, T1FaintedCount).currentHp/Pokemon1MAXHP) * 100)
-        setPokemon2HP((findActive(trainer2, T2FaintedCount).currentHp/Pokemon2MAXHP) * 100)
-    console.log("Check HP has run")
     
 }
 
-const checkIfFaints = (trainers, turn) => {
-    if (findActive(trainer, T1FaintedCount).currentHp == 0) {
-        console.log(`${ActivePokemon1State.name} has no HP!`)
-        findActive(trainer, T1FaintedCount).isFainted = true
-        handleFaintAnimation(1)
-        setT1FaintedCount(+1)
-        setActivePokemon1State(findActive(trainer, T1FaintedCount))
+const handleDamage2 = (turn) => {
+    if (turn.playerFirst == true) {
+        setPokemon1HP((turn.P1currentHP/ActivePokemon1State.effectiveStats.HP) * 100)
+        // setActivePokemon1State(findActive(trainer, T1FaintedCount))
+        handleDamageAnimation(1)
         
     }
-    if (findActive(trainer2, T2FaintedCount).currentHp == 0) {
+    if (turn.playerFirst == false) {
+        setPokemon2HP((turn.P2currentHP/ActivePokemon2State.effectiveStats.HP) * 100)
+        // setActivePokemon2State(findActive(trainer2, T2FaintedCount))
+        handleDamageAnimation(2)
+    }
+    // checkHPs(trainers, turn);
+}
+
+
+
+const checkHPs1 = (trainers, turn) => {
+        setPokemon1HP((findActive(trainer, T1FaintedCount).currentHP/findActive(trainer, T1FaintedCount).effectiveStats.HP) * 100)
+        console.log("Check HP1 has run : ", Pokemon1HP)
+}
+const checkHPs2 = (trainers, turn) => {
+        setPokemon2HP((findActive(trainer2, T2FaintedCount).currentHP/findActive(trainer2, T1FaintedCount).effectiveStats.HP) * 100)
+    console.log("Check HP2 has run : ", Pokemon2HP)
+}
+
+const checkIfFaints = (trainers, turn) => {
+    if (turn.didP1Faint == true) {
+        console.log("T1FaintedCount start of function", T1FaintedCount)
+        const newCount = T1FaintedCount + 1
+        setT1FaintedCount(newCount)
+        console.log("T1FaintedCount after +1", T1FaintedCount)
+        console.log(`${ActivePokemon1State.name} has no HP!`)
+        // findActive(trainer, T1FaintedCount).isFainted = true
+        handleFaintAnimation(1)
+        console.log("ActivePokemon1State before new set", ActivePokemon1State)
+        setActivePokemon1State(findActive(trainer, T1FaintedCount))
+        console.log("ActivePokemon1State after new set", ActivePokemon1State)
+        
+    }
+    if (turn.didP2Faint == true) {
         console.log(`${ActivePokemon2State.name} has no HP!`)
-        findActive(trainer2, T2FaintedCount).isFainted = true
+        // findActive(trainer2, T2FaintedCount).isFainted = true
         handleFaintAnimation(2)
-        setT2FaintedCount(+1)
+        setT2FaintedCount(T2FaintedCount + 1 )
         setActivePokemon2State(findActive(trainer2, T2FaintedCount))
     }
     console.log("CheckIfFaints has run")
 }
 
-const SumonNewMons = (trainers, turn) => {
-    if (turn.didP2Faint == true) {
+const SumonNewMons = (turn) => {
+    if (turn.didP2NewMon == true) {
         if (turn.playerFirst == true) {
             setActivePokemon2State(findActive(trainer2, T2FaintedCount))
-            console.log("Go " + findActive(trainer2, T2FaintedCount).name + "!")
+            console.log("Go " + findActive(trainer2, (T2FaintedCount +1)).name + "!")
             handleSummonAnimation(2)
-            setPokemon2MAXHP(findActive(trainer2, T2FaintedCount).currentHp);
+            setPokemon2MAXHP(findActive(trainer, T1FaintedCount).effectiveStats.HP);
             setPokemon2HP(100)
             
         }
         if (turn.playerFirst == false) {
             setActivePokemon1State(findActive(trainer, T1FaintedCount))
-            console.log("Go " + findActive(trainer2, T2FaintedCount).name + "!")
+            console.log("Go " + findActive(trainer2, T2FaintedCount +1).name + "!")
             handleSummonAnimation(1)
-            setPokemon1MAXHP(findActive(trainer, T1FaintedCount).currentHp);
+            setPokemon1MAXHP(findActive(trainer, T1FaintedCount).effectiveStats.HP);
             setPokemon1HP(100)
         }
         
     }
 
-    if (turn.didP1Faint == true) {
+    if (turn.didP1NewMon == true) {
         if (turn.playerFirst == true) {
             setActivePokemon1State(findActive(trainer, T1FaintedCount))
             console.log("Go " + findActive(trainer, T2FaintedCount).name + "!")
             handleSummonAnimation(1)
-            setPokemon1MAXHP(findActive(trainer, T1FaintedCount).currentHp);
+            setPokemon1MAXHP(findActive(trainer, T1FaintedCount).effectiveStats.HP);
             setPokemon1HP(100)
         }
         if (turn.playerFirst == false) {
             setActivePokemon2State(findActive(trainer2, T2FaintedCount))
             console.log("Go " + findActive(trainer2, T2FaintedCount).name + "!")
             handleSummonAnimation(2)
-            setPokemon2MAXHP(findActive(trainer2, T2FaintedCount).currentHp);
+            setPokemon2MAXHP(findActive(trainer, T1FaintedCount).effectiveStats.HP);
             setPokemon2HP(100)
         }
         
@@ -163,6 +172,7 @@ const handleSummonAnimation = (int) => {
 
 
     useEffect(()=>{
+        play1()
         BattleSetup()
     }, [])
 
@@ -170,9 +180,8 @@ const handleSummonAnimation = (int) => {
     
 
 const BattleSetup = () => {
-    // music player
-    setPokemon1MAXHP(findActive(trainer, T1FaintedCount).currentHp);
-    setPokemon2MAXHP(findActive(trainer2, T2FaintedCount).currentHp);
+    setPokemon1MAXHP(findActive(trainer, T1FaintedCount).effectiveStats.HP);
+    setPokemon2MAXHP(findActive(trainer2, T1FaintedCount).effectiveStats.HP);
     setActivePokemon1State(findActive(trainer, T1FaintedCount))
     setActivePokemon2State(findActive(trainer2, T2FaintedCount))
     
@@ -201,7 +210,6 @@ const BattleTurn = (trainers, turn) => {
         setTimeout(function () {
 
                 handleDamage1(trainers, turn)
-                handleDamageAnimation(2)
 
                 setTimeout(function () {
 
@@ -212,7 +220,6 @@ const BattleTurn = (trainers, turn) => {
                         if (turn.playerFirst==true && findActive(trainer2, T2FaintedCount).isFainted == false || turn.playerFirst==false && findActive(trainer, T1FaintedCount).isFainted == false) {
 
                             handleDamage2(trainers, turn)
-                            handleDamageAnimation(1)
 
                         }
 
@@ -222,26 +229,52 @@ const BattleTurn = (trainers, turn) => {
 
                             setTimeout(function () {
 
-                                SumonNewMons(trainers, turn)
+                                SumonNewMons(turn)
 
                                 setTimeout(function () {
 
-                                    if (TurnCounter < BattleScript.script.length) {
-                                        setTurnCounter(TurnCounter + 1)
+                                    if (turn.p1OutOfMons == true) {
+                                        if (turn.playerFirst == true) {
+                                        console.log("You've lost the battle!")
+                                        pause1()
+                                        }
+                                        if (turn.playerFirst == false) {
+                                        console.log("You've won the battle!")
+                                        pause1()
+                                        }
                                     }
-                                    
-                                }, 2000);
 
-                            }, 2000);
+                                    if (turn.p2OutOfMons == true) {
+                                        if (turn.playerFirst == true) {
+                                            console.log("You've won the battle!")
+                                            pause1()
+                                            }
+                                            if (turn.playerFirst == false) {
+                                            console.log("You've lost the battle!")
+                                            pause1()
+                                            }
+                                    }
+
+                                        setTimeout(function () {
+
+                                            if (TurnCounter < BattleScript.script.length) {
+                                                setTurnCounter(TurnCounter + 1)
+                                            }
+                                            
+                                        }, 3000);
+
+                            }, 3000);
+
+                            }, 3000);
                         
-                        }, 2000);
+                        }, 3000);
                 
-                    }, 2000);
+                    }, 3000);
 
-                }, 2000);
+                }, 3000);
         
 
-        }, 2000);
+        }, 3000);
     }
 }
 

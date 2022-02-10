@@ -36,6 +36,22 @@ main {
   justify-content: end;
 }
 
+.trainerInner {
+  width:43%;
+}
+
+.trainerOuter {
+  width:57%;
+}
+/* 
+.trainerArea2 > .trainerOuter {
+  width: 
+}
+
+.trainerArea2 > .trainerInner {
+  width:
+} */
+
 .Bench {
   display:flex;
 }
@@ -125,7 +141,7 @@ main {
 .water {background-color:  #6390F0;}
 .electric {background-color: #F7D02C;}
 .grass {background-color:#7AC74C;}
-.ice {background-color:96D9D6;}
+.ice {background-color:#96D9D6;}
 .fighting {background-color:#C22E28;}
 .poison {background-color:  #A33EA1;}
 .ground {background-color: #E2BF65;}
